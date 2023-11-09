@@ -1,16 +1,13 @@
-package com.example.a2023sw.ui
+package com.example.a2023sw.ui.mypage
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.a2023sw.R
+import com.example.a2023sw.databinding.FragmentAlarm1Binding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
@@ -22,11 +19,12 @@ class AlarmFragment1 : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    lateinit var binding: FragmentAlarm1Binding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+
         }
     }
 
@@ -34,8 +32,24 @@ class AlarmFragment1 : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_alarm1, container, false)
+        binding = FragmentAlarm1Binding.inflate(inflater, container, false)
+
+        setHasOptionsMenu(true)
+
+//        binding.chatListToolbar.setNavigationOnClickListener {
+//            requireActivity().onBackPressed()
+//        }
+//        binding.chatListToolbar.setOnMenuItemClickListener { menuItem ->
+//            when(menuItem.itemId){
+//                R.id.menu_delete_all -> {
+//                    showDeleteConfirmationDialog()
+//                    return@setOnMenuItemClickListener true
+//                }
+//                else -> return@setOnMenuItemClickListener true
+//            }
+//        }
+
+        return binding.root
     }
 
     companion object {
@@ -52,8 +66,7 @@ class AlarmFragment1 : Fragment() {
         fun newInstance(param1: String, param2: String) =
             AlarmFragment1().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+
                 }
             }
     }

@@ -3,9 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_addpage"
-
-        android:title="@string/title_addpage" />
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/title_home" />
 
     <item
         android:id="@+id/navigation_dashboard"
@@ -13,9 +13,9 @@
         android:title="@string/title_dashboard" />
 
     <item
-        android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home" />
+        android:id="@+id/navigation_add"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="@string/title_add" />
 
     <item
         android:id="@+id/navigation_notifications"

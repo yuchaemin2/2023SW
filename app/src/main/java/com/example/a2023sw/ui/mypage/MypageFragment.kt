@@ -1,10 +1,17 @@
 package com.example.a2023sw.ui.mypage
 
+import android.content.Intent
+import android.graphics.Paint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.fragment.app.FragmentTransaction
+import com.example.a2023sw.AuthActivity
+import com.example.a2023sw.MyApplication
+import com.example.a2023sw.MyApplication.Companion.auth
 import com.example.a2023sw.R
 import com.example.a2023sw.databinding.FragmentMypageBinding
 
@@ -21,7 +28,9 @@ private const val ARG_PARAM2 = "param2"
 class MypageFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
+
     lateinit var binding: FragmentMypageBinding
+    lateinit var profile: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +46,32 @@ class MypageFragment : Fragment() {
     ): View? {
         binding = FragmentMypageBinding.inflate(inflater, container, false)
 
-        return inflater.inflate(R.layout.fragment_mypage, container, false)
+//        profile = binding.userProfile
+
+        if(MyApplication.checkAuth()){
+            binding.CertifyEmailView.text = "${MyApplication.email}"
+        }
+
+        binding.logout.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+
+        binding.logout.setOnClickListener {
+            auth.signOut()
+            val intent = Intent(requireContext(), AuthActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.settingsNotification.setOnClickListener{
+            var bundle : Bundle = Bundle()
+            bundle.putString("notification", "알람프레그먼트")
+            val transaction: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+            val alarmfragment1: Fragment = AlarmFragment1()
+            alarmfragment1.arguments = bundle
+            transaction.replace(R.id.container, alarmfragment1)
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
+
+        return binding.root
     }
 
     companion object {

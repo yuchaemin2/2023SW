@@ -1,113 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="18dp">
+    android:padding="18dp"
+    tools:context=".ui.mypage.AlarmFragment1">
 
-    <TextView
-        android:id="@+id/settings_title"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="20dp"
-        android:text="알림 설정"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:layout_height="600dp" >
 
-    <Switch
-        android:id="@+id/notification_switch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/settings_title"
-        android:layout_marginTop="40dp"
-        android:text="알림 허용"
-        android:textSize="17sp"/>
+        <TextView
+            android:id="@+id/settings_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:text="알림 설정"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-    <View
-        android:id="@+id/line1"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/notification_switch"
-        android:layout_marginTop="15dp"
-        android:background="#DFDFDF" />
+        <Switch
+            android:id="@+id/notification_switch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/settings_title"
+            android:layout_marginTop="40dp"
+            android:text="알림 허용"
+            android:textSize="17sp"/>
 
-    <TextView
-        android:id="@+id/sound_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/line1"
-        android:layout_marginTop="20dp"
-        android:text="사운드"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        <View
+            android:id="@+id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/notification_switch"
+            android:layout_marginTop="15dp"
+            android:background="#DFDFDF" />
 
-    <RadioGroup
-        android:id="@+id/sound_radio_group"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/sound_title"
-        android:layout_marginTop="10dp">
-
-
-        <RadioButton
+        <TextView
+            android:id="@+id/sound_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="기본값"
-            android:textSize="16sp"/>
+            android:layout_below="@id/line1"
+            android:layout_marginTop="20dp"
+            android:text="사운드"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
-
-        <RadioButton
+        <RadioGroup
+            android:id="@+id/sound_radio_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="진동"
+            android:layout_below="@id/sound_title"
+            android:layout_marginTop="10dp">
+
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="기본값"
+                android:textSize="16sp"/>
+
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="진동"
+                android:textSize="16sp"/>
+
+        </RadioGroup>
+
+
+        <View
+            android:id="@+id/line2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/sound_radio_group"
+            android:layout_marginTop="8dp"
+            android:background="#DFDFDF" />
+
+        <TextView
+            android:id="@+id/sound_when"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line2"
+            android:layout_marginTop="20dp"
+            android:text="알림"
+            android:textStyle="bold"
+            android:textSize="16sp" />
+
+        <Switch
+            android:id="@+id/eat_switch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sound_when"
+            android:layout_marginTop="20dp"
+            android:text="식사 알림"
             android:textSize="16sp"/>
 
-    </RadioGroup>
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/eat_switch"
+            android:layout_marginTop="10dp"
+            android:text="등록 알림"
+            android:textSize="16sp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="save"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
 
 
-    <View
-        android:id="@+id/line2"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/sound_radio_group"
-        android:layout_marginTop="8dp"
-        android:background="#DFDFDF" />
+</ScrollView>
 
-    <TextView
-        android:id="@+id/sound_when"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/line2"
-        android:layout_marginTop="20dp"
-        android:text="알림"
-        android:textStyle="bold"
-        android:textSize="16sp" />
-
-    <Switch
-        android:id="@+id/eat_switch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/sound_when"
-        android:layout_marginTop="20dp"
-        android:text="식사 알림"
-        android:textSize="16sp"/>
-
-    <Switch
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/eat_switch"
-        android:layout_marginTop="10dp"
-        android:text="등록 알림"
-        android:textSize="16sp"/>
-
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="save"
-        android:textSize="18sp" />
-</RelativeLayout>
