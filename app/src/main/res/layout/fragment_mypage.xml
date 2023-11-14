@@ -35,7 +35,7 @@
                         android:layout_height="100dp"
                         android:layout_gravity="center"
                         android:layout_marginRight="10dp"
-                        android:src="@drawable/img_1" />
+                        android:src="@drawable/user" />
 
                     <TextView
                         android:id="@+id/CertifyEmailView"

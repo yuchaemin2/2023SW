@@ -1,102 +1,273 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1398D3" >
+    android:background="#eeeeee">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_gravity="center_vertical"
-        android:padding="20dp">
+        android:layout_height="630dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="153dp"
+        android:background="@drawable/custom_bs" >
 
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="183.98dp"
+            android:layout_height="74.2dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/logo" />
         <TextView
-            android:id="@+id/authMainTextView"
-            android:layout_width="match_parent"
+            android:id="@+id/catchPhrase"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="로그인하거나 회원가입 해주세요."/>
+            android:layout_below="@+id/logo"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/black"
+            android:text="언제나 펼쳐볼 수 있게, Tasty.log" />
 
-        <Button
-            android:id="@+id/logoutBtn"
-            android:background="@drawable/round_button"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            android:text="로그아웃"
-            android:textStyle="bold"
-            android:visibility="gone" />
+<!--        <RelativeLayout-->
+<!--            android:id="@+id/input"-->
+<!--            xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--            android:layout_width="343dp"-->
+<!--            android:layout_height="52dp"-->
+<!--            android:background="@drawable/button_round"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:layout_below="@+id/catchPhrase"-->
+<!--            android:layout_marginTop="40dp"-->
+<!--            android:visibility="gone">-->
 
-        <Button
-            android:id="@+id/UnsubscribingBtn"
-            android:background="@drawable/round_button"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            android:text="회원탈퇴"
-            android:textStyle="bold"
-            android:visibility="gone" />
+<!--            <ImageView-->
+<!--                android:id="@+id/nation"-->
+<!--                android:layout_width="40dp"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:src="@drawable/korea"-->
+<!--                android:layout_centerVertical="true"-->
+<!--                android:layout_marginLeft="10dp" />-->
+<!--            <TextView-->
+<!--                android:id="@+id/nationNumber"-->
+<!--                android:layout_width="27dp"-->
+<!--                android:layout_height="20dp"-->
+<!--                android:text="+82"-->
+<!--                android:textColor="@color/black"-->ㅏ
+<!--                android:layout_centerVertical="true"-->
+<!--                android:layout_toRightOf="@+id/nation"/>-->
+<!--            <ImageView-->
+<!--                android:id="@+id/arrow"-->
+<!--                android:layout_width="15dp"-->
+<!--                android:layout_height="15dp"-->
+<!--                android:src="@drawable/downarrow"-->
+<!--                android:layout_toRightOf="@id/nationNumber"-->
+<!--                android:layout_marginLeft="3dp"-->
+<!--                android:layout_centerVertical="true"/>-->
 
-        <Button
-            android:id="@+id/goSignInBtn"
-            android:background="@drawable/round_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="회원가입"
-            android:textStyle="bold"
-            android:visibility="gone" />
+<!--            <EditText-->
+<!--                android:id="@+id/authEmailEditView"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_centerVertical="true"-->
+<!--                android:layout_marginLeft="15dp"-->
+<!--                android:textAlignment="center"-->
+<!--                android:hint="Email Address"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:background="@android:color/transparent"-->
+<!--                android:textColorHint="#dddddd" />-->
 
 
-        <Button
-            android:id="@+id/googleLoginBtn"
-            android:background="@drawable/round_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="구글인증"
-            android:textStyle="bold"
-            android:visibility="gone" />
+<!--        </RelativeLayout>-->
 
         <EditText
             android:id="@+id/authEmailEditView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:hint="이메일"
+            android:layout_width="343dp"
+            android:layout_height="52dp"
+            android:background="@drawable/button_round"
+            android:hint="Email Address"
+            android:textColorHint="#dddddd"
             android:inputType="textEmailAddress"
+            android:layout_below="@+id/catchPhrase"
+            android:layout_marginTop="40dp"
+            android:layout_centerHorizontal="true"
+            android:textAlignment="center"
+            android:textColor="@color/black"
             android:visibility="gone" />
 
         <EditText
             android:id="@+id/authPasswordEditView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:hint="비밀번호 - 6자 이상"
+            android:layout_width="343dp"
+            android:layout_height="52dp"
+            android:background="@drawable/button_round"
+            android:layout_marginTop="15dp"
+            android:hint="Password - over 6 word"
+            android:textColorHint="#dddddd"
             android:inputType="textPassword"
+            android:layout_below="@+id/authEmailEditView"
+            android:layout_centerHorizontal="true"
+            android:textAlignment="center"
+            android:textColor="@color/black"
             android:visibility="gone" />
 
         <Button
             android:id="@+id/signBtn"
-            android:background="@drawable/round_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="가입"
-            android:textStyle="bold"
-            android:visibility="gone" />
+            android:layout_width="343dp"
+            android:layout_height="52dp"
+            android:background="@drawable/button_round_color"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/authPasswordEditView"
+            android:layout_marginTop="15dp"
+            android:contextClickable="true"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:text="Sign In"
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/loginBtn"
-            android:background="@drawable/round_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="로그인"
-            android:textStyle="bold"
-            android:visibility="gone" />
-    </LinearLayout>
+            android:layout_width="343dp"
+            android:layout_height="52dp"
+            android:background="@drawable/button_round_color"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/authPasswordEditView"
+            android:layout_marginTop="15dp"
+            android:contextClickable="true"
+            android:textAllCaps="false"
+            android:text="Login"
+            android:textColor="@color/black"
+            android:visibility="gone"/>
 
-</ScrollView>
+        <Button
+            android:id="@+id/goSignInBtn"
+            android:layout_width="343dp"
+            android:layout_height="52dp"
+            android:background="@drawable/button_round_color"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/loginBtn"
+            android:layout_marginTop="15dp"
+            android:contextClickable="true"
+            android:textColor="@color/black"
+            android:textAllCaps="false"
+            android:text="Sign Up"
+            android:visibility="gone"/>
+
+
+        <Button
+            android:id="@+id/logoutBtn"
+            android:layout_width="343dp"
+            android:layout_height="52dp"
+            android:background="@drawable/button_round_color"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/catchPhrase"
+            android:layout_marginTop="50dp"
+            android:contextClickable="true"
+            android:textColor="@color/black"
+            android:textAllCaps="false"
+            android:text="Logout"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/leaveBtn"
+            android:layout_width="343dp"
+            android:layout_height="52dp"
+            android:background="@drawable/button_round_color"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/logoutBtn"
+            android:layout_marginTop="15dp"
+            android:contextClickable="true"
+            android:textColor="@color/black"
+            android:textAllCaps="false"
+            android:text="Leave this App"
+            android:visibility="gone"/>
+
+
+        <!-- Auto layout, variables, and unit scale are not yet supported -->
+<!--        <RelativeLayout-->
+<!--            android:id="@+id/orBox"-->
+<!--            android:layout_width="273dp"-->
+<!--            android:layout_height="20dp"-->
+<!--            android:layout_below="@+id/signBtn"-->
+<!--            android:layout_marginTop="36dp"-->
+<!--            android:layout_centerHorizontal="true">-->
+
+<!--            <View-->
+<!--                android:id="@+id/view1"-->
+<!--                android:layout_width="118dp"-->
+<!--                android:layout_height="1dp"-->
+<!--                android:background="#cccccc"-->
+<!--                android:layout_toLeftOf="@+id/orText"-->
+<!--                android:layout_centerVertical="true"-->
+<!--                />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/orText"-->
+<!--                android:layout_width="23dp"-->
+<!--                android:layout_height="23dp"-->
+<!--                android:text="OR"-->
+<!--                android:layout_centerVertical="true"-->
+<!--                android:layout_marginLeft="5dp"-->
+<!--                android:layout_marginRight="5dp"-->
+<!--                android:textColor="#cccccc"-->
+<!--                android:layout_centerHorizontal="true" />-->
+
+<!--            <View-->
+<!--                android:id="@+id/view2"-->
+<!--                android:layout_width="118dp"-->
+<!--                android:layout_height="1dp"-->
+<!--                android:layout_toRightOf="@id/orText"-->
+<!--                android:layout_centerVertical="true"-->
+<!--                android:background="#cccccc"/>-->
+
+
+<!--        </RelativeLayout>-->
+
+        <RelativeLayout
+            android:id="@+id/googleLoginBtn"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="343dp"
+            android:layout_height="52dp"
+            android:background="@drawable/button_round"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/goSignInBtn"
+            android:layout_marginTop="25dp">
+
+            <ImageView
+                android:id="@+id/google"
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:src="@drawable/google"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:clickable="true"/>
+
+
+            <TextView
+                android:id="@+id/continueText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/black"
+                android:text="Continue with Google"
+                android:contextClickable="true"/>
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="327dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:text="By continuing, you agree to our \nTerms of Service · Privacy Policy · Content Policy"
+            android:layout_centerHorizontal="true"
+            android:textAlignment="center"
+            android:layout_marginBottom="15dp"
+            android:textColor="@color/black"
+            android:textSize="12dp"
+            />
+
+    </RelativeLayout>
+
+</RelativeLayout>

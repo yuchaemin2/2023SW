@@ -100,30 +100,30 @@ class AuthActivity : AppCompatActivity() {
             finish()
         }
 
-        binding.UnsubscribingBtn.setOnClickListener {
-            MyApplication.auth.currentUser!!.delete()
-
-            val userDocRef = MyApplication.db.collection("users").document(MyApplication.auth.uid.toString())
-            MyApplication.db.collection("users").document("${MyApplication.auth.uid}")
-                .get()
-                .addOnSuccessListener {  documentSnapshot ->
-                    if(documentSnapshot.exists()) {
-                        val currentEmail = documentSnapshot.getString("userEmail")
-                        currentEmail?.let {
-                            val updatedEmail = "Unsubscribed members"
-                            updateEmail(userDocRef, updatedEmail)
-                        }
-                        val currentImage = documentSnapshot.getString("imageUrl")
-                        currentImage?.let {
-                            val updatedImage = "https://firebasestorage.googleapis.com/v0/b/reviewmate-59794.appspot.com/o/profile_images%2Fimg_1.png?alt=media&token=eb7e37c7-bbc3-4ef5-9491-bbca0f8c60bc"
-                            updateProfile(userDocRef, updatedImage)
-                        }
-                    }
-                }
-
-            MyApplication.email = null
-            finish()
-        }
+//        binding.UnsubscribingBtn.setOnClickListener {
+//            MyApplication.auth.currentUser!!.delete()
+//
+//            val userDocRef = MyApplication.db.collection("users").document(MyApplication.auth.uid.toString())
+//            MyApplication.db.collection("users").document("${MyApplication.auth.uid}")
+//                .get()
+//                .addOnSuccessListener {  documentSnapshot ->
+//                    if(documentSnapshot.exists()) {
+//                        val currentEmail = documentSnapshot.getString("userEmail")
+//                        currentEmail?.let {
+//                            val updatedEmail = "Unsubscribed members"
+//                            updateEmail(userDocRef, updatedEmail)
+//                        }
+//                        val currentImage = documentSnapshot.getString("imageUrl")
+//                        currentImage?.let {
+//                            val updatedImage = "https://firebasestorage.googleapis.com/v0/b/reviewmate-59794.appspot.com/o/profile_images%2Fimg_1.png?alt=media&token=eb7e37c7-bbc3-4ef5-9491-bbca0f8c60bc"
+//                            updateProfile(userDocRef, updatedImage)
+//                        }
+//                    }
+//                }
+//
+//            MyApplication.email = null
+//            finish()
+//        }
 
         val requestLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
             val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
@@ -200,12 +200,13 @@ class AuthActivity : AppCompatActivity() {
                 authPasswordEditView.visibility = View.VISIBLE
                 signBtn.visibility = View.VISIBLE
                 loginBtn.visibility = View.GONE
+//                orBox.visibility = View.GONE
             }
         }else if(mode.equals("login")){
             binding.run {
-                authMainTextView.text = "${MyApplication.email} 님 반갑습니다."
+//                authMainTextView.text = "${MyApplication.email} 님 반갑습니다."
                 logoutBtn.visibility= View.VISIBLE
-                UnsubscribingBtn.visibility= View.VISIBLE
+                leaveBtn.visibility= View.VISIBLE
                 goSignInBtn.visibility= View.GONE
                 googleLoginBtn.visibility= View.GONE
                 authEmailEditView.visibility= View.GONE
@@ -216,7 +217,7 @@ class AuthActivity : AppCompatActivity() {
 
         }else if(mode.equals("logout")){
             binding.run {
-                authMainTextView.text = "로그인 하거나 회원가입 해주세요."
+//                authMainTextView.text = "로그인 하거나 회원가입 해주세요."
                 logoutBtn.visibility = View.GONE
                 goSignInBtn.visibility = View.VISIBLE
                 googleLoginBtn.visibility = View.VISIBLE
@@ -224,6 +225,7 @@ class AuthActivity : AppCompatActivity() {
                 authPasswordEditView.visibility = View.VISIBLE
                 signBtn.visibility = View.GONE
                 loginBtn.visibility = View.VISIBLE
+//                orBox.visibility = View.VISIBLE
             }
         }
     }

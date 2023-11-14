@@ -55,7 +55,7 @@ class MypageFragment : Fragment() {
         binding.logout.paintFlags = Paint.UNDERLINE_TEXT_FLAG
 
         binding.logout.setOnClickListener {
-            auth.signOut()
+//            auth.signOut()
             val intent = Intent(requireContext(), AuthActivity::class.java)
             startActivity(intent)
         }
