@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PhotoDetailActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_back"
+        android:background="#ffffff"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="날짜"
+            android:textSize="18dp"
+            android:layout_gravity="center"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/main_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#eee"
+        android:layout_below="@+id/toolbar_back">
+        
+        <RelativeLayout
+            android:id="@+id/relativelayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/photo_detail"
+                android:layout_width="350dp"
+                android:layout_height="550dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/round_button"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="30dp" />
+
+            <RelativeLayout
+                android:id="@+id/with_people"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="343dp"
+                android:layout_height="52dp"
+                android:background="@drawable/button_round"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/photo_detail"
+                android:layout_marginTop="25dp">
+
+                <ImageView
+                    android:id="@+id/png"
+                    android:layout_width="40dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/people"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:clickable="true"/>
+
+                <TextView
+                    android:id="@+id/with_people_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/png"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/black"
+                    android:text="함께 먹은 사람"
+                    android:contextClickable="true"/>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/where"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="343dp"
+                android:layout_height="52dp"
+                android:background="@drawable/button_round"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/with_people"
+                android:layout_marginTop="15dp">
+
+                <ImageView
+                    android:id="@+id/png2"
+                    android:layout_width="40dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/pin"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:clickable="true"/>
+
+                <TextView
+                    android:id="@+id/where_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/png2"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/black"
+                    android:text="식사 장소"
+                    android:contextClickable="true"/>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/memo"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="343dp"
+                android:layout_height="52dp"
+                android:background="@drawable/button_round"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/where"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="36dp">
+
+                <ImageView
+                    android:id="@+id/png3"
+                    android:layout_width="40dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/memo"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:clickable="true"/>
+
+                <TextView
+                    android:id="@+id/memo_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/png3"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/black"
+                    android:text="메모"
+                    android:contextClickable="true"/>
+
+
+            </RelativeLayout>
+            
+        </RelativeLayout>
+        
+    </androidx.core.widget.NestedScrollView>
+
+
+</RelativeLayout>

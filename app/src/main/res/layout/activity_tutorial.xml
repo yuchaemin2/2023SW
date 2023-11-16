@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TutorialActivity">
+
+    <androidx.viewpager.widget.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/viewpager2" />
+
+    <!--    다음 버튼-->
+    <!--    layout_alignParent로 아래 오른쪽에 위치-->
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="55dp"
+        android:layout_height="25dp"
+        android:layout_margin="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/round_button"
+        android:text="Start"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/btn_skip"
+        android:layout_width="55dp"
+        android:layout_height="25dp"
+        android:layout_margin="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/round_button"
+        android:text="Skip"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white" />
+
+    <LinearLayout
+        android:id="@+id/layoutDots"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="60dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+
+<!--    <RelativeLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="465dp"-->
+<!--        android:layout_alignParentLeft="true"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:layout_marginTop="300dp"-->
+<!--        android:background="@drawable/custom_bs">-->
+
+<!--        <RelativeLayout-->
+<!--            android:layout_width="311dp"-->
+<!--            android:layout_height="410dp"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:layout_marginStart="32dp"-->
+<!--            android:layout_marginTop="32dp"-->
+<!--            android:layout_marginEnd="32dp"-->
+<!--            android:layout_marginBottom="32dp">-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/union"-->
+<!--                android:layout_width="30dp"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:layout_marginBottom="50dp"-->
+<!--                android:src="@drawable/union"/>-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/title"-->
+<!--                android:layout_width="311dp"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:textAlignment="center"-->
+<!--                android:text="하루를 음식으로 기록해보세요."-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:layout_below="@+id/union"-->
+<!--                android:textSize="23dp"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:layout_marginTop="50dp"/>-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/content"-->
+<!--                android:layout_width="311dp"-->
+<!--                android:layout_height="96dp"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:textAlignment="center"-->
+<!--                android:text="하루를 음식으로 기록해보세요.기분이 좋아지고 어쩌구 저쩌"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:layout_below="@+id/title"-->
+<!--                android:textColor="@color/black" />-->
+
+
+<!--            <LinearLayout-->
+<!--                android:id="@+id/layoutDots"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:layout_alignParentBottom="true"-->
+<!--                android:layout_marginTop="50dp"-->
+<!--                android:gravity="center"-->
+<!--                android:orientation="horizontal">-->
+
+<!--            </LinearLayout>-->
+
+<!--        </RelativeLayout>-->
+<!--            -->
+<!--        -->
+<!--    </RelativeLayout>-->
+
+</RelativeLayout>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ccddee">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="465dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="300dp"
+        android:background="@drawable/custom_bs">
+
+        <RelativeLayout
+            android:layout_width="311dp"
+            android:layout_height="410dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp">
+
+            <ImageView
+                android:id="@+id/union"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"
+                android:src="@drawable/union"/>
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="311dp"
+                android:layout_height="30dp"
+                android:textAlignment="center"
+                android:text="하루를 음식으로 기록해보세요."
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/union"
+                android:textSize="23dp"
+                android:textColor="@color/black"
+                android:layout_marginTop="50dp"/>
+
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="311dp"
+                android:layout_height="96dp"
+                android:layout_marginTop="16dp"
+                android:textAlignment="center"
+                android:text="page1"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/title"
+                android:textColor="@color/black" />
+
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>
