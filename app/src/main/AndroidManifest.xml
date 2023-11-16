@@ -17,6 +17,14 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".PhotoDetailActivity"
+            android:exported="false"
+            android:theme="@style/AddTheme"/>
+        <activity
+            android:name=".DrawerActivity"
+            android:exported="false"
+            android:theme="@style/Theme.NavigationDrawer" />
+        <activity
             android:name=".TutorialActivity"
             android:exported="false"
             android:theme="@style/SplashTheme" />

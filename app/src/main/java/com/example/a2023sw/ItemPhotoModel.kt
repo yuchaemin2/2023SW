@@ -1,6 +1,6 @@
 package com.example.a2023sw
 
-data class RecordModel(
+data class ItemPhotoModel(
     var docId: String? = null,
     var email: String? = null,
     var title: String? = null,
@@ -13,5 +13,5 @@ data class RecordModel(
     var where: String? = null,
     var memo: String? = null,
     var nickName: String? = null,
-
+    var bookmark: String? = "0",
 )

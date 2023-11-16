@@ -14,8 +14,9 @@ class MyApplication : MultiDexApplication() {
 
     companion object{
 
-        lateinit var db : FirebaseFirestore
-        lateinit var storage : FirebaseStorage
+//        lateinit var db : FirebaseFirestore
+        var db = FirebaseFirestore.getInstance()
+        var storage : FirebaseStorage = Firebase.storage
         lateinit var auth : FirebaseAuth
         var email:String? = null
         var userPoint:String? = null
@@ -30,24 +31,6 @@ class MyApplication : MultiDexApplication() {
                 if(currentuser.isEmailVerified) true
                 else false
             } ?: false
-        }
-
-        suspend fun getImageUrl(userEmail: String?): String? {
-            return try {
-                val querySnapshot = MyApplication.db.collection("users")
-                    .whereEqualTo("userEmail", userEmail)
-                    .get().await()
-
-                if (!querySnapshot.isEmpty) {
-                    val userDocument = querySnapshot.documents[0]
-                    userDocument.getString("imageUrl")
-                } else {
-                    null
-                }
-            } catch (exception: Exception) {
-                Log.e("MyFeedAdapter", "Error getting user document: $exception")
-                null
-            }
         }
 
     }
@@ -68,14 +51,14 @@ class MyApplication : MultiDexApplication() {
                         userPoint = documentSnapshot.getString("userPoint")
                         imageurl = documentSnapshot.getString("imageUrl")
                     } else {
-                        Log.d("ToyProject", "No such document")
+                        Log.d("TastyLog", "No such document")
                     }
                 }
                 .addOnFailureListener { e ->
-                    Log.d("UserInfo", "Error getting document: ${e.message}")
+                    Log.d("TastyLog", "Error getting document: ${e.message}")
                 }
         } else {
-            Log.d("UserInfo", "Current user is null")
+            Log.d("TastyLog", "Current user is null")
         }
 
         if(true) {
@@ -89,11 +72,11 @@ class MyApplication : MultiDexApplication() {
                 .addOnCompleteListener{ task ->
                     if(task.isSuccessful){
                         val document = task.result
-                        if (document.exists()){ Log.d("2023sw", "이미 존재하는 계정입니다.") }
+                        if (document.exists()){ Log.d("TastyLog", "이미 존재하는 계정입니다.") }
                         else {
                             userInfo.imageUrl = "https://firebasestorage.googleapis.com/v0/b/reviewmate-59794.appspot.com/o/profile_images%2Fimg_1.png?alt=media&token=eb7e37c7-bbc3-4ef5-9491-bbca0f8c60bc"
                             db.collection("users").document(auth.uid.toString()).set(userInfo)
-                            Log.d("ToyProject", "계정을 user collection에 추가했습니다.")
+                            Log.d("TastyLog", "계정을 user collection에 추가했습니다.")
                         }
                     }
                 }

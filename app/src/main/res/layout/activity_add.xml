@@ -12,12 +12,12 @@
         android:background="#ffffff"
         android:layout_alignParentTop="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/purple_500">
+        android:layout_height="wrap_content">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:text="새 게시물"
             android:textSize="18dp"
             android:layout_gravity="center"/>
@@ -39,10 +39,12 @@
             android:layout_margin="15dp"
             android:src="@drawable/user"/>
 
-        <TextView
+        <EditText
             android:id="@+id/write_text"
             android:textColor="@color/black"
-            android:layout_width="wrap_content"
+            android:layout_toRightOf="@+id/profileImage"
+            android:layout_centerVertical="true"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"/>
 
         <ImageView
@@ -67,12 +69,13 @@
         android:background="#ffffff"
         android:layout_below="@id/write">
 
-        <TextView
+        <EditText
             android:id="@+id/food_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#aaa"
-            android:text="음식 분류"
+            android:hint="음식 분류"
+            android:textColorHint="#aaa"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             android:textSize="15dp"/>
@@ -88,15 +91,27 @@
         android:background="#ffffff"
         android:layout_below="@id/food_divide">
 
-        <TextView
+        <EditText
             android:id="@+id/food_time_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#aaa"
-            android:text="식사 시간"
+            android:hint="식사 시간"
+            android:textColorHint="#aaa"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             android:textSize="15dp"/>
+
+<!--        <Spinner-->
+<!--            android:id="@+id/food_time_text"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="#aaa"-->
+<!--            android:text="식사 시간"-->
+<!--            android:entries="@array/option"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:layout_marginLeft="15dp"-->
+<!--            android:textSize="15dp"/>-->
 
     </RelativeLayout>
 
@@ -109,12 +124,13 @@
         android:background="#ffffff"
         android:layout_below="@id/food_time">
 
-        <TextView
+        <EditText
             android:id="@+id/where_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:hint="식사 장소"
             android:textColor="#aaa"
-            android:text="식사 장소"
+            android:textColorHint="#aaa"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             android:textSize="15dp"/>
@@ -130,12 +146,13 @@
         android:background="#ffffff"
         android:layout_below="@id/where">
 
-        <TextView
+        <EditText
             android:id="@+id/company_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColorHint="#aaa"
             android:textColor="#aaa"
-            android:text="함께한 사람들"
+            android:hint="함께한 사람들"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             android:textSize="15dp"/>
@@ -151,24 +168,22 @@
         android:background="#ffffff"
         android:layout_below="@id/company">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <EditText
+            android:id="@+id/memo_text"
+            android:layout_width="380dp"
+            android:layout_height="150dp"
             android:textColor="#aaa"
-            android:text="메모"
+            android:textColorHint="#aaa"
+            android:hint="메모"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             android:textSize="15dp"/>
 
         <TextView
-            android:id="@+id/memo_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
             android:id="@+id/nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="test1"
             android:visibility="gone" />
 
     </RelativeLayout>

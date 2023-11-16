@@ -11,7 +11,7 @@
         android:layout_height="630dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="153dp"
+        android:layout_marginTop="103dp"
         android:background="@drawable/custom_bs" >
 
         <ImageView

@@ -8,12 +8,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
-import com.example.a2023sw.AuthActivity
-import com.example.a2023sw.MyApplication
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.a2023sw.*
 import com.example.a2023sw.MyApplication.Companion.auth
-import com.example.a2023sw.R
 import com.example.a2023sw.databinding.FragmentMypageBinding
+import com.google.firebase.firestore.Query
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,6 +34,7 @@ class MypageFragment : Fragment() {
 
     lateinit var binding: FragmentMypageBinding
     lateinit var profile: ImageView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,26 +56,31 @@ class MypageFragment : Fragment() {
             binding.CertifyEmailView.text = "${MyApplication.email}"
         }
 
-        binding.logout.paintFlags = Paint.UNDERLINE_TEXT_FLAG
-
-        binding.logout.setOnClickListener {
-//            auth.signOut()
-            val intent = Intent(requireContext(), AuthActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.settingsNotification.setOnClickListener{
-            var bundle : Bundle = Bundle()
-            bundle.putString("notification", "알람프레그먼트")
-            val transaction: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
-            val alarmfragment1: Fragment = AlarmFragment1()
-            alarmfragment1.arguments = bundle
-            transaction.replace(R.id.container, alarmfragment1)
-            transaction.addToBackStack(null)
-            transaction.commit()
-        }
 
         return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if(MyApplication.checkAuth()){
+            MyApplication.db.collection("photos")
+                .orderBy("date", Query.Direction.DESCENDING)
+                .get()
+                .addOnSuccessListener { result ->
+                    val itemList = mutableListOf<ItemPhotoModel>()
+                    for(document in result){
+                        val item = document.toObject(ItemPhotoModel::class.java)
+                        item.docId = document.id
+                        itemList.add(item)
+                    }
+                    binding.feedRecyclerView.layoutManager = GridLayoutManager(requireContext(),3)
+                    binding.feedRecyclerView.adapter = MyPhotoAdapter(requireContext(), itemList)
+                }
+                .addOnFailureListener{
+                    Toast.makeText(requireContext(), "데이터 획득 실패", Toast.LENGTH_SHORT).show()
+                }
+        }
+
     }
 
     companion object {

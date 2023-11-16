@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/save_record"
-        android:title="등록"
-        android:iconTint="@color/black"
-        app:showAsAction="always" />
+        android:id="@+id/menu_bookmark"
+        android:title="Bookmark"
+        android:icon="@drawable/heartempty"
+        app:showAsAction="always"/>
+
 </menu>
