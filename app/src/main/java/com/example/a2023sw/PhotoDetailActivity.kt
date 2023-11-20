@@ -1,28 +1,25 @@
 package com.example.a2023sw
 
-import android.graphics.Color.alpha
-import androidx.appcompat.app.AppCompatActivity
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
+import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
-import android.widget.ScrollView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.NestedScrollView
 import com.bumptech.glide.Glide
-import com.example.a2023sw.MyApplication.Companion.auth
+import com.bumptech.glide.request.RequestOptions
 import com.example.a2023sw.databinding.ActivityPhotoDetailBinding
-import com.google.firebase.firestore.DocumentReference
-import kotlinx.coroutines.tasks.await
 import java.io.File
 import java.util.*
 
 class PhotoDetailActivity : AppCompatActivity() {
 
-    lateinit var binding:ActivityPhotoDetailBinding
+    lateinit var binding: ActivityPhotoDetailBinding
 
     lateinit var file: File
 
@@ -37,7 +34,7 @@ class PhotoDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityPhotoDetailBinding.inflate(layoutInflater)
+        binding = com.example.a2023sw.databinding.ActivityPhotoDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val toolbar = binding.toolbarBack
@@ -50,12 +47,24 @@ class PhotoDetailActivity : AppCompatActivity() {
         binding.whereText.text = intent.getStringExtra("where")
         binding.withPeopleText.text = intent.getStringExtra("company")
         binding.memoText.text = intent.getStringExtra("memo")
+        binding.titleText.text = intent.getStringExtra("title")
 
-        val foodImage = intent.getStringExtra("foodImage")
-        if(foodImage != null && foodImage != "null"){
-            Glide.with(baseContext)
-                .load(foodImage)
-                .into(binding.photoDetail)
+//        val foodImage = intent.getStringExtra("foodImage")
+        val docId = intent.getStringExtra("docId")
+//        if(foodImage != null && foodImage != "null"){
+//            Glide.with(baseContext)
+//                .load(foodImage)
+//                .into(binding.photoDetail)
+//        }
+
+        val imageRef = MyApplication.storage.reference.child("images/${docId}.jpg")
+        imageRef.downloadUrl.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Glide.with(this)
+                    .load(task.result)
+//                    .apply(RequestOptions().override(350, 550).centerInside())
+                    .into(binding.photoDetail)
+            }
         }
 
         animatedImageView = binding.photoDetail
@@ -118,7 +127,6 @@ class PhotoDetailActivity : AppCompatActivity() {
             .start()
     }
 
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_detail, menu)
         bookmarkItem = menu!!.findItem(R.id.menu_bookmark)
@@ -143,21 +151,6 @@ class PhotoDetailActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    fun updateBookmark(docRef: DocumentReference, updatedValue: Long) {
-        val updates = hashMapOf<String, Any>(
-            "bookmark" to updatedValue
-        )
-
-        docRef.update(updates)
-            .addOnSuccessListener {
-                // 업데이트 성공 처리
-            }
-            .addOnFailureListener { e ->
-                // 업데이트 실패 처리
-            }
-
     }
 
 }

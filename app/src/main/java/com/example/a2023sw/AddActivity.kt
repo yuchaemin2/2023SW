@@ -1,27 +1,30 @@
 package com.example.a2023sw
 
-import android.app.Activity
+import android.content.Context
 import android.content.Intent
-import android.database.Cursor
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.a2023sw.MyApplication.Companion.auth
 import com.example.a2023sw.databinding.ActivityAddBinding
+import com.google.firebase.Firebase
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.storage
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.io.File
-import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -29,53 +32,46 @@ class AddActivity : AppCompatActivity() {
     lateinit var binding: ActivityAddBinding
     lateinit var filePath: String
 
-    lateinit var selectedImageUri: Uri
-
-    private var PICK_IMAGE_REQUEST_CODE = 1;
+    private lateinit var imageView: ImageView
+    private var imageUrl : String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val requestGalleryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-            try{
-                val calRatio = calculateInSampleSize(it.data!!.data!!,
-                    resources.getDimensionPixelSize(R.dimen.imgSize),
-                    resources.getDimensionPixelSize(R.dimen.imgSize) )
-                val option = BitmapFactory.Options()
-                option.inSampleSize = calRatio
-                var inputStream = contentResolver.openInputStream(it.data!!.data!!)
-                val bitmap = BitmapFactory.decodeStream(inputStream, null, option)
-                inputStream!!.close()
-                inputStream = null
+        ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 1)
 
-                selectedImageUri = it.data!!.data!!
+        CoroutineScope(Dispatchers.Main).launch {
+            imageUrl =  MyApplication.getImageUrl(MyApplication.email).toString()
+            imageView = binding.userProfile
+            if( imageUrl != null){
+                Glide.with(this@AddActivity)
+                    .load(imageUrl)
+                    .into(binding.userProfile)
+            }
+        }
 
-                bitmap?.let {
-                    binding.foodImage.setImageBitmap(bitmap)
-                } ?: let{ Log.d("TastyLog", "bitmap NULL")}
-            } catch(e:Exception) { e.printStackTrace() }
-
+        val requestLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if(it.resultCode === android.app.Activity.RESULT_OK) {
-//                Glide
-//                    .with(applicationContext)
-//                    .load(it.data?.data)
-//                    .apply(RequestOptions().override(150,230))
-//                    .centerCrop()
-//                    .into(binding.addImageView)
+                Glide
+                    .with(applicationContext)
+                    .load(it.data?.data)
+                    .apply(RequestOptions().override(120,120))
+                    .centerCrop()
+                    .into(binding.foodImage)
                 val cursor = contentResolver.query(it.data?.data as Uri, arrayOf<String>(MediaStore.Images.Media.DATA), null, null, null)
                 cursor?.moveToFirst().let{
                     filePath = cursor?.getString(0) as String
-                    Log.d("TastyLog", "${filePath}")
+                    Log.d("ToyProject", "${filePath}")
                 }
             }
         }
 
         binding.foodImage.setOnClickListener {
-            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-            intent.type = "image/*"
-            requestGalleryLauncher.launch(intent)
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
+            requestLauncher.launch(intent)
         }
 
 //        binding.nickname.text =
@@ -118,9 +114,8 @@ class AddActivity : AppCompatActivity() {
         return inSampleSize
     }
 
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_nav, menu)
+        menuInflater.inflate(R.menu.menu_add, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -152,9 +147,9 @@ class AddActivity : AppCompatActivity() {
             "email" to MyApplication.email,
             "title" to binding.writeText.text.toString(),
             "date" to dateToString(Date()),
-            "foodTime" to binding.foodTimeText.toString(),
+            "foodTime" to binding.foodTimeText.text.toString(),
             "food" to binding.foodText.text.toString(),
-            "foodImage" to selectedImageUri.toString(),
+//            "foodImage" to filePath,
             "company" to binding.companyText.text.toString(),
             "uid" to auth.uid,
             "where" to binding.whereText.text.toString(),
@@ -173,20 +168,42 @@ class AddActivity : AppCompatActivity() {
             }
     }
 
+//    fun uploadImage(docId:String){
+//        val storage = MyApplication.storage
+//        val storageRef = storage.reference
+//
+//        val imageRef = storageRef.child("images/${docId}.jpg")
+//        val file = Uri.fromFile(File(filePath))
+//        imageRef.putFile(file)
+//            .addOnSuccessListener {
+//                Log.d("TastyLog", "imageRef.putFile(file) - addOnSuccessListener")
+//                finish()
+//            }
+//            .addOnFailureListener {
+//                Log.d("TastyLog", "imageRef.putFile(file) - addOnFailureListener")
+//            }
+//    }
 
-    fun uploadImage(selectedImageUri:String){
+    private fun uploadImage(docId: String){
+        //add............................
         val storage = MyApplication.storage
-        val storageRef = storage.reference
-        val imageRef = storageRef.child("images/${selectedImageUri}.jpg")
-        val file = Uri.fromFile(File(filePath))
-        imageRef.putFile(file)
+        // 스토리지를 참조하는 StorageReference 생성
+        val storageRef: StorageReference = storage.reference
+        // 실제 업로드하는 파일을 참조하는 StorageReference 생성
+        val imgRef: StorageReference = storageRef.child("images/${docId}.jpg")
+        // 파일 업로드
+        var fileUri = Uri.fromFile(File(filePath))
+        Log.d("kkang", "File URI: $fileUri")
+
+        imgRef.putFile(fileUri)
+            .addOnFailureListener { exception ->
+                Toast.makeText(this, "이미지 업로드 실패...", Toast.LENGTH_SHORT).show()
+                Log.d("kkang", "Failure uploading file: $exception")
+            }
             .addOnSuccessListener {
-                Log.d("TastyLog", "imageRef.putFile(file) - addOnSuccessListener")
+                Toast.makeText(this, "데이터가 저장되었습니다.", Toast.LENGTH_SHORT).show()
                 finish()
             }
-            .addOnFailureListener {
-                Log.d("TastyLog", "imageRef.putFile(file) - addOnFailureListener")
-            }
-
     }
+
 }

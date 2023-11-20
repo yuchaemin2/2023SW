@@ -8,4 +8,16 @@
         android:icon="@drawable/heartempty"
         app:showAsAction="always"/>
 
+<!--    <item-->
+<!--        android:id="@+id/menu_update"-->
+<!--        android:title="Bookmark"-->
+<!--        android:icon="@drawable/heartempty"-->
+<!--        app:showAsAction="always"/>-->
+
+<!--    <item-->
+<!--        android:id="@+id/menu_delete"-->
+<!--        android:title="Bookmark"-->
+<!--        android:icon="@drawable/heartempty"-->
+<!--        app:showAsAction="always"/>-->
+
 </menu>

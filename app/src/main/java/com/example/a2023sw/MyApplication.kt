@@ -20,6 +20,7 @@ class MyApplication : MultiDexApplication() {
         lateinit var auth : FirebaseAuth
         var email:String? = null
         var userPoint:String? = null
+        var userNickname:String? = null
         var imageurl:String? = null
 
         fun checkAuth(): Boolean{
@@ -33,6 +34,24 @@ class MyApplication : MultiDexApplication() {
             } ?: false
         }
 
+        suspend fun getImageUrl(userEmail: String?): String? {
+            return try {
+                val querySnapshot = db.collection("users")
+                    .whereEqualTo("userEmail", userEmail)
+                    .get().await()
+
+                if (!querySnapshot.isEmpty) {
+                    val userDocument = querySnapshot.documents[0]
+                    userDocument.getString("imageUrl")
+                } else {
+                    null
+                }
+            } catch (exception: Exception) {
+                Log.e("MyPhotoAdapter", "Error getting user document: $exception")
+                null
+            }
+        }
+
     }
 
     override fun onCreate() {
@@ -42,6 +61,21 @@ class MyApplication : MultiDexApplication() {
         db = FirebaseFirestore.getInstance()
         storage = Firebase.storage
 
+        val userDocRef = db.collection("users").document(auth.currentUser!!.uid)
+        userDocRef.get()
+            .addOnSuccessListener { documentSnapshot ->
+                if (documentSnapshot.exists()) {
+                    userPoint = documentSnapshot.getString("userPoint")
+                    userNickname = documentSnapshot.getString("userNickname")
+                    imageurl = documentSnapshot.getString("imageUrl")
+                }else {
+                    Log.d("TastyLog", "No such document")
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.d("TastyLog", "Error getting document: ${e.message}")
+            }
+
         val currentUser = auth.currentUser
         if (currentUser != null) {
             val userDocRef = db.collection("users").document(currentUser.uid)
@@ -49,6 +83,7 @@ class MyApplication : MultiDexApplication() {
                 .addOnSuccessListener { documentSnapshot ->
                     if (documentSnapshot.exists()) {
                         userPoint = documentSnapshot.getString("userPoint")
+                        userNickname = documentSnapshot.getString("userNickname")
                         imageurl = documentSnapshot.getString("imageUrl")
                     } else {
                         Log.d("TastyLog", "No such document")

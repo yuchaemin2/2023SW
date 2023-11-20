@@ -136,17 +136,17 @@ class AuthActivity : AppCompatActivity() {
                         if(task.isSuccessful){
                             MyApplication.email = account.email
                             // changeVisibility("login")
-                            Log.d("ToyProject", "GoogleSingIn - Successful")
+                            Log.d("TastyLog", "GoogleSingIn - Successful")
                             finish()
                         }
                         else {
                             changeVisibility("logout")
-                            Log.d("ToyProject", "GoogleSingIn - NOT Successful")
+                            Log.d("TastyLog", "GoogleSingIn - NOT Successful")
                         }
                     }
             } catch (e: ApiException){
                 changeVisibility("logout")
-                Log.d("ToyProject", "GoogleSingIn - ${e.message}")
+                Log.d("TastyLog", "GoogleSingIn - ${e.message}")
             }
         }
         binding.googleLoginBtn.setOnClickListener {

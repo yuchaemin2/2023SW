@@ -7,26 +7,57 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.bumptech.glide.Glide
 import com.example.a2023sw.databinding.ActivityDrawerBinding
 import com.example.a2023sw.databinding.ActivityMainBinding
+import com.example.a2023sw.databinding.NavigationHeaderBinding
 import com.example.a2023sw.ui.mypage.AlarmFragment1
 import com.google.android.material.navigation.NavigationView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var binding:ActivityDrawerBinding
+    lateinit var binding2: NavigationHeaderBinding
+
+    private lateinit var imageView: ImageView
+    private var imageUrl : String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityDrawerBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+//        binding2 = NavigationHeaderBinding.inflate(layoutInflater)
+//        setContentView(binding2.userProfile)
+
+        CoroutineScope(Dispatchers.Main).launch {
+            imageUrl =  MyApplication.getImageUrl(MyApplication.email).toString()
+            imageView = binding.userProfile
+            if( imageUrl != null){
+                Glide.with(this@DrawerActivity)
+                    .load(imageUrl)
+                    .into(binding.userProfile)
+            }
+        }
+
+//        CoroutineScope(Dispatchers.Main).launch {
+//            if( imageUrl != null){
+//                Glide.with(this@DrawerActivity)
+//                    .load(imageUrl)
+//                    .into(binding2.userProfile)
+//            }
+//        }
 
         binding.CertifyEmailView.text = MyApplication.email
 
@@ -52,7 +83,7 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
             val alarmfragment1: Fragment = AlarmFragment1()
             alarmfragment1.arguments = bundle
-            transaction.replace(R.id.container, alarmfragment1)
+            transaction.replace(R.id.drawer, alarmfragment1)
             transaction.addToBackStack(null)
             transaction.commit()
         }
@@ -81,6 +112,10 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId){
+            R.id.item_nickname -> {
+                val intent = Intent(this, ProfileActivity::class.java)
+                startActivity(intent)
+            }
             R.id.item_logout -> {
                 val intent = Intent(this, AuthActivity::class.java)
                 startActivity(intent)
