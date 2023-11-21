@@ -77,7 +77,7 @@ class MypageFragment : Fragment() {
         super.onStart()
         if(MyApplication.checkAuth()){
             MyApplication.db.collection("photos")
-                .orderBy("date", Query.Direction.DESCENDING)
+                .orderBy("image_date", Query.Direction.DESCENDING)
                 .get()
                 .addOnSuccessListener { result ->
                     val itemList = mutableListOf<ItemPhotoModel>()
