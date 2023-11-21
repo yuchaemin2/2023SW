@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:mcv_showOtherDates="all"
-            app:mcv_selectionColor="#FA7E61"/>
+            app:mcv_selectionColor="#FFB5A7"/>
 
 
     </RelativeLayout>

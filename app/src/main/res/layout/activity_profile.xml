@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_back"
+        android:background="#ffffff"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="프로필 수정"
+            android:textSize="18dp"
+            android:layout_gravity="center"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <RelativeLayout
+        android:id="@+id/relativelayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar_back">
+
+        <ImageView
+            android:id="@+id/userProfile"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            app:srcCompat="@drawable/user" />
+
+        <ImageView
+            android:id="@+id/regist_profile"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignBottom="@+id/userProfile"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="133dp"
+            android:layout_marginBottom="-4dp"
+            android:src="@drawable/editing" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/enter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/relativelayout"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:text="닉네임을 입력해주세요." />
+
+
+    <EditText
+        android:id="@+id/nickname"
+        android:layout_below="@+id/enter"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/button_round"
+        android:hint="   닉네임을 입력하세요"
+        android:textColorHint="#aaa"
+        android:textSize="15dp"/>
+
+    <Button
+        android:id="@+id/save_nickname"
+        android:layout_below="@+id/nickname"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/button_round_color"
+        android:textColor="@color/black"
+        android:text="저장" />
+
+
+</RelativeLayout>

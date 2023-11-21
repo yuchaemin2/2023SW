@@ -5,6 +5,7 @@ data class ItemPhotoModel(
     var email: String? = null,
     var title: String? = null,
     var date: String? = null,
+    var image_date: String? = null,
     var foodTime: String? = null,
     var food: String? = null,
     var uid: String? = null,

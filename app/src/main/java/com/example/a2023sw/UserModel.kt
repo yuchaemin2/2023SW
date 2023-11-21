@@ -5,5 +5,5 @@ data class UserModel(
     var userEmail : String? = null,
     var imageUrl : String? = null,
     var userNickname : String? = null,
-    var userPoint: Int = 0
+    var userPoint: Long = 0
 )

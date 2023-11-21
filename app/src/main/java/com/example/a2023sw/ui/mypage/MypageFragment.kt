@@ -13,10 +13,14 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.a2023sw.*
 import com.example.a2023sw.MyApplication.Companion.auth
 import com.example.a2023sw.databinding.FragmentMypageBinding
 import com.google.firebase.firestore.Query
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,8 +37,8 @@ class MypageFragment : Fragment() {
     private var param2: String? = null
 
     lateinit var binding: FragmentMypageBinding
-    lateinit var profile: ImageView
-
+    private lateinit var imageView: ImageView
+    private var  imageUrl : String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +60,15 @@ class MypageFragment : Fragment() {
             binding.CertifyEmailView.text = "${MyApplication.email}"
         }
 
+        CoroutineScope(Dispatchers.Main).launch {
+            imageUrl =  MyApplication.getImageUrl(MyApplication.email).toString()
+            imageView = binding.userProfile
+            if( imageUrl != null){
+                Glide.with(requireContext())
+                    .load(imageUrl)
+                    .into(binding.userProfile)
+            }
+        }
 
         return binding.root
     }
@@ -64,14 +77,16 @@ class MypageFragment : Fragment() {
         super.onStart()
         if(MyApplication.checkAuth()){
             MyApplication.db.collection("photos")
-                .orderBy("date", Query.Direction.DESCENDING)
+                .orderBy("image_date", Query.Direction.DESCENDING)
                 .get()
                 .addOnSuccessListener { result ->
                     val itemList = mutableListOf<ItemPhotoModel>()
                     for(document in result){
                         val item = document.toObject(ItemPhotoModel::class.java)
-                        item.docId = document.id
-                        itemList.add(item)
+                        if(MyApplication.email.equals(item.email)){
+                            item.docId = document.id
+                            itemList.add(item)
+                        }
                     }
                     binding.feedRecyclerView.layoutManager = GridLayoutManager(requireContext(),3)
                     binding.feedRecyclerView.adapter = MyPhotoAdapter(requireContext(), itemList)

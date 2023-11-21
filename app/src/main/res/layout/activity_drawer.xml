@@ -260,7 +260,7 @@
         android:id="@+id/main_drawer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFD015"
+        android:background="#FCB0C6"
         android:text="Drawer Layout!!!!"
         android:fitsSystemWindows="true"
         android:gravity="center"
@@ -271,7 +271,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
 
         </RelativeLayout>
 
