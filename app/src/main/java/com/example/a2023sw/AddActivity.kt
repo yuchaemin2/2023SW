@@ -1,7 +1,6 @@
 package com.example.a2023sw
 
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -18,12 +17,10 @@ import com.bumptech.glide.Glide
 import com.example.a2023sw.MyApplication.Companion.auth
 import com.example.a2023sw.databinding.ActivityAddBinding
 import com.google.firebase.Firebase
-import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.storage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -76,7 +73,8 @@ class AddActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
             val intent = Intent(Intent.ACTION_PICK)
-            intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
+            intent.type = "image/*"
+//            intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
             registerForActivityResult.launch(intent)
         }
@@ -180,6 +178,7 @@ class AddActivity : AppCompatActivity() {
     }
 
     fun saveStore() {
+        val uriStringList = uriList.map { it.toString() }
         val data = mapOf(
             "email" to MyApplication.email,
             "title" to binding.writeText.text.toString(),
@@ -193,6 +192,8 @@ class AddActivity : AppCompatActivity() {
             "where" to binding.whereText.text.toString(),
             "memo" to binding.memoText.text.toString(),
             "nickName" to binding.nickname.text.toString(),
+            "count" to uriList.count().toString(),
+            "uriList" to uriStringList
         )
 
         MyApplication.db.collection("photos")
@@ -202,6 +203,7 @@ class AddActivity : AppCompatActivity() {
                 docId = it.id
                 for (i in 0 until uriList.count()) {
                     imageUpload(uriList.get(i), i)
+                    Log.d("TastyLog", "${uriList.get(i)}")
                     try {
                         Thread.sleep(500)
                     } catch (e: InterruptedException) {

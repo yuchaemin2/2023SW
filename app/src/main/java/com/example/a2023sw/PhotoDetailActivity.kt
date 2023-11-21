@@ -2,20 +2,20 @@ package com.example.a2023sw
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.a2023sw.databinding.ActivityPhotoDetailBinding
-import com.google.firebase.Firebase
-import com.google.firebase.storage.storage
 import java.io.File
+import java.security.AccessController.getContext
 
 class PhotoDetailActivity : AppCompatActivity() {
 
@@ -23,7 +23,8 @@ class PhotoDetailActivity : AppCompatActivity() {
 
     lateinit var file: File
 
-    lateinit var adapter: ImageAdapter
+    var uriList: ArrayList<Uri> = ArrayList()
+    lateinit var adapter: MyDetailAdapter
 
     private lateinit var animatedRecyclerView: RecyclerView
     private lateinit var animatedImageView: ImageView
@@ -37,12 +38,14 @@ class PhotoDetailActivity : AppCompatActivity() {
 
     private var bookmarkItem: MenuItem? = null
 
+    private lateinit var dots: Array<TextView>
+    private lateinit var dotsLayout: LinearLayout
+    private lateinit var layouts: RecyclerView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = com.example.a2023sw.databinding.ActivityPhotoDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val uriList = intent.getParcelableArrayListExtra<Uri>("uriList")
 
         val toolbar = binding.toolbarBack
         setSupportActionBar(toolbar)
@@ -57,53 +60,16 @@ class PhotoDetailActivity : AppCompatActivity() {
         binding.memoText.text = intent.getStringExtra("memo")
         binding.titleText.text = intent.getStringExtra("title")
 
-//        if(intent.getStringExtra("where") == null){
-//            binding.where.visibility = View.GONE
-//        } else if(intent.getStringExtra("company") == null){
-//            binding.withPeople.visibility = View.GONE
-//        } else if ( intent.getStringExtra("memo") == null ){
-//            binding.memo.visibility = View.GONE
-//        } else if ( intent.getStringExtra("title") == null){
-//            binding.title.visibility = View.GONE
-//        }
-
         val docId = intent.getStringExtra("docId")
-        val date = intent.getStringExtra("date")
+        val count = intent.getStringExtra("count")
 
-//        val imageRef = MyApplication.storage.reference.child("images/${docId}.jpg")
-//        imageRef.downloadUrl.addOnCompleteListener { task ->
-//            if (task.isSuccessful) {
-//                Glide.with(this)
-//                    .load(task.result)
-////                    .apply(RequestOptions().override(350, 550).centerInside())
-//                    .into(binding.recyclerview)
-//            }
-//        }
+        val uriStringList: ArrayList<String> = intent.getStringArrayListExtra("uriList") as ArrayList<String>
+        val uriList: ArrayList<Uri> = uriStringList.map { Uri.parse(it) } as ArrayList<Uri>
 
-
-//        // RecyclerView에 Adapter 연결하기
-//        adapter = ImageAdapter(this, uriList!!)
-//        binding.recyclerview.adapter = adapter
-//        // LinearLayoutManager을 사용하여 수평으로 아이템을 배치한다.
-//        binding.recyclerview.layoutManager =
-//            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-
-        if(MyApplication.checkAuth()) {
-            val storage = Firebase.storage
-            val storageRef = storage.getReference("images")
-            if (storageRef == null) {
-                Toast.makeText(this, "저장소에 사진이 없습니다.", Toast.LENGTH_SHORT).show();
-            } else {
-//                val mountainsRef = storageRef.child("${date}_0.jpg")
-//                mountainsRef.downloadUrl.addOnCompleteListener { task ->
-//                    if (task.isSuccessful) {
-//                        Glide.with(this)
-//                            .load(task.result)
-//                            .into(binding.recyclerview)
-//                    }
-//                }
-            }
-        }
+        adapter = MyDetailAdapter(this, uriList)
+        Log.d("TastyLog", "${uriList}")
+        binding.recyclerview.adapter = adapter
+        binding.recyclerview.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         animatedRecyclerView = binding.recyclerview
 //        animatedImageView = binding.recyclerview
@@ -156,6 +122,28 @@ class PhotoDetailActivity : AppCompatActivity() {
                 resetView(relativeLayout5)
             }
         }
+
+        val recyclerView: RecyclerView =
+            findViewById(R.id.recyclerview)
+        recyclerView.isNestedScrollingEnabled = false
+        recyclerView.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.setHasFixedSize(true)
+        recyclerView.adapter = MyDetailAdapter(this, uriList)
+        val radius = resources.getDimensionPixelSize(R.dimen.radius)
+        val dotsHeight = resources.getDimensionPixelSize(R.dimen.dots_height)
+        val color = ContextCompat.getColor(this, R.color.image_dots)
+        recyclerView.addItemDecoration(
+            DotsIndicatorDecoration(
+                radius,
+                radius * 4,
+                dotsHeight,
+                color,
+                color
+            )
+        )
+        PagerSnapHelper().attachToRecyclerView(recyclerView)
+
     }
 
     private fun animateView(view: View, speed: Float) {
@@ -197,5 +185,6 @@ class PhotoDetailActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
 
 }

@@ -2,6 +2,7 @@ package com.example.a2023sw.ui.mypage
 
 import android.content.Intent
 import android.graphics.Paint
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -84,6 +85,9 @@ class MypageFragment : Fragment() {
                     for(document in result){
                         val item = document.toObject(ItemPhotoModel::class.java)
                         if(MyApplication.email.equals(item.email)){
+                            val uriStringList: ArrayList<String> = item.uriList as ArrayList<String>
+                            val uriList: ArrayList<Uri> = uriStringList.map { Uri.parse(it) } as ArrayList<Uri>
+
                             item.docId = document.id
                             itemList.add(item)
                         }

@@ -5,7 +5,7 @@
     android:layout_height="550dp">
 
     <ImageView
-        android:id="@+id/itemFoodImageView"
+        android:id="@+id/imageArea"
         android:layout_width="350dp"
         android:layout_height="550dp"
         android:layout_centerInParent="true"

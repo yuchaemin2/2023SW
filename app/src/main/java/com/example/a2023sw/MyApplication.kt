@@ -109,7 +109,7 @@ class MyApplication : MultiDexApplication() {
                         val document = task.result
                         if (document.exists()){ Log.d("TastyLog", "이미 존재하는 계정입니다.") }
                         else {
-                            userInfo.imageUrl = "https://firebasestorage.googleapis.com/v0/b/reviewmate-59794.appspot.com/o/profile_images%2Fimg_1.png?alt=media&token=eb7e37c7-bbc3-4ef5-9491-bbca0f8c60bc"
+                            userInfo.imageUrl = "https://firebasestorage.googleapis.com/v0/b/sw-7b025.appspot.com/o/profile%2Flevel_1.png?alt=media&token=b38fbb1c-a264-41cc-a333-2905a1fd07f3"
                             db.collection("users").document(auth.uid.toString()).set(userInfo)
                             Log.d("TastyLog", "계정을 user collection에 추가했습니다.")
                         }

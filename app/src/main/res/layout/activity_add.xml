@@ -43,7 +43,7 @@
                 android:id="@+id/imageArea"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/icon" />
+                android:src="@drawable/gallery" />
 
             <TextView
                 android:id="@+id/countArea"
