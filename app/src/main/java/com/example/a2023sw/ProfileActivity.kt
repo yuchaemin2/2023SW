@@ -3,23 +3,19 @@ package com.example.a2023sw
 import android.app.AlertDialog
 import android.content.ContentValues
 import android.content.DialogInterface
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.ContactsContract.CommonDataKinds.Im
+import android.text.Editable
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import com.bumptech.glide.Glide
+import com.example.a2023sw.MyApplication.Companion.auth
 import com.example.a2023sw.databinding.ActivityProfileBinding
-import com.example.a2023sw.databinding.NavigationHeaderBinding
-import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
@@ -33,6 +29,8 @@ class ProfileActivity : AppCompatActivity() {
 
     private lateinit var imageView: ImageView
     private var imageUrl : String? = null
+
+    private var userPoint : Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,8 +50,33 @@ class ProfileActivity : AppCompatActivity() {
             }
         }
 
-        binding.saveNickname.setOnClickListener {
+        if(MyApplication.checkAuth()){
+            val userDocRef = MyApplication.db.collection("users").document(MyApplication.auth.uid.toString())
+            MyApplication.db.collection("users").document("${MyApplication.auth.uid}")
+                .get()
+                .addOnSuccessListener {  documentSnapshot ->
+                    if(documentSnapshot.exists()) {
+                        val userNickname = documentSnapshot.getString("userNickname")
+                        binding.NicknameView.text = userNickname
+                        binding.nicknameText.hint = userNickname.toString()
+                    }
+                }
+        }
 
+        binding.saveNickname.setOnClickListener {
+            val userDocRef = MyApplication.db.collection("users").document(auth.uid.toString())
+            MyApplication.db.collection("users").document("${auth.uid}")
+                .get()
+                .addOnSuccessListener {  documentSnapshot ->
+                    if(documentSnapshot.exists()) {
+                        val currentNickname = documentSnapshot.getString("userNickname")
+                        currentNickname?.let {
+                            val updatedNickname = binding.nicknameText.text.toString()
+                            updateNickname(userDocRef, updatedNickname)
+                        }
+                    }
+                }
+            finish()
         }
 
         var toolbar = binding.toolbarBack
@@ -63,7 +86,6 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun fetchPoint() {
         val currentUser = MyApplication.auth.currentUser
-        var userPoint :Long? = null
         currentUser?.let {
             val userId = currentUser.uid
 
@@ -71,7 +93,7 @@ class ProfileActivity : AppCompatActivity() {
             userRef.get()
                 .addOnSuccessListener { documentSnapshot ->
                     if (documentSnapshot.exists()) {
-                        userPoint = documentSnapshot.getLong("userPoint")
+                        userPoint = documentSnapshot.getLong("userPoint")!!
                         if (userPoint != null) { // 업로드 & 다이얼로그
                             binding.PointView.text = userPoint.toString()
                             openDialog(userPoint!!)
@@ -79,7 +101,6 @@ class ProfileActivity : AppCompatActivity() {
                         } else {
                             Toast.makeText(this, "사용자의 포인트를 가져오는데 실패했습니다...", Toast.LENGTH_SHORT).show()
                         }
-//                        Toast.makeText(requireContext(), "사용자의 레벨은 ${userLevel}입니다.", Toast.LENGTH_SHORT).show()
                     }
                 }
                 .addOnFailureListener { e ->
@@ -89,18 +110,18 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     val characters = arrayOf(
-        arrayOf("/profile/level_1.png", "햄버거", "하품하고 피곤해 보이는 고양이다."),
-        arrayOf("/profile/level_2.png", "피자", "털을 그루밍하는 고양이다."),
-        arrayOf("/profile/level_3.png", "딸기 생크림 케이크", "호기심 가득한 눈으로 주변을 늘 경계하는 고양이다."),
-        arrayOf("/profile/level_4.png", "스파게티", "졸려서 하품하는 검정색 고양이다."),
-        arrayOf("/profile/level_5.png", "팬케이크", "독특한 삼색 모습으로 사람들의 관심을 끄는 고양이다."),
-        arrayOf("/profile/level_6.png", "아이스크림", "눈을 반쯤 감고 먼 곳을 응시하는 듯한 고요한 고양이다."),
-        arrayOf("/profile/level_7.png", "버터와플", "까칠한 느낌으로 주변을 바라보는 고양이다."),
-        arrayOf("/profile/level_8.png", "핫도그", "따뜻한 햇살 아래에서 편안함을 느끼는 고양이다."),
-        arrayOf("/profile/level_9.png", "감자튀김", "마치 미소를 짓는 듯한 표정으로 귀여움을 뽐내는 고양이다."),
-        arrayOf("/profile/level_10.png", "통닭", "마치 미소를 짓는 듯한 표정으로 귀여움을 뽐내는 고양이다."),
-        arrayOf("/profile/level_11.png", "도넛", "마치 미소를 짓는 듯한 표정으로 귀여움을 뽐내는 고양이다."),
-        arrayOf("/profile/level_12.png", "샌드위치", "마치 미소를 짓는 듯한 표정으로 귀여움을 뽐내는 고양이다.")
+        arrayOf("/profile/level_1.png", "햄버거", "맛있는 햄버거. 베이컨이 두개 들어있다."),
+        arrayOf("/profile/level_2.png", "피자", "사람은 다섯명인데 피자는 여섯조각이네. 선착순 시작!"),
+        arrayOf("/profile/level_3.png", "딸기 생크림 케이크", "달콤한 생크림과 상큼한 딸기가 잘 어울린다."),
+        arrayOf("/profile/level_4.png", "스파게티", "나는 크림 스파게티가 좋다고...미트볼 스파게티 말고!"),
+        arrayOf("/profile/level_5.png", "팬케이크", "메이플 시럽과 팬케이크의 조화가 최고야."),
+        arrayOf("/profile/level_6.png", "아이스크림", "후식으로는 아이스크림 세 덩이는 먹어줘야한다."),
+        arrayOf("/profile/level_7.png", "버터와플", "아직 따뜻한 와플에 버터 한 조각을 올리면 녹아내릴거야."),
+        arrayOf("/profile/level_8.png", "핫도그", "야구 경기를 보러 갈때 자주 먹었지."),
+        arrayOf("/profile/level_9.png", "감자튀김", "감자튀김은 케찹에 많이 먹지만... 개인적으로는 마요네즈가 좋다고 생각해."),
+        arrayOf("/profile/level_10.png", "통닭", "따뜻한 통닭은 이 세상 무엇과도 비교할 수 없다."),
+        arrayOf("/profile/level_11.png", "도넛", "도넛은 초콜릿 도넛이지!"),
+        arrayOf("/profile/level_12.png", "샌드위치", "베이컨, 상추, 토마토만 있다면 어디든 갈 수 있어.")
     )
 
 
@@ -145,14 +166,63 @@ class ProfileActivity : AppCompatActivity() {
                     setTitle(characters[i][1])
                     setMessage(characters[i][2]) // 여기 함수로 작성
                     setPositiveButton("프로필 구입하기") { dialog, id ->
-                        upLoadProfileImg(characters[i][0]) // 이미지 파일 전달 해줘야함
-                        binding.userProfile.setImageResource(imgResourceIds[i])
+                        val userDocRef = MyApplication.db.collection("users").document(auth.uid.toString())
+                        MyApplication.db.collection("users").document("${auth.uid}")
+                            .get()
+                            .addOnSuccessListener {  documentSnapshot ->
+                                if(documentSnapshot.exists()) {
+                                    val currentPoint = documentSnapshot.getLong("userPoint")
+                                    if (currentPoint != null) {
+                                        if(currentPoint >= 10){
+                                            upLoadProfileImg(characters[i][0]) // 이미지 파일 전달 해줘야함
+                                            binding.userProfile.setImageResource(imgResourceIds[i])
+                                            currentPoint?.let {
+                                                val updatedPoint = it - 30
+                                                updatePoint(userDocRef, updatedPoint)
+                                            }
+                                        } else{
+                                            Toast.makeText(this@ProfileActivity, "포인트가 부족합니다! 기록을 더 작성해주세요.", Toast.LENGTH_SHORT).show()
+                                        }
+                                    }
+                                }
+                            }
+
                     }
                     setNegativeButton("닫기", alertHandler)
                     show()
                 }
             }
         }
+    }
+
+    fun updatePoint(docRef: DocumentReference, updatedValue: Long) {
+        val updates = hashMapOf<String, Any>(
+            "userPoint" to updatedValue
+        )
+
+        docRef.update(updates)
+            .addOnSuccessListener {
+                // 업데이트 성공 처리
+            }
+            .addOnFailureListener { e ->
+                // 업데이트 실패 처리
+            }
+
+    }
+
+    fun updateNickname(docRef: DocumentReference, updatedValue: String) {
+        val updates = hashMapOf<String, Any>(
+            "userNickname" to updatedValue
+        )
+
+        docRef.update(updates)
+            .addOnSuccessListener {
+                // 업데이트 성공 처리
+            }
+            .addOnFailureListener { e ->
+                // 업데이트 실패 처리
+            }
+
     }
 
     fun upLoadProfileImg(strImg : String) {

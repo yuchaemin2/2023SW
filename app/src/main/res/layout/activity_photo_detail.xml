@@ -22,6 +22,14 @@
             android:textSize="18dp"
             android:layout_gravity="center"/>
 
+<!--        <ImageView-->
+<!--            android:id="@+id/LikeMenu"-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_gravity="right|center_vertical"-->
+<!--            android:layout_marginRight="3dp"-->
+<!--            android:src="@drawable/heartempty"/>-->
+
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.core.widget.NestedScrollView
@@ -237,6 +245,40 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/png4"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/black"
+                    android:text="시간대"
+                    android:contextClickable="true"/>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/food"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="343dp"
+                android:layout_height="52dp"
+                android:background="@drawable/button_round"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/memo"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="36dp">
+
+                <ImageView
+                    android:id="@+id/png5"
+                    android:layout_width="40dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/memo"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:clickable="true"/>
+
+                <TextView
+                    android:id="@+id/food_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/png5"
                     android:layout_marginLeft="15dp"
                     android:textColor="@color/black"
                     android:text="시간대"

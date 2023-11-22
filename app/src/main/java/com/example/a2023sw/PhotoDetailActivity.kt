@@ -1,6 +1,10 @@
 package com.example.a2023sw
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -8,17 +12,23 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.example.a2023sw.MyApplication.Companion.auth
 import com.example.a2023sw.databinding.ActivityPhotoDetailBinding
 import java.io.File
 import java.security.AccessController.getContext
+import java.util.*
+import kotlin.collections.ArrayList
+
 
 class PhotoDetailActivity : AppCompatActivity() {
 
+    private lateinit var bookmarkItem: MenuItem
     lateinit var binding: ActivityPhotoDetailBinding
 
     lateinit var file: File
@@ -36,11 +46,8 @@ class PhotoDetailActivity : AppCompatActivity() {
     private lateinit var relativeLayout4: RelativeLayout
     private lateinit var relativeLayout5: RelativeLayout
 
-    private var bookmarkItem: MenuItem? = null
-
-    private lateinit var dots: Array<TextView>
-    private lateinit var dotsLayout: LinearLayout
-    private lateinit var layouts: RecyclerView
+    private lateinit var date: String
+    private lateinit var docId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,13 +61,15 @@ class PhotoDetailActivity : AppCompatActivity() {
         supportActionBar?.setHomeAsUpIndicator(R.drawable.back)
         supportActionBar?.setDisplayShowTitleEnabled(false)//타이틀 없애기
 
+        date = binding.titleDate.toString()
         binding.titleDate.text = intent.getStringExtra("date")
         binding.whereText.text = intent.getStringExtra("where")
         binding.withPeopleText.text = intent.getStringExtra("company")
         binding.memoText.text = intent.getStringExtra("memo")
         binding.titleText.text = intent.getStringExtra("title")
+        binding.foodTimeText.text = intent.getStringExtra("foodTime")
 
-        val docId = intent.getStringExtra("docId")
+        docId = intent.getStringExtra("docId")!!
         val count = intent.getStringExtra("count")
 
         val uriStringList: ArrayList<String> = intent.getStringArrayListExtra("uriList") as ArrayList<String>
@@ -160,6 +169,66 @@ class PhotoDetailActivity : AppCompatActivity() {
             .start()
     }
 
+    private fun setBookmarkIcon() {
+        val menu = binding.toolbarBack.menu
+        val bookmarkItem = menu.findItem(R.id.menu_bookmark)
+
+        val bookmarkRef = MyApplication.db.collection("users")
+            .document(auth.uid.toString())
+            .collection("bookmarked_records")
+            .whereEqualTo("docId", docId)
+
+        bookmarkRef.get().addOnSuccessListener { querySnapshot ->
+            val isBookmarked = !querySnapshot.isEmpty
+            val bookmarkIconRes =
+                if (isBookmarked) R.drawable.heart else R.drawable.heartempty
+            bookmarkItem.setIcon(bookmarkIconRes)
+        }
+    }
+
+    private fun toggleBookmarkStatus() {
+        val bookmarkRef = MyApplication.db.collection("users")
+            .document(auth.uid.toString())
+            .collection("bookmarked_records")
+            .whereEqualTo("docId", docId)
+
+        bookmarkRef.get().addOnSuccessListener { querySnapshot ->
+            if (querySnapshot.isEmpty) {
+                saveBookmark()
+            } else {
+                querySnapshot.documents.firstOrNull()?.reference?.delete()
+            }
+            setBookmarkIcon()
+        }
+    }
+
+    fun saveBookmark() {
+        val uriStringList = uriList.map { it.toString() }
+        val data = mapOf(
+            "email" to MyApplication.email,
+            "title" to binding.titleText.text.toString(),
+            "foodTime" to binding.foodTimeText.text.toString(),
+            "date" to binding.titleDate.text.toString(),
+            "food" to binding.foodText.text.toString(),
+//            "foodImage" to filePath,
+            "company" to binding.withPeopleText.text.toString(),
+            "uid" to auth.uid,
+            "where" to binding.whereText.text.toString(),
+            "memo" to binding.memoText.text.toString(),
+            "count" to uriList.count().toString(),
+            "uriList" to uriStringList
+        )
+
+        MyApplication.db.collection("users").document(auth.uid.toString()).collection("bookmarked_records")
+            .add(data)
+            .addOnSuccessListener {
+                Log.d("TastyLog", "Bookmark added successfully")
+            }
+            .addOnFailureListener {
+                Log.d("TastyLog", "Failed to add bookmark")
+            }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_detail, menu)
         bookmarkItem = menu!!.findItem(R.id.menu_bookmark)
@@ -180,11 +249,11 @@ class PhotoDetailActivity : AppCompatActivity() {
                     bookmarkItem?.setIcon(R.drawable.heartempty)
                     Toast.makeText(this, "북마크 해제됨", Toast.LENGTH_SHORT).show()
                 }
+//                setBookmarkIcon()
+//                toggleBookmarkStatus()
                 return true
             }
         }
         return super.onOptionsItemSelected(item)
     }
-
-
 }

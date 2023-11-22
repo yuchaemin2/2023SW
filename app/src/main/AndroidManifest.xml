@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SEND_EMAIL" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -34,7 +35,7 @@
             android:theme="@style/Theme.NavigationDrawer" />
         <activity
             android:name=".PhotoDetailActivity"
-            android:exported="false"
+            android:exported="true"
             android:theme="@style/AddTheme" />
         <activity
             android:name=".DrawerActivity"
@@ -46,7 +47,7 @@
             android:theme="@style/SplashTheme" />
         <activity
             android:name=".AddActivity"
-            android:exported="false"
+            android:exported="true"
             android:theme="@style/AddTheme" />
         <activity
             android:name=".AuthActivity"

@@ -58,7 +58,15 @@ class MypageFragment : Fragment() {
 //        profile = binding.userProfile
 
         if(MyApplication.checkAuth()){
-            binding.CertifyEmailView.text = "${MyApplication.email}"
+            val userDocRef = MyApplication.db.collection("users").document(auth.uid.toString())
+            MyApplication.db.collection("users").document("${auth.uid}")
+                .get()
+                .addOnSuccessListener {  documentSnapshot ->
+                    if(documentSnapshot.exists()) {
+                        val userNickname = documentSnapshot.getString("userNickname")
+                        binding.NicknameView.text = userNickname.toString()
+                    }
+                }
         }
 
         CoroutineScope(Dispatchers.Main).launch {

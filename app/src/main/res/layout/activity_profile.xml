@@ -55,16 +55,17 @@
                     android:layout_marginTop="50dp"
                     app:srcCompat="@drawable/user" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/NicknameView"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:text="사용자 닉네임"-->
-<!--                    android:textSize="15dp"-->
-<!--                    android:layout_marginTop="5dp"-->
-<!--                    android:layout_marginBottom="5dp"/>-->
+                <TextView
+                    android:id="@+id/NicknameView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/userProfile"
+                    android:layout_toLeftOf="@+id/PointView"
+                    android:textColor="@color/black"
+                    android:text="사용자 닉네임"
+                    android:textSize="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"/>
 
                 <TextView
                     android:id="@+id/PointView"
@@ -74,6 +75,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textColor="@color/black"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="140dp"
                     android:text="포인트"
                     android:textSize="15dp"
                     android:layout_marginTop="5dp"
@@ -90,19 +94,30 @@
                 android:layout_marginTop="30dp"
                 android:text="닉네임을 입력해주세요." />
 
-
-            <EditText
+            <RelativeLayout
                 android:id="@+id/nickname"
-                android:layout_below="@+id/enter"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="5dp"
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@drawable/button_round"
-                android:hint="   닉네임을 입력하세요"
-                android:textColorHint="#aaa"
-                android:textSize="15dp"/>
+                android:layout_marginTop="15dp"
+                android:layout_below="@id/enter">
+
+                <EditText
+                    android:id="@+id/nickname_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#aaa"
+                    android:hint="닉네임을 입력하세요"
+                    android:background="@android:color/transparent"
+                    android:textColorHint="#aaa"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:textSize="15dp"/>
+
+            </RelativeLayout>
 
 
             <HorizontalScrollView

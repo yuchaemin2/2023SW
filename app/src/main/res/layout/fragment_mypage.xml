@@ -53,11 +53,11 @@
                         android:src="@drawable/user" />
 
                     <TextView
-                        android:id="@+id/CertifyEmailView"
+                        android:id="@+id/NicknameView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="사용자 이메일"
+                        android:text="친절한 햄버거"
                         android:textSize="15dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"/>

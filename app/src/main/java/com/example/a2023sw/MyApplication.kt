@@ -13,7 +13,6 @@ import kotlinx.coroutines.tasks.await
 class MyApplication : MultiDexApplication() {
 
     companion object{
-
 //        lateinit var db : FirebaseFirestore
         var db = FirebaseFirestore.getInstance()
         var storage : FirebaseStorage = Firebase.storage
@@ -25,7 +24,6 @@ class MyApplication : MultiDexApplication() {
 
         fun checkAuth(): Boolean{
             auth = Firebase.auth
-
             var currentuser = auth.currentUser
             return currentuser?.let{
                 email = currentuser.email
@@ -52,51 +50,7 @@ class MyApplication : MultiDexApplication() {
             }
         }
 
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-        auth = Firebase.auth
-
-        db = FirebaseFirestore.getInstance()
-        storage = Firebase.storage
-
-        val userDocRef = db.collection("users").document(auth.currentUser!!.uid)
-        userDocRef.get()
-            .addOnSuccessListener { documentSnapshot ->
-                if (documentSnapshot.exists()) {
-                    userPoint = documentSnapshot.getString("userPoint")
-                    userNickname = documentSnapshot.getString("userNickname")
-                    imageurl = documentSnapshot.getString("imageUrl")
-                }else {
-                    Log.d("TastyLog", "No such document")
-                }
-            }
-            .addOnFailureListener { e ->
-                Log.d("TastyLog", "Error getting document: ${e.message}")
-            }
-
-        val currentUser = auth.currentUser
-        if (currentUser != null) {
-            val userDocRef = db.collection("users").document(currentUser.uid)
-            userDocRef.get()
-                .addOnSuccessListener { documentSnapshot ->
-                    if (documentSnapshot.exists()) {
-                        userPoint = documentSnapshot.getString("userPoint")
-                        userNickname = documentSnapshot.getString("userNickname")
-                        imageurl = documentSnapshot.getString("imageUrl")
-                    } else {
-                        Log.d("TastyLog", "No such document")
-                    }
-                }
-                .addOnFailureListener { e ->
-                    Log.d("TastyLog", "Error getting document: ${e.message}")
-                }
-        } else {
-            Log.d("TastyLog", "Current user is null")
-        }
-
-        if(true) {
+        fun userCheck() {
             var userInfo = UserModel()
 
             userInfo.uid = auth.uid
@@ -109,13 +63,45 @@ class MyApplication : MultiDexApplication() {
                         val document = task.result
                         if (document.exists()){ Log.d("TastyLog", "이미 존재하는 계정입니다.") }
                         else {
-                            userInfo.imageUrl = "https://firebasestorage.googleapis.com/v0/b/sw-7b025.appspot.com/o/profile%2Flevel_1.png?alt=media&token=b38fbb1c-a264-41cc-a333-2905a1fd07f3"
                             db.collection("users").document(auth.uid.toString()).set(userInfo)
                             Log.d("TastyLog", "계정을 user collection에 추가했습니다.")
+                            userInfo.imageUrl = "https://firebasestorage.googleapis.com/v0/b/sw-7b025.appspot.com/o/profile%2Flevel_1.png?alt=media&token=b38fbb1c-a264-41cc-a333-2905a1fd07f3"
                         }
                     }
                 }
         }
+
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        auth = Firebase.auth
+
+        db = FirebaseFirestore.getInstance()
+        storage = Firebase.storage
+
+
+
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            val userDocRef = db.collection("users").document(currentUser.uid)
+            userDocRef.get()
+                .addOnSuccessListener { documentSnapshot ->
+                    if (documentSnapshot.exists()) {
+                        userPoint = documentSnapshot.getString("userPoint")
+                        userNickname = documentSnapshot.getString("userNickname")
+                    } else {
+                        Log.d("TastyLog", "No such document")
+                        userCheck()
+                    }
+                }
+                .addOnFailureListener { e ->
+                    Log.d("TastyLog", "Error getting document: ${e.message}")
+                }
+        } else {
+            Log.d("TastyLog", "Current user is null")
+        }
+
     }
 
 }

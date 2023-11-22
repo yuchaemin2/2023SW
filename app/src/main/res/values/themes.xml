@@ -12,6 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
     </style>
 
 
@@ -30,7 +31,7 @@
 
     <style name="AppModalStyle"
         parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@drawable/custom_bs</item>
+        <item name="android:background">@drawable/rounded_bottom_sheet</item>
     </style>
 
     <style name="AddTheme" parent="Theme.AppCompat.NoActionBar">

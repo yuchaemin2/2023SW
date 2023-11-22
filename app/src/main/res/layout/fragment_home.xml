@@ -11,6 +11,36 @@
         android:layout_height="match_parent"
         android:layout_margin="10dp">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- 수직 방향으로 배치되는 자식 뷰들 -->
+            <TextView
+                android:id="@+id/HomeEmailView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="환영합니다 (닉네임)님" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="사용자의 Point : " />
+                <TextView
+                    android:id="@+id/userPoint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/tutorialBtn"
@@ -27,6 +57,10 @@
             app:mcv_showOtherDates="all"
             app:mcv_selectionColor="#FFB5A7"/>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/feedRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </RelativeLayout>
 

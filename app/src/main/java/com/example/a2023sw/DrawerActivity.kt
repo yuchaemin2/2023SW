@@ -59,7 +59,17 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 //            }
 //        }
 
-        binding.CertifyEmailView.text = MyApplication.email
+        if(MyApplication.checkAuth()){
+            val userDocRef = MyApplication.db.collection("users").document(MyApplication.auth.uid.toString())
+            MyApplication.db.collection("users").document("${MyApplication.auth.uid}")
+                .get()
+                .addOnSuccessListener {  documentSnapshot ->
+                    if(documentSnapshot.exists()) {
+                        val userNickname = documentSnapshot.getString("userNickname")
+                        binding.CertifyEmailView.text = userNickname.toString()
+                    }
+                }
+        }
 
         binding.btnNext.setOnClickListener {
             if (!binding.drawer.isDrawerOpen(Gravity.RIGHT)){
@@ -68,14 +78,6 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         }
 
         binding.mainDrawer.setNavigationItemSelectedListener(this)
-
-//        binding.logout.paintFlags = Paint.UNDERLINE_TEXT_FLAG
-//
-//        binding.logout.setOnClickListener {
-////            auth.signOut()
-//            val intent = Intent(this, AuthActivity::class.java)
-//            startActivity(intent)
-//        }
 
         binding.settingsNotification.setOnClickListener{
             var bundle : Bundle = Bundle()

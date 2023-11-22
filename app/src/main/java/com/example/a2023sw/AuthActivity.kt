@@ -77,6 +77,7 @@ class AuthActivity : AppCompatActivity() {
                             Toast.makeText(baseContext, "로그인 성공..", Toast.LENGTH_LONG).show()
                             // changeVisibility("login")
                             finish()
+                            MyApplication.userCheck()
                         }
                         else{
                             Toast.makeText(baseContext, "이메일 인증 실패..", Toast.LENGTH_LONG).show()
@@ -161,35 +162,6 @@ class AuthActivity : AppCompatActivity() {
         }
     }
 
-    fun updateEmail(docRef: DocumentReference, updatedValue: String) {
-        val updates = hashMapOf<String, Any>(
-            "userEmail" to updatedValue
-        )
-
-        docRef.update(updates)
-            .addOnSuccessListener {
-                // 업데이트 성공 처리
-            }
-            .addOnFailureListener { e ->
-                // 업데이트 실패 처리
-            }
-
-    }
-    fun updateProfile(docRef: DocumentReference, updatedValue: String) {
-        val updates = hashMapOf<String, Any>(
-            "imageUrl" to updatedValue
-        )
-
-        docRef.update(updates)
-            .addOnSuccessListener {
-                // 업데이트 성공 처리
-            }
-            .addOnFailureListener { e ->
-                // 업데이트 실패 처리
-            }
-
-    }
-
     fun changeVisibility(mode: String){
         if(mode.equals("signin")){
             binding.run {
@@ -200,7 +172,7 @@ class AuthActivity : AppCompatActivity() {
                 authPasswordEditView.visibility = View.VISIBLE
                 signBtn.visibility = View.VISIBLE
                 loginBtn.visibility = View.GONE
-//                orBox.visibility = View.GONE
+                leaveBtn.visibility = View.GONE
             }
         }else if(mode.equals("login")){
             binding.run {
@@ -225,7 +197,7 @@ class AuthActivity : AppCompatActivity() {
                 authPasswordEditView.visibility = View.VISIBLE
                 signBtn.visibility = View.GONE
                 loginBtn.visibility = View.VISIBLE
-//                orBox.visibility = View.VISIBLE
+                leaveBtn.visibility = View.GONE
             }
         }
     }

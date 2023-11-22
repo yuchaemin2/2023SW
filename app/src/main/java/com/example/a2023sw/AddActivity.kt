@@ -1,8 +1,13 @@
 package com.example.a2023sw
 
+import android.app.ProgressDialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.MediaStore
 import android.util.Log
 import android.view.Menu
@@ -16,7 +21,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.a2023sw.MyApplication.Companion.auth
 import com.example.a2023sw.databinding.ActivityAddBinding
+import com.example.a2023sw.ui.home.HomeFragment
+import com.google.android.gms.tasks.Task
 import com.google.firebase.Firebase
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.storage.UploadTask
 import com.google.firebase.storage.storage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -37,6 +46,8 @@ class AddActivity : AppCompatActivity() {
     lateinit var adapter: ImageAdapter
 
     lateinit var docId: String
+
+    private lateinit var customProgressDialog: LoadingDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,6 +89,12 @@ class AddActivity : AppCompatActivity() {
             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
             registerForActivityResult.launch(intent)
         }
+
+        // 로딩창 객체 생성
+        customProgressDialog = LoadingDialog(this)
+        // 로딩창을 투명하게
+        customProgressDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        customProgressDialog.setCancelable(false)
 
 //        binding.nickname.text =
 
@@ -158,7 +175,14 @@ class AddActivity : AppCompatActivity() {
             R.id.save_record ->{
                 if(binding.writeText.text.isNotEmpty()){
                     saveStore()
-                    finish()
+                    customProgressDialog.show()
+
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        if (!isFinishing) {  // Check if the activity is still running
+                            customProgressDialog.dismiss() // 다이얼로그 종료
+                            finish()
+                        }
+                    }, 3000) // 2000ms(2초) 후에 종료하도록 설정 (원하는 시간으로 변경 가능)
                 } else {
                     Toast.makeText(this, "내용을 입력해주세요..", Toast.LENGTH_SHORT).show()
                 }
@@ -210,49 +234,39 @@ class AddActivity : AppCompatActivity() {
                         e.printStackTrace()
                     }
                 }
+
 //                uploadImage(it.id)
+                val userDocRef = MyApplication.db.collection("users").document(auth.uid.toString())
+                MyApplication.db.collection("users").document("${auth.uid}")
+                    .get()
+                    .addOnSuccessListener {  documentSnapshot ->
+                        if(documentSnapshot.exists()) {
+                            val currentPoint = documentSnapshot.getLong("userPoint")
+                            currentPoint?.let {
+                                val updatedPoint = it + 10
+                                updatePoint(userDocRef, updatedPoint)
+                            }
+                        }
+                    }
             }
             .addOnFailureListener {
                 Log.d("TastyLog", "data firestore save error")
             }
     }
 
-//    fun uploadImage(docId:String){
-//        val storage = MyApplication.storage
-//        val storageRef = storage.reference
-//
-//        val imageRef = storageRef.child("images/${docId}.jpg")
-//        val file = Uri.fromFile(File(filePath))
-//        imageRef.putFile(file)
-//            .addOnSuccessListener {
-//                Log.d("TastyLog", "imageRef.putFile(file) - addOnSuccessListener")
-//                finish()
-//            }
-//            .addOnFailureListener {
-//                Log.d("TastyLog", "imageRef.putFile(file) - addOnFailureListener")
-//            }
-//    }
+    fun updatePoint(docRef: DocumentReference, updatedValue: Long) {
+        val updates = hashMapOf<String, Any>(
+            "userPoint" to updatedValue
+        )
 
-//    private fun uploadImage(docId: String){
-//        //add............................
-//        val storage = MyApplication.storage
-//        // 스토리지를 참조하는 StorageReference 생성
-//        val storageRef: StorageReference = storage.reference
-//        // 실제 업로드하는 파일을 참조하는 StorageReference 생성
-//        val imgRef: StorageReference = storageRef.child("images/${docId}.jpg")
-//        // 파일 업로드
-//        var fileUri = Uri.fromFile(File(filePath))
-//        Log.d("kkang", "File URI: $fileUri")
-//
-//        imgRef.putFile(fileUri)
-//            .addOnFailureListener { exception ->
-//                Toast.makeText(this, "이미지 업로드 실패...", Toast.LENGTH_SHORT).show()
-//                Log.d("kkang", "Failure uploading file: $exception")
-//            }
-//            .addOnSuccessListener {
-//                Toast.makeText(this, "데이터가 저장되었습니다.", Toast.LENGTH_SHORT).show()
-//                finish()
-//            }
-//    }
+        docRef.update(updates)
+            .addOnSuccessListener {
+                // 업데이트 성공 처리
+            }
+            .addOnFailureListener { e ->
+                // 업데이트 실패 처리
+            }
+
+    }
 
 }
