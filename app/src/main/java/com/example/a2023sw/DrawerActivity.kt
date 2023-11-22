@@ -1,9 +1,12 @@
 package com.example.a2023sw
 
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.Paint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.BackgroundColorSpan
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
@@ -16,7 +19,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.bumptech.glide.Glide
 import com.example.a2023sw.databinding.ActivityDrawerBinding
-import com.example.a2023sw.databinding.ActivityMainBinding
 import com.example.a2023sw.databinding.NavigationHeaderBinding
 import com.example.a2023sw.ui.mypage.AlarmFragment1
 import com.google.android.material.navigation.NavigationView
@@ -26,7 +28,7 @@ import kotlinx.coroutines.launch
 
 class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    private lateinit var binding:ActivityDrawerBinding
+    private lateinit var binding: ActivityDrawerBinding
     lateinit var binding2: NavigationHeaderBinding
 
     private lateinit var imageView: ImageView
@@ -38,9 +40,6 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         binding = ActivityDrawerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        binding2 = NavigationHeaderBinding.inflate(layoutInflater)
-//        setContentView(binding2.userProfile)
-
         CoroutineScope(Dispatchers.Main).launch {
             imageUrl =  MyApplication.getImageUrl(MyApplication.email).toString()
             imageView = binding.userProfile
@@ -50,14 +49,6 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                     .into(binding.userProfile)
             }
         }
-
-//        CoroutineScope(Dispatchers.Main).launch {
-//            if( imageUrl != null){
-//                Glide.with(this@DrawerActivity)
-//                    .load(imageUrl)
-//                    .into(binding2.userProfile)
-//            }
-//        }
 
         if(MyApplication.checkAuth()){
             val userDocRef = MyApplication.db.collection("users").document(MyApplication.auth.uid.toString())

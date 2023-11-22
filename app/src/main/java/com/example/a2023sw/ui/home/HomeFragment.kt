@@ -1,7 +1,9 @@
 package com.example.a2023sw.ui.home
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +13,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -169,7 +173,7 @@ class HomeFragment : Fragment() {
             MyApplication.db.collection("photos")
                 .whereGreaterThanOrEqualTo("date", selectedDate.toString())
                 .whereLessThan("date", selectedDate_add1)
-                .orderBy("date", Query.Direction.DESCENDING)
+                .orderBy("date", Query.Direction.ASCENDING)
                 .get()
                 .addOnSuccessListener { result ->
                     val itemList = mutableListOf<ItemPhotoModel>()
@@ -227,7 +231,6 @@ class HomeFragment : Fragment() {
 
 class EventDecorator() : DayViewDecorator {
 
-
     private var color = Color.GREEN
     private var dates: HashSet<CalendarDay> =HashSet() // 날짜를 저장할 HashSet 초기화
 
@@ -235,9 +238,6 @@ class EventDecorator() : DayViewDecorator {
         this.color = color
         this.dates = reviewDates
         Log.d("days", "dates list size : ${dates.size}")
-
-
-
     }
 
 

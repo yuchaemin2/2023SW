@@ -35,6 +35,15 @@ class MainActivity : AppCompatActivity() {
     val MY_PERMISSIONS_REQUEST_READ_EXT_STORAGE = 123
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            with(window) {
+                requestFeature(Window.FEATURE_CONTENT_TRANSITIONS)
+                // set an slide transition
+                enterTransition = Slide(Gravity.END)
+                exitTransition = Slide(Gravity.START)
+            }
+        }
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
