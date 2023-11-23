@@ -8,10 +8,8 @@ import android.os.Build
 import android.os.Bundle
 import android.transition.Slide
 import android.util.Log
-import android.view.Gravity
-import android.view.Menu
-import android.view.MenuItem
-import android.view.Window
+import android.view.*
+import android.widget.AdapterView
 import androidx.annotation.NonNull
 import androidx.appcompat.app.ActionBarDrawerToggle
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -114,16 +112,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_all, menu)
-
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-            R.id.menu_search ->
-                return true
+            R.id.menu_search -> {
+                intent = Intent(this, SearchActivity::class.java)
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
+            }
             R.id.menu_settings -> {
                 intent = Intent(this, DrawerActivity::class.java)
                 startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())

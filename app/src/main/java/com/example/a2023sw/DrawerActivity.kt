@@ -70,16 +70,16 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
         binding.mainDrawer.setNavigationItemSelectedListener(this)
 
-        binding.settingsNotification.setOnClickListener{
-            var bundle : Bundle = Bundle()
-            bundle.putString("notification", "알람프레그먼트")
-            val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-            val alarmfragment1: Fragment = AlarmFragment1()
-            alarmfragment1.arguments = bundle
-            transaction.replace(R.id.drawer, alarmfragment1)
-            transaction.addToBackStack(null)
-            transaction.commit()
-        }
+//        binding.settingsNotification.setOnClickListener{
+//            var bundle : Bundle = Bundle()
+//            bundle.putString("notification", "알람프레그먼트")
+//            val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+//            val alarmfragment1: Fragment = AlarmFragment1()
+//            alarmfragment1.arguments = bundle
+//            transaction.replace(R.id.drawer, alarmfragment1)
+//            transaction.addToBackStack(null)
+//            transaction.commit()
+//        }
 
         var toolbar = binding.toolbarBack
         setSupportActionBar(toolbar)

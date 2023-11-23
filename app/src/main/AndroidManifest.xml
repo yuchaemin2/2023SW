@@ -23,6 +23,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".SearchActivity"
+            android:exported="false"
+            android:theme="@style/Theme.NavigationDrawer"/>
+        <activity
             android:name=".LoadingDialog"
             android:exported="false" />
         <activity
