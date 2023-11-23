@@ -14,7 +14,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_margin="20dp"
+            android:orientation="horizontal">
 
             <!-- 수직 방향으로 배치되는 자식 뷰들 -->
             <TextView
@@ -23,31 +24,28 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:text="환영합니다 (닉네임)님" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="사용자의 Point : " />
-                <TextView
-                    android:id="@+id/userPoint"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="의 Point : " />
+            <TextView
+                android:id="@+id/userPoint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"/>
 
-            </LinearLayout>
 
         </LinearLayout>
 
-        <Button
+        <ImageView
             android:id="@+id/tutorialBtn"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_margin="20dp"
+            android:src="@drawable/baseline_icecream_black_48"
+            app:tint="#FF9AAC"
             android:layout_alignParentRight="true"/>
-
 
         <com.prolificinteractive.materialcalendarview.MaterialCalendarView
             android:id="@+id/calendarView"

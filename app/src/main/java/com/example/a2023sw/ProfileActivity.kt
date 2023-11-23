@@ -1,16 +1,21 @@
 package com.example.a2023sw
 
 import android.app.AlertDialog
+import android.app.ProgressDialog.show
 import android.content.ContentValues
 import android.content.DialogInterface
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.example.a2023sw.MyApplication.Companion.auth
 import com.example.a2023sw.databinding.ActivityProfileBinding
@@ -38,6 +43,7 @@ class ProfileActivity : AppCompatActivity() {
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setButtonVisibilityForPurchasedProfiles(auth.uid.toString())
         fetchPoint()
 
         CoroutineScope(Dispatchers.Main).launch {
@@ -57,8 +63,12 @@ class ProfileActivity : AppCompatActivity() {
                 .addOnSuccessListener {  documentSnapshot ->
                     if(documentSnapshot.exists()) {
                         val userNickname = documentSnapshot.getString("userNickname")
-                        binding.NicknameView.text = userNickname
-                        binding.nicknameText.hint = userNickname.toString()
+                        if(binding.NicknameView.text.trim().isNotEmpty()){
+                            binding.NicknameView.text = userNickname
+                            binding.nicknameText.hint = userNickname.toString()
+                        } else {
+                            Toast.makeText(this, "닉네임을 입력해주세요..", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
         }
@@ -96,7 +106,8 @@ class ProfileActivity : AppCompatActivity() {
                         userPoint = documentSnapshot.getLong("userPoint")!!
                         if (userPoint != null) { // 업로드 & 다이얼로그
                             binding.PointView.text = userPoint.toString()
-                            openDialog(userPoint!!)
+                            openDialogBuy(userPoint!!)
+                            openDialogHave()
 
                         } else {
                             Toast.makeText(this, "사용자의 포인트를 가져오는데 실패했습니다...", Toast.LENGTH_SHORT).show()
@@ -140,28 +151,69 @@ class ProfileActivity : AppCompatActivity() {
         R.drawable.level_12,
     )
 
-    fun openDialog(Point: Long) {
-        val btnLevels = arrayOf(
-            binding.level1,
-            binding.level2,
-            binding.level3,
-            binding.level4,
-            binding.level5,
-            binding.level6,
-            binding.level7,
-            binding.level8,
-            binding.level9,
-            binding.level10,
-            binding.level11,
-            binding.level12,
+    // 프로필 구입 시 ID 저장
+    fun savePurchasedProfileId(buttonId: Int) {
+        val userDocRef = MyApplication.db.collection("users").document(auth.uid.toString())
 
-        )
+        // 기존의 profileList를 가져오고 새로운 profileId를 추가한 후 업데이트
+        userDocRef.get().addOnSuccessListener { documentSnapshot ->
+            val profileList = documentSnapshot.get("profileList") as? ArrayList<Int> ?: ArrayList()
+            profileList.add(buttonId)
+            userDocRef.update("profileList", profileList)
+        }
+    }
+
+    fun setButtonVisibility(buttonId: Int) {
+        val button = findViewById<Button>(buttonId)
+        // val buttonHave = findViewById<Button>(buttonHaveId)
+
+        if (button != null) {
+            button.visibility = View.GONE
+//            buttonHave.visibility = View.VISIBLE
+        } else {
+            Log.e("TastyLog", "Button or ButtonHave is null")
+        }
+    }
+
+    // 앱 시작 시 구입한 프로필의 버튼 visibility 설정
+    fun setButtonVisibilityForPurchasedProfiles(uid:String) {
+        val userDocRef = MyApplication.db.collection("users").document(uid)
+
+        userDocRef.get().addOnSuccessListener { documentSnapshot ->
+            val profileList = documentSnapshot.get("profileList") as? ArrayList<Long>
+
+            Log.d("TastyLog", "Profile List: $profileList")
+
+            if (profileList != null) {
+                for (buttonId in profileList) {
+                    val intButtonId = buttonId.toInt()
+                    setButtonVisibility(intButtonId)
+                }
+            }
+        }
+    }
+
+    fun openDialogBuy(Point: Long) {
+        val btnLevels = arrayOf(
+            binding.level1BtnBuy,
+            binding.level2BtnBuy,
+            binding.level3BtnBuy,
+            binding.level4BtnBuy,
+            binding.level5BtnBuy,
+            binding.level6BtnBuy,
+            binding.level7BtnBuy,
+            binding.level8BtnBuy,
+            binding.level9BtnBuy,
+            binding.level10BtnBuy,
+            binding.level11BtnBuy,
+            binding.level12BtnBuy,
+
+            )
 
         // 모든 버튼에 리스너 설정
-        for (i in 0 until 11) {
+        for (i in 0 until 12) {
             btnLevels[i].setOnClickListener {
                 // 해당 버튼 클릭 이벤트 처리
-
                 AlertDialog.Builder(this).run {
                     setTitle(characters[i][1])
                     setMessage(characters[i][2]) // 여기 함수로 작성
@@ -169,22 +221,87 @@ class ProfileActivity : AppCompatActivity() {
                         val userDocRef = MyApplication.db.collection("users").document(auth.uid.toString())
                         MyApplication.db.collection("users").document("${auth.uid}")
                             .get()
-                            .addOnSuccessListener {  documentSnapshot ->
+                            .addOnSuccessListener { documentSnapshot ->
                                 if(documentSnapshot.exists()) {
                                     val currentPoint = documentSnapshot.getLong("userPoint")
                                     if (currentPoint != null) {
-                                        if(currentPoint >= 10){
-                                            upLoadProfileImg(characters[i][0]) // 이미지 파일 전달 해줘야함
-                                            binding.userProfile.setImageResource(imgResourceIds[i])
+                                        if(currentPoint >= 30){
                                             currentPoint?.let {
                                                 val updatedPoint = it - 30
                                                 updatePoint(userDocRef, updatedPoint)
+                                                // user db에 profile imageurl 전달 후 구입완료 처리
+                                                // 동적으로 버튼 ID 가져오기
+                                                val buttonId = resources.getIdentifier("level_${i+1}_btn_buy", "id", packageName)
+                                                val buttonHaveId = resources.getIdentifier("level_${i+1}_btn_have", "id", packageName)
+                                                Log.d("TastyLog", "${buttonId}_${buttonHaveId}")
+
+                                                // 해당 버튼과 이미 가지고 있는 버튼을 활성화 및 비활성화 처리
+                                                // level{i+1}BtnBuy 값을 주고, 비교 함수 만들기
+                                                val button = findViewById<Button>(buttonId)
+                                                val buttonHave = findViewById<Button>(buttonHaveId)
+
+                                                if (button != null && buttonHave != null) {
+                                                    savePurchasedProfileId(buttonId)
+                                                    setButtonVisibility(buttonId)
+                                                } else {
+                                                    Log.e("TastyLog", "Button or ButtonHave is null")
+                                                }
+
+                                                Toast.makeText(this@ProfileActivity, "구입이 완료되었습니다", Toast.LENGTH_SHORT).show()
                                             }
                                         } else{
                                             Toast.makeText(this@ProfileActivity, "포인트가 부족합니다! 기록을 더 작성해주세요.", Toast.LENGTH_SHORT).show()
                                         }
                                     }
                                 }
+                            }
+
+                    }
+                    setNegativeButton("닫기", alertHandler)
+                    show()
+                }
+            }
+        }
+    }
+
+
+    fun openDialogHave() {
+        val btnLevels = arrayOf(
+            binding.level1BtnHave,
+            binding.level2BtnHave,
+            binding.level3BtnHave,
+            binding.level4BtnHave,
+            binding.level5BtnHave,
+            binding.level6BtnHave,
+            binding.level7BtnHave,
+            binding.level8BtnHave,
+            binding.level9BtnHave,
+            binding.level10BtnHave,
+            binding.level11BtnHave,
+            binding.level12BtnHave,
+
+        )
+
+        // 모든 버튼에 리스너 설정
+        for (i in 0 until 12) {
+            btnLevels[i].setOnClickListener {
+                // 해당 버튼 클릭 이벤트 처리
+
+                AlertDialog.Builder(this).run {
+                    setTitle(characters[i][1])
+                    setMessage(characters[i][2]) // 여기 함수로 작성
+                    setPositiveButton("프로필 적용하기") { dialog, id ->
+                        val userDocRef = MyApplication.db.collection("users").document(auth.uid.toString())
+                        MyApplication.db.collection("users").document("${auth.uid}")
+                            .get()
+                            .addOnSuccessListener {  documentSnapshot ->
+                                if(documentSnapshot.exists()) {
+                                            upLoadProfileImg(characters[i][0]) // 이미지 파일 전달 해줘야함
+                                            binding.userProfile.setImageResource(imgResourceIds[i])
+                                                Toast.makeText(this@ProfileActivity, "적용 성공!", Toast.LENGTH_SHORT).show()
+                                        } else{
+                                            Toast.makeText(this@ProfileActivity, "적용 실패...", Toast.LENGTH_SHORT).show()
+                                        }
                             }
 
                     }

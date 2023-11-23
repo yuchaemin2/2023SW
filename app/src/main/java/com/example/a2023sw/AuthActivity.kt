@@ -168,8 +168,8 @@ class AuthActivity : AppCompatActivity() {
                 logoutBtn.visibility = View.GONE
                 goSignInBtn.visibility = View.GONE
                 googleLoginBtn.visibility = View.GONE
-                authEmailEditView.visibility = View.VISIBLE
-                authPasswordEditView.visibility = View.VISIBLE
+                email.visibility = View.VISIBLE
+                passwd.visibility = View.VISIBLE
                 signBtn.visibility = View.VISIBLE
                 loginBtn.visibility = View.GONE
                 leaveBtn.visibility = View.GONE
@@ -181,8 +181,8 @@ class AuthActivity : AppCompatActivity() {
                 leaveBtn.visibility= View.VISIBLE
                 goSignInBtn.visibility= View.GONE
                 googleLoginBtn.visibility= View.GONE
-                authEmailEditView.visibility= View.GONE
-                authPasswordEditView.visibility= View.GONE
+                email.visibility= View.GONE
+                passwd.visibility= View.GONE
                 signBtn.visibility= View.GONE
                 loginBtn.visibility= View.GONE
             }
@@ -193,8 +193,8 @@ class AuthActivity : AppCompatActivity() {
                 logoutBtn.visibility = View.GONE
                 goSignInBtn.visibility = View.VISIBLE
                 googleLoginBtn.visibility = View.VISIBLE
-                authEmailEditView.visibility = View.VISIBLE
-                authPasswordEditView.visibility = View.VISIBLE
+                email.visibility = View.VISIBLE
+                passwd.visibility = View.VISIBLE
                 signBtn.visibility = View.GONE
                 loginBtn.visibility = View.VISIBLE
                 leaveBtn.visibility = View.GONE

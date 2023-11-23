@@ -14,7 +14,7 @@
     <color name="bg_screen2">#FFAD03</color>
     <color name="bg_screen3">#FF3385</color>
     <color name="bg_screen4">#25C8E4</color>
-    <color name="image_dots">#25C8E4</color>
+    <color name="image_dots">#FF9AAC</color>
 
     <!-- 선택되지 않은 점(선택 되지 않은 페이지 점) -->
     <color name="dot_dark_screen1">#eeeeee</color>
@@ -23,10 +23,10 @@
     <color name="dot_dark_screen4">#eeeeee</color>
 
     <!-- 선택된 점(해당 페이지 일 때) -->
-    <color name="dot_light_screen1">#EF8B41</color>
-    <color name="dot_light_screen2">#EF8B41</color>
-    <color name="dot_light_screen3">#EF8B41</color>
-    <color name="dot_light_screen4">#EF8B41</color>
+    <color name="dot_light_screen1">#FF9AAC</color>
+    <color name="dot_light_screen2">#FF9AAC</color>
+    <color name="dot_light_screen3">#FF9AAC</color>
+    <color name="dot_light_screen4">#FF9AAC</color>
 
     <array name="array_dot_active">
         <item>@color/dot_light_screen1</item>

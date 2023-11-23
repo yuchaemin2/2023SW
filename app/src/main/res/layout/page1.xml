@@ -26,11 +26,12 @@
 
             <ImageView
                 android:id="@+id/union"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="50dp"
-                android:src="@drawable/union"/>
+                app:tint="#ccddee"
+                android:src="@drawable/baseline_icecream_black_48"/>
 
             <TextView
                 android:id="@+id/title"

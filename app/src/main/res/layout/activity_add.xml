@@ -43,7 +43,8 @@
                 android:id="@+id/imageArea"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/gallery" />
+                app:tint="#FCAB64"
+                android:src="@drawable/baseline_collections_black_48" />
 
             <TextView
                 android:id="@+id/countArea"

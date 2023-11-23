@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ProfileActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -92,6 +93,7 @@
                 android:layout_below="@id/relativelayout"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="30dp"
+                android:textColor="#aaa"
                 android:text="닉네임을 입력해주세요." />
 
             <RelativeLayout
@@ -127,102 +129,541 @@
                 android:layout_height="match_parent"
                 android:layout_centerHorizontal="true">
 
-                <LinearLayout
+                <GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:columnCount="4"
+                    android:layout_margin="20dp"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/level_1"
-                        android:layout_width="300dp"
-                        android:layout_height="500dp"
-                        android:layout_margin="30dp"
-                        android:src="@drawable/level_1"/>
+                    <LinearLayout
+                        android:id="@+id/level_1_layout"
+                        android:layout_width="80dp"
+                        android:layout_height="110dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/button_round"
+                        android:orientation="vertical">
 
-                    <ImageView
-                        android:id="@+id/level_2"
-                        android:layout_width="300dp"
-                        android:layout_height="500dp"
-                        android:layout_margin="30dp"
-                        android:src="@drawable/level_2"/>
+                        <ImageView
+                            android:id="@+id/level_1"
+                            android:layout_gravity="center"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/level_1"/>
 
-                    <ImageView
-                        android:id="@+id/level_3"
-                        android:layout_width="300dp"
-                        android:layout_height="500dp"
-                        android:layout_margin="30dp"
-                        android:src="@drawable/level_3"/>
+                        <Button
+                            android:id="@+id/level_1_btn_buy"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="10p"
+                            android:textAllCaps="false"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
 
-                    <ImageView
-                        android:id="@+id/level_4"
-                        android:layout_width="300dp"
-                        android:layout_height="500dp"
-                        android:layout_margin="30dp"
-                        android:src="@drawable/level_4" />
+                        <Button
+                            android:id="@+id/level_1_btn_have"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="V"
+                            android:textAllCaps="false"
+                            android:backgroundTint="#FFF09C"
+                            android:textColor="@color/black"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
 
-                    <ImageView
-                        android:id="@+id/level_5"
-                        android:layout_width="300dp"
-                        android:layout_height="500dp"
-                        android:layout_margin="30dp"
-                        android:src="@drawable/level_5" />
+                    </LinearLayout>
 
-                    <ImageView
-                        android:id="@+id/level_6"
-                        android:layout_width="300dp"
-                        android:layout_height="500dp"
-                        android:layout_margin="30dp"
-                        android:src="@drawable/level_6" />
+                    <LinearLayout
+                        android:id="@+id/level_2_layout"
+                        android:layout_width="80dp"
+                        android:layout_height="110dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/button_round"
+                        android:orientation="vertical">
 
-                    <ImageView
-                        android:id="@+id/level_7"
-                        android:layout_width="300dp"
-                        android:layout_height="500dp"
-                        android:layout_margin="30dp"
-                        android:src="@drawable/level_7" />
+                        <ImageView
+                            android:id="@+id/level_2"
+                            android:layout_gravity="center"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/level_2"/>
 
-                    <ImageView
-                        android:id="@+id/level_8"
-                        android:layout_width="300dp"
-                        android:layout_height="500dp"
-                        android:layout_margin="30dp"
-                        android:src="@drawable/level_8" />
+                        <Button
+                            android:id="@+id/level_2_btn_buy"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="10p"
+                            android:textAllCaps="false"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
 
-                    <ImageView
-                        android:id="@+id/level_9"
-                        android:layout_width="300dp"
-                        android:layout_height="500dp"
-                        android:layout_margin="30dp"
-                        android:src="@drawable/level_9" />
+                        <Button
+                            android:id="@+id/level_2_btn_have"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="V"
+                            android:textAllCaps="false"
+                            android:backgroundTint="#FFF09C"
+                            android:textColor="@color/black"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
 
-                    <ImageView
-                        android:id="@+id/level_10"
-                        android:layout_width="300dp"
-                        android:layout_height="500dp"
-                        android:layout_margin="30dp"
-                        android:src="@drawable/level_10" />
+                    </LinearLayout>
 
-                    <ImageView
-                        android:id="@+id/level_11"
-                        android:layout_width="300dp"
-                        android:layout_height="500dp"
-                        android:layout_margin="30dp"
-                        android:src="@drawable/level_11" />
+                    <LinearLayout
+                        android:id="@+id/level_13_layout"
+                        android:layout_width="80dp"
+                        android:layout_height="110dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/button_round"
+                        android:orientation="vertical">
 
-                    <ImageView
-                        android:id="@+id/level_12"
-                        android:layout_width="300dp"
-                        android:layout_height="500dp"
-                        android:layout_margin="30dp"
-                        android:src="@drawable/level_12" />
+                        <ImageView
+                            android:id="@+id/level_3"
+                            android:layout_gravity="center"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/level_3"/>
 
-                </LinearLayout>
+                        <Button
+                            android:id="@+id/level_3_btn_buy"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="10p"
+                            android:textAllCaps="false"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                        <Button
+                            android:id="@+id/level_3_btn_have"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="V"
+                            android:textAllCaps="false"
+                            android:backgroundTint="#FFF09C"
+                            android:textColor="@color/black"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/level_4_layout"
+                        android:layout_width="80dp"
+                        android:layout_height="110dp"
+                        android:background="@drawable/button_round"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/level_4"
+                            android:layout_gravity="center"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/level_4"/>
+
+                        <Button
+                            android:id="@+id/level_4_btn_buy"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="10p"
+                            android:textAllCaps="false"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                        <Button
+                            android:id="@+id/level_4_btn_have"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="V"
+                            android:textAllCaps="false"
+                            android:backgroundTint="#FFF09C"
+                            android:textColor="@color/black"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/level_5_layout"
+                        android:layout_width="80dp"
+                        android:layout_height="110dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/button_round"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/level_5"
+                            android:layout_gravity="center"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/level_5"/>
+
+                        <Button
+                            android:id="@+id/level_5_btn_buy"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="10p"
+                            android:textAllCaps="false"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                        <Button
+                            android:id="@+id/level_5_btn_have"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="V"
+                            android:textAllCaps="false"
+                            android:backgroundTint="#FFF09C"
+                            android:textColor="@color/black"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/level_6_layout"
+                        android:layout_width="80dp"
+                        android:layout_height="110dp"
+                        android:background="@drawable/button_round"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/level_6"
+                            android:layout_gravity="center"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/level_6"/>
+
+                        <Button
+                            android:id="@+id/level_6_btn_buy"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="10p"
+                            android:textAllCaps="false"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                        <Button
+                            android:id="@+id/level_6_btn_have"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="V"
+                            android:textAllCaps="false"
+                            android:backgroundTint="#FFF09C"
+                            android:textColor="@color/black"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/level_7_layout"
+                        android:layout_width="80dp"
+                        android:layout_height="110dp"
+                        android:background="@drawable/button_round"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/level_7"
+                            android:layout_gravity="center"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/level_7"/>
+
+                        <Button
+                            android:id="@+id/level_7_btn_buy"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="10p"
+                            android:textAllCaps="false"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                        <Button
+                            android:id="@+id/level_7_btn_have"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="V"
+                            android:textAllCaps="false"
+                            android:backgroundTint="#FFF09C"
+                            android:textColor="@color/black"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/level_8_layout"
+                        android:layout_width="80dp"
+                        android:layout_height="110dp"
+                        android:background="@drawable/button_round"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/level_8"
+                            android:layout_gravity="center"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/level_8"/>
+
+                        <Button
+                            android:id="@+id/level_8_btn_buy"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="10p"
+                            android:textAllCaps="false"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                        <Button
+                            android:id="@+id/level_8_btn_have"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="V"
+                            android:textAllCaps="false"
+                            android:backgroundTint="#FFF09C"
+                            android:textColor="@color/black"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/level_9_layout"
+                        android:layout_width="80dp"
+                        android:layout_height="110dp"
+                        android:background="@drawable/button_round"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/level_9"
+                            android:layout_gravity="center"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/level_9"/>
+
+                        <Button
+                            android:id="@+id/level_9_btn_buy"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="10p"
+                            android:textAllCaps="false"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                        <Button
+                            android:id="@+id/level_9_btn_have"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="V"
+                            android:textAllCaps="false"
+                            android:backgroundTint="#FFF09C"
+                            android:textColor="@color/black"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/level_10_layout"
+                        android:layout_width="80dp"
+                        android:layout_height="110dp"
+                        android:background="@drawable/button_round"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/level_10"
+                            android:layout_gravity="center"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/level_10"/>
+
+                        <Button
+                            android:id="@+id/level_10_btn_buy"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="10p"
+                            android:textAllCaps="false"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                        <Button
+                            android:id="@+id/level_10_btn_have"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="V"
+                            android:textAllCaps="false"
+                            android:backgroundTint="#FFF09C"
+                            android:textColor="@color/black"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/level_11_layout"
+                        android:layout_width="80dp"
+                        android:layout_height="110dp"
+                        android:background="@drawable/button_round"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/level_11"
+                            android:layout_gravity="center"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/level_11"/>
+
+                        <Button
+                            android:id="@+id/level_11_btn_buy"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="10p"
+                            android:textAllCaps="false"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                        <Button
+                            android:id="@+id/level_11_btn_have"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="V"
+                            android:textAllCaps="false"
+                            android:backgroundTint="#FFF09C"
+                            android:textColor="@color/black"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/level_12_layout"
+                        android:layout_width="80dp"
+                        android:layout_height="110dp"
+                        android:background="@drawable/button_round"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/level_12"
+                            android:layout_gravity="center"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/level_12"/>
+
+                        <Button
+                            android:id="@+id/level_12_btn_buy"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="10p"
+                            android:textAllCaps="false"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                        <Button
+                            android:id="@+id/level_12_btn_have"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="V"
+                            android:textAllCaps="false"
+                            android:backgroundTint="#FFF09C"
+                            android:textColor="@color/black"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                    </LinearLayout>
+
+                </GridLayout>
 
             </HorizontalScrollView>
 
+<!--            <Button-->
+<!--                android:id="@+id/save_nickname"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:layout_marginLeft="15dp"-->
+<!--                android:layout_marginRight="15dp"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:background="@drawable/button_round_color"-->
+<!--                android:backgroundTint="#FF9AAC"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:layout_marginBottom="40dp"-->
+<!--                android:text="저장" />-->
+
             <Button
                 android:id="@+id/save_nickname"
-                android:layout_below="@+id/profile_image"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="15dp"
@@ -232,6 +673,44 @@
                 android:textColor="@color/black"
                 android:layout_marginBottom="40dp"
                 android:text="저장" />
+
+
+            <!--            <RelativeLayout-->
+<!--                android:id="@+id/save_nickname"-->
+<!--                xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--                android:layout_width="343dp"-->
+<!--                android:layout_height="52dp"-->
+<!--                android:background="@drawable/button_round"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:layout_below="@+id/catchPhrase"-->
+<!--                android:layout_marginTop="25dp"-->
+<!--                android:visibility="gone">-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/emailpng"-->
+<!--                    android:layout_width="40dp"-->
+<!--                    android:layout_height="30dp"-->
+<!--                    android:src="@drawable/baseline_email_black_24"-->
+<!--                    app:tint="#ccc"-->
+<!--                    android:layout_centerVertical="true"-->
+<!--                    android:layout_marginLeft="10dp"-->
+<!--                    android:clickable="true"/>-->
+
+
+<!--                <EditText-->
+<!--                    android:id="@+id/authEmailEditView"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:hint="Email Address"-->
+<!--                    android:textColorHint="#dddddd"-->
+<!--                    android:inputType="textEmailAddress"-->
+<!--                    android:layout_toRightOf="@+id/emailpng"-->
+<!--                    android:layout_centerVertical="true"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:layout_marginLeft="10dp"-->
+<!--                    android:background="@null" />-->
+
+<!--            </RelativeLayout>-->
 
         </LinearLayout>
 
