@@ -132,7 +132,15 @@ class ProfileActivity : AppCompatActivity() {
         arrayOf("/profile/level_9.png", "감자튀김", "감자튀김은 케찹에 많이 먹지만... 개인적으로는 마요네즈가 좋다고 생각해."),
         arrayOf("/profile/level_10.png", "통닭", "따뜻한 통닭은 이 세상 무엇과도 비교할 수 없다."),
         arrayOf("/profile/level_11.png", "도넛", "도넛은 초콜릿 도넛이지!"),
-        arrayOf("/profile/level_12.png", "샌드위치", "베이컨, 상추, 토마토만 있다면 어디든 갈 수 있어.")
+        arrayOf("/profile/level_12.png", "샌드위치", "베이컨, 상추, 토마토만 있다면 어디든 갈 수 있어."),
+        arrayOf("/profile/level_13.png", "햄버거세트", "난 늘 세트로 먹는다. 햄버거에는 콜라가 필수거든."),
+        arrayOf("/profile/level_14.png", "케밥", "멕시코 본토에서 먹었던 케밥이 생각난다."),
+        arrayOf("/profile/level_15.png", "국수", "겨울에는 따뜻한 국물이 좋아."),
+        arrayOf("/profile/level_16.png", "생선초밥", "비오는 날에는 먹으면 안돼지만 맛있는걸."),
+        arrayOf("/profile/level_17.png", "브런치 세트", "서양식의 아침은 맛있지만 어딘가 허전하다."),
+        arrayOf("/profile/level_18.png", "스시롤", "캘리포니아 스시롤을 먹어봤나?"),
+        arrayOf("/profile/level_19.png", "바게트 샌드위치", "내 친구중 바게트를 싫어하는 녀석이 있지."),
+        arrayOf("/profile/level_20.png", "타코", "타코는 야채가 많아야 맛이다."),
     )
 
 
@@ -149,6 +157,14 @@ class ProfileActivity : AppCompatActivity() {
         R.drawable.level_10,
         R.drawable.level_11,
         R.drawable.level_12,
+        R.drawable.level_13,
+        R.drawable.level_14,
+        R.drawable.level_15,
+        R.drawable.level_16,
+        R.drawable.level_17,
+        R.drawable.level_18,
+        R.drawable.level_19,
+        R.drawable.level_20,
     )
 
     // 프로필 구입 시 ID 저장
@@ -164,12 +180,10 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     fun setButtonVisibility(buttonId: Int) {
-        val button = findViewById<Button>(buttonId)
-        // val buttonHave = findViewById<Button>(buttonHaveId)
+        val button = findViewById<View>(buttonId)
 
         if (button != null) {
             button.visibility = View.GONE
-//            buttonHave.visibility = View.VISIBLE
         } else {
             Log.e("TastyLog", "Button or ButtonHave is null")
         }
@@ -207,11 +221,18 @@ class ProfileActivity : AppCompatActivity() {
             binding.level10BtnBuy,
             binding.level11BtnBuy,
             binding.level12BtnBuy,
-
+            binding.level13BtnBuy,
+            binding.level14BtnBuy,
+            binding.level15BtnBuy,
+            binding.level16BtnBuy,
+            binding.level17BtnBuy,
+            binding.level18BtnBuy,
+            binding.level19BtnBuy,
+            binding.level20BtnBuy,
             )
 
         // 모든 버튼에 리스너 설정
-        for (i in 0 until 12) {
+        for (i in 0 until 20) {
             btnLevels[i].setOnClickListener {
                 // 해당 버튼 클릭 이벤트 처리
                 AlertDialog.Builder(this).run {
@@ -279,11 +300,18 @@ class ProfileActivity : AppCompatActivity() {
             binding.level10BtnHave,
             binding.level11BtnHave,
             binding.level12BtnHave,
-
+            binding.level13BtnHave,
+            binding.level14BtnHave,
+            binding.level15BtnHave,
+            binding.level16BtnHave,
+            binding.level17BtnHave,
+            binding.level18BtnHave,
+            binding.level19BtnHave,
+            binding.level20BtnHave,
         )
 
         // 모든 버튼에 리스너 설정
-        for (i in 0 until 12) {
+        for (i in 0 until 20) {
             btnLevels[i].setOnClickListener {
                 // 해당 버튼 클릭 이벤트 처리
 

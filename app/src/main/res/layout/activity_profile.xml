@@ -159,7 +159,7 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:text="10p"
+                            android:text="30p"
                             android:textAllCaps="false"
                             android:visibility="visible"
                             android:background="@drawable/button_round_color" />
@@ -202,7 +202,7 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:text="10p"
+                            android:text="30p"
                             android:textAllCaps="false"
                             android:visibility="visible"
                             android:background="@drawable/button_round_color" />
@@ -224,7 +224,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/level_13_layout"
+                        android:id="@+id/level_3_layout"
                         android:layout_width="80dp"
                         android:layout_height="110dp"
                         android:layout_marginRight="10dp"
@@ -245,7 +245,7 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:text="10p"
+                            android:text="30p"
                             android:textAllCaps="false"
                             android:visibility="visible"
                             android:background="@drawable/button_round_color" />
@@ -287,7 +287,7 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:text="10p"
+                            android:text="30p"
                             android:textAllCaps="false"
                             android:visibility="visible"
                             android:background="@drawable/button_round_color" />
@@ -330,7 +330,7 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:text="10p"
+                            android:text="30p"
                             android:textAllCaps="false"
                             android:visibility="visible"
                             android:background="@drawable/button_round_color" />
@@ -372,7 +372,7 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:text="10p"
+                            android:text="30p"
                             android:textAllCaps="false"
                             android:visibility="visible"
                             android:background="@drawable/button_round_color" />
@@ -414,7 +414,7 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:text="10p"
+                            android:text="30p"
                             android:textAllCaps="false"
                             android:visibility="visible"
                             android:background="@drawable/button_round_color" />
@@ -456,7 +456,7 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:text="10p"
+                            android:text="30p"
                             android:textAllCaps="false"
                             android:visibility="visible"
                             android:background="@drawable/button_round_color" />
@@ -481,6 +481,7 @@
                         android:id="@+id/level_9_layout"
                         android:layout_width="80dp"
                         android:layout_height="110dp"
+                        android:layout_marginBottom="8dp"
                         android:background="@drawable/button_round"
                         android:orientation="vertical">
 
@@ -498,7 +499,7 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:text="10p"
+                            android:text="30p"
                             android:textAllCaps="false"
                             android:visibility="visible"
                             android:background="@drawable/button_round_color" />
@@ -540,7 +541,7 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:text="10p"
+                            android:text="30p"
                             android:textAllCaps="false"
                             android:visibility="visible"
                             android:background="@drawable/button_round_color" />
@@ -582,7 +583,7 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:text="10p"
+                            android:text="30p"
                             android:textAllCaps="false"
                             android:visibility="visible"
                             android:background="@drawable/button_round_color" />
@@ -624,7 +625,7 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:text="10p"
+                            android:text="30p"
                             android:textAllCaps="false"
                             android:visibility="visible"
                             android:background="@drawable/button_round_color" />
@@ -645,22 +646,389 @@
 
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:id="@+id/level_13_layout"
+                        android:layout_width="80dp"
+                        android:layout_height="110dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/button_round"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/level_13"
+                            android:layout_gravity="center"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/level_13"/>
+
+                        <Button
+                            android:id="@+id/level_13_btn_buy"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="30p"
+                            android:textAllCaps="false"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                        <Button
+                            android:id="@+id/level_13_btn_have"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="V"
+                            android:textAllCaps="false"
+                            android:backgroundTint="#FFF09C"
+                            android:textColor="@color/black"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/level_14_layout"
+                        android:layout_width="80dp"
+                        android:layout_height="110dp"
+                        android:background="@drawable/button_round"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/level_14"
+                            android:layout_gravity="center"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/level_14"/>
+
+                        <Button
+                            android:id="@+id/level_14_btn_buy"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="30p"
+                            android:textAllCaps="false"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                        <Button
+                            android:id="@+id/level_14_btn_have"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="V"
+                            android:textAllCaps="false"
+                            android:backgroundTint="#FFF09C"
+                            android:textColor="@color/black"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/level_15_layout"
+                        android:layout_width="80dp"
+                        android:layout_height="110dp"
+                        android:background="@drawable/button_round"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/level_15"
+                            android:layout_gravity="center"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/level_15"/>
+
+                        <Button
+                            android:id="@+id/level_15_btn_buy"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="30p"
+                            android:textAllCaps="false"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                        <Button
+                            android:id="@+id/level_15_btn_have"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="V"
+                            android:textAllCaps="false"
+                            android:backgroundTint="#FFF09C"
+                            android:textColor="@color/black"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/level_16_layout"
+                        android:layout_width="80dp"
+                        android:layout_height="110dp"
+                        android:background="@drawable/button_round"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/level_16"
+                            android:layout_gravity="center"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/level_16"/>
+
+                        <Button
+                            android:id="@+id/level_16_btn_buy"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="30p"
+                            android:textAllCaps="false"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                        <Button
+                            android:id="@+id/level_16_btn_have"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="V"
+                            android:textAllCaps="false"
+                            android:backgroundTint="#FFF09C"
+                            android:textColor="@color/black"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/level_17_layout"
+                        android:layout_width="80dp"
+                        android:layout_height="110dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/button_round"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/level_17"
+                            android:layout_gravity="center"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/level_17"/>
+
+                        <Button
+                            android:id="@+id/level_17_btn_buy"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="30p"
+                            android:textAllCaps="false"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                        <Button
+                            android:id="@+id/level_17_btn_have"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="V"
+                            android:textAllCaps="false"
+                            android:backgroundTint="#FFF09C"
+                            android:textColor="@color/black"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/level_18_layout"
+                        android:layout_width="80dp"
+                        android:layout_height="110dp"
+                        android:background="@drawable/button_round"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/level_18"
+                            android:layout_gravity="center"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/level_18"/>
+
+                        <Button
+                            android:id="@+id/level_18_btn_buy"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="30p"
+                            android:textAllCaps="false"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                        <Button
+                            android:id="@+id/level_18_btn_have"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="V"
+                            android:textAllCaps="false"
+                            android:backgroundTint="#FFF09C"
+                            android:textColor="@color/black"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/level_19_layout"
+                        android:layout_width="80dp"
+                        android:layout_height="110dp"
+                        android:background="@drawable/button_round"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/level_19"
+                            android:layout_gravity="center"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/level_19"/>
+
+                        <Button
+                            android:id="@+id/level_19_btn_buy"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="30p"
+                            android:textAllCaps="false"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                        <Button
+                            android:id="@+id/level_19_btn_have"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="V"
+                            android:textAllCaps="false"
+                            android:backgroundTint="#FFF09C"
+                            android:textColor="@color/black"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/level_20_layout"
+                        android:layout_width="80dp"
+                        android:layout_height="110dp"
+                        android:background="@drawable/button_round"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/level_20"
+                            android:layout_gravity="center"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/level_20"/>
+
+                        <Button
+                            android:id="@+id/level_20_btn_buy"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="30p"
+                            android:textAllCaps="false"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                        <Button
+                            android:id="@+id/level_20_btn_have"
+                            android:layout_width="75dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="V"
+                            android:textAllCaps="false"
+                            android:backgroundTint="#FFF09C"
+                            android:textColor="@color/black"
+                            android:visibility="visible"
+                            android:background="@drawable/button_round_color" />
+
+                    </LinearLayout>
+
+<!--                    <LinearLayout-->
+<!--                        android:id="@+id/level_21_layout"-->
+<!--                        android:layout_width="80dp"-->
+<!--                        android:layout_height="110dp"-->
+<!--                        android:background="@drawable/button_round"-->
+<!--                        android:orientation="vertical">-->
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/level_21"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:layout_width="70dp"-->
+<!--                            android:layout_height="70dp"-->
+<!--                            android:src="@drawable/level_21"/>-->
+
+<!--                        <Button-->
+<!--                            android:id="@+id/level_21_btn_buy"-->
+<!--                            android:layout_width="75dp"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:layout_marginTop="5dp"-->
+<!--                            android:layout_marginBottom="5dp"-->
+<!--                            android:text="30p"-->
+<!--                            android:textAllCaps="false"-->
+<!--                            android:visibility="visible"-->
+<!--                            android:background="@drawable/button_round_color" />-->
+
+<!--                        <Button-->
+<!--                            android:id="@+id/level_21_btn_have"-->
+<!--                            android:layout_width="75dp"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:layout_marginTop="5dp"-->
+<!--                            android:layout_marginBottom="5dp"-->
+<!--                            android:text="V"-->
+<!--                            android:textAllCaps="false"-->
+<!--                            android:backgroundTint="#FFF09C"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:visibility="visible"-->
+<!--                            android:background="@drawable/button_round_color" />-->
+
+<!--                    </LinearLayout>-->
+
                 </GridLayout>
 
             </HorizontalScrollView>
-
-<!--            <Button-->
-<!--                android:id="@+id/save_nickname"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:layout_marginLeft="15dp"-->
-<!--                android:layout_marginRight="15dp"-->
-<!--                android:layout_marginTop="5dp"-->
-<!--                android:background="@drawable/button_round_color"-->
-<!--                android:backgroundTint="#FF9AAC"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:layout_marginBottom="40dp"-->
-<!--                android:text="저장" />-->
 
             <Button
                 android:id="@+id/save_nickname"
@@ -674,43 +1042,6 @@
                 android:layout_marginBottom="40dp"
                 android:text="저장" />
 
-
-            <!--            <RelativeLayout-->
-<!--                android:id="@+id/save_nickname"-->
-<!--                xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--                android:layout_width="343dp"-->
-<!--                android:layout_height="52dp"-->
-<!--                android:background="@drawable/button_round"-->
-<!--                android:layout_centerHorizontal="true"-->
-<!--                android:layout_below="@+id/catchPhrase"-->
-<!--                android:layout_marginTop="25dp"-->
-<!--                android:visibility="gone">-->
-
-<!--                <ImageView-->
-<!--                    android:id="@+id/emailpng"-->
-<!--                    android:layout_width="40dp"-->
-<!--                    android:layout_height="30dp"-->
-<!--                    android:src="@drawable/baseline_email_black_24"-->
-<!--                    app:tint="#ccc"-->
-<!--                    android:layout_centerVertical="true"-->
-<!--                    android:layout_marginLeft="10dp"-->
-<!--                    android:clickable="true"/>-->
-
-
-<!--                <EditText-->
-<!--                    android:id="@+id/authEmailEditView"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:hint="Email Address"-->
-<!--                    android:textColorHint="#dddddd"-->
-<!--                    android:inputType="textEmailAddress"-->
-<!--                    android:layout_toRightOf="@+id/emailpng"-->
-<!--                    android:layout_centerVertical="true"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:layout_marginLeft="10dp"-->
-<!--                    android:background="@null" />-->
-
-<!--            </RelativeLayout>-->
 
         </LinearLayout>
 
