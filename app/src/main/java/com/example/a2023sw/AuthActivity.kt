@@ -13,6 +13,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
 
 class AuthActivity : AppCompatActivity() {
     lateinit var binding: ActivityAuthBinding
@@ -97,8 +98,43 @@ class AuthActivity : AppCompatActivity() {
             //로그아웃...........
             MyApplication.auth.signOut()
             MyApplication.email = null
-//            changeVisibility("logout")
-            finish()
+            changeVisibility("logout")
+//            finish()
+        }
+
+        binding.leaveBtn.setOnClickListener {
+            val userId = MyApplication.auth.currentUser?.uid
+
+            // Check if the user is authenticated
+            if (userId != null) {
+                // Get a reference to the Firestore collection
+                val usersCollection = MyApplication.db.collection("users")
+
+                // Get a reference to the document using the user ID
+                val userDocument = usersCollection.document(userId)
+
+                // Delete the document
+                userDocument.delete()
+                    .addOnSuccessListener {
+                        // If deletion is successful, delete the Firebase Authentication user
+                        MyApplication.auth.currentUser?.delete()
+                            ?.addOnSuccessListener {
+                                changeVisibility("logout")
+                                Toast.makeText(this, "회원탈퇴 성공", Toast.LENGTH_SHORT).show()
+                            }
+                            ?.addOnFailureListener { e ->
+                                // Handle the failure to delete the Firebase Authentication user
+                                Toast.makeText(this, "Firebase Authentication 사용자 삭제 실패: ${e.message}", Toast.LENGTH_SHORT).show()
+                            }
+                    }
+                    .addOnFailureListener { e ->
+                        // Handle the failure to delete the Firestore document
+                        Toast.makeText(this, "Firestore 문서 삭제 실패: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
+            } else {
+                // Handle the case where the user is not authenticated
+                Toast.makeText(this, "사용자가 인증되지 않았습니다.", Toast.LENGTH_SHORT).show()
+            }
         }
 
 //        binding.UnsubscribingBtn.setOnClickListener {

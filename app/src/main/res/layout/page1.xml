@@ -9,10 +9,10 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="465dp"
+        android:layout_height="265dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="500dp"
         android:background="@drawable/custom_bs">
 
         <RelativeLayout
@@ -29,9 +29,8 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="50dp"
-                app:tint="#ccddee"
-                android:src="@drawable/baseline_icecream_black_48"/>
+                android:layout_marginTop="20dp"
+                android:src="@drawable/level_3"/>
 
             <TextView
                 android:id="@+id/title"
@@ -43,18 +42,18 @@
                 android:layout_below="@+id/union"
                 android:textSize="23dp"
                 android:textColor="@color/black"
-                android:layout_marginTop="50dp"/>
+                android:layout_marginTop="30dp"/>
 
-            <TextView
-                android:id="@+id/content"
-                android:layout_width="311dp"
-                android:layout_height="96dp"
-                android:layout_marginTop="16dp"
-                android:textAlignment="center"
-                android:text="page1"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/title"
-                android:textColor="@color/black" />
+<!--            <TextView-->
+<!--                android:id="@+id/content"-->
+<!--                android:layout_width="311dp"-->
+<!--                android:layout_height="96dp"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:textAlignment="center"-->
+<!--                android:text="page1"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:layout_below="@+id/title"-->
+<!--                android:textColor="@color/black" />-->
 
 
         </RelativeLayout>

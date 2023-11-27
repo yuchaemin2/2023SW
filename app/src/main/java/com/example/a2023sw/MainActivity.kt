@@ -26,7 +26,7 @@ import com.example.a2023sw.MyApplication.Companion.auth
 import com.example.a2023sw.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -70,6 +70,8 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.mainDrawer.setNavigationItemSelectedListener(this)
+
         // Check if the permission is not granted
 //        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)
 //            != PackageManager.PERMISSION_GRANTED
@@ -110,6 +112,29 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, AuthActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId){
+            R.id.item_nickname -> {
+                val intent = Intent(this, ProfileActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.item_logout -> {
+                val intent = Intent(this, AuthActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.item_service_out -> {
+                val intent = Intent(this, AuthActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.item_favorite -> {
+                val intent = Intent(this, BookmarkActivity::class.java)
+                startActivity(intent)
+            }
+        }
+//        binding.drawer.closeDrawer(GravityCompat.START)
+        return false
     }
 
 

@@ -1,5 +1,6 @@
 package com.example.a2023sw
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.ProgressDialog.show
 import android.content.ContentValues
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.example.a2023sw.MyApplication.Companion.auth
 import com.example.a2023sw.databinding.ActivityProfileBinding
+import com.example.a2023sw.ui.home.HomeFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -37,6 +39,7 @@ class ProfileActivity : AppCompatActivity() {
 
     private var userPoint : Long = 0
 
+    @SuppressLint("CommitTransaction")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -185,7 +188,7 @@ class ProfileActivity : AppCompatActivity() {
         if (button != null) {
             button.visibility = View.GONE
         } else {
-            Log.e("TastyLog", "Button or ButtonHave is null")
+            Log.e("TastyLog", "Button or ButtonHave is null_함수")
         }
     }
 

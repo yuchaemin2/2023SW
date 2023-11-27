@@ -1,9 +1,9 @@
 package com.example.a2023sw
 
-import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -14,25 +14,28 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.Composable
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.Target
 import com.example.a2023sw.MyApplication.Companion.auth
 import com.example.a2023sw.databinding.ActivityAddBinding
-import com.example.a2023sw.ui.home.HomeFragment
-import com.google.android.gms.tasks.Task
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.storage.UploadTask
 import com.google.firebase.storage.storage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
+
 
 class AddActivity : AppCompatActivity() {
     lateinit var binding: ActivityAddBinding
@@ -54,7 +57,7 @@ class AddActivity : AppCompatActivity() {
         binding = ActivityAddBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 1)
+        ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), RECEIVER_EXPORTED)
 
         CoroutineScope(Dispatchers.Main).launch {
             imageUrl =  MyApplication.getImageUrl(MyApplication.email).toString()
@@ -83,9 +86,8 @@ class AddActivity : AppCompatActivity() {
                 ).show();
                 return@setOnClickListener
             }
-            val intent = Intent(Intent.ACTION_PICK)
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
             intent.type = "image/*"
-//            intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
             registerForActivityResult.launch(intent)
         }
@@ -104,6 +106,31 @@ class AddActivity : AppCompatActivity() {
         supportActionBar?.setHomeAsUpIndicator(R.drawable.back)
         supportActionBar?.setDisplayShowTitleEnabled(false)//타이틀 없애기
     }
+
+//    var pickMediaLauncher: ActivityResultLauncher<PickVisualMediaRequest> =
+//        registerForActivityResult(ActivityResultContracts.PickVisualMedia(), object : ActivityResultCallback<Uri?>() {
+//            override fun onActivityResult(result: Uri?) {
+//                Glide.with(this@AddActivity).load(result).into<Target<Drawable>>(iv)
+//            }
+//        })
+
+    @Composable
+    fun MultipleMediaPicker() {
+
+        val pickMultipleMedia = rememberLauncherForActivityResult(
+            contract = ActivityResultContracts.PickMultipleVisualMedia(5)
+        ) { uris ->
+            if (uris.isNotEmpty()) {
+                uris.forEach { uri ->
+                    Log.d("JWH", "Selected URI: $uri")
+                }
+                uriList = uris as ArrayList<Uri>
+            } else {
+                Log.d("JWH", "No media selected")
+            }
+        }
+    }
+
 
     private val registerForActivityResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -217,6 +244,7 @@ class AddActivity : AppCompatActivity() {
             "memo" to binding.memoText.text.toString(),
             "nickName" to binding.nickname.text.toString(),
             "count" to uriList.count().toString(),
+            "bookmark" to "0",
             "uriList" to uriStringList
         )
 

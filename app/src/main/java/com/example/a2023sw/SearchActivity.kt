@@ -7,10 +7,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
+import android.view.inputmethod.EditorInfo
+import android.widget.*
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -70,15 +68,25 @@ class SearchActivity : AppCompatActivity() {
                 }
             }
         }
-
         // 검색 옵션에 따라 검색
-        binding.searchBtn.setOnClickListener {
-            (binding.recyclerview.adapter as RecyclerViewAdapter).search(binding.searchWord.text.toString(), searchOption)
+        binding.searchWord.setOnEditorActionListener { view, actionId, event ->
+            when(actionId){
+                EditorInfo.IME_ACTION_SEARCH -> {
+                    (binding.recyclerview.adapter as RecyclerViewAdapter).search(binding.searchWord.text.toString(), searchOption)
+                    Toast.makeText(applicationContext, "검색", Toast.LENGTH_LONG).show()
+                    true
+                }
+                else -> false
+            }
         }
 
         binding.btnAdd.setOnClickListener{
             intent = Intent(this, AddActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.back.setOnClickListener {
+            onBackPressed()
         }
     }
 
@@ -161,42 +169,6 @@ class SearchActivity : AppCompatActivity() {
                     this@SearchActivity.startActivity(this)
                 }
             }
-//            enroll.setOnClickListener {
-//                val userId = "${MyApplication.auth.currentUser!!.uid}"
-//
-//                val userRef = MyApplication.db.collection("users").document(userId)
-//                userRef.collection("bookmarked_records")
-//                    .whereEqualTo("date", data.date)
-//                    .get()
-//                    .addOnSuccessListener { querySnapshot ->
-//                        if (querySnapshot.isEmpty) {
-//                            // 해당 강의가 아직 담겨있지 않을 때만 담기 기능 실행
-//                            val enrollmentData = mapOf(
-//                                "name" to data.name,
-//                                "major" to data.major,
-//                                "professor" to data.professor,
-//                                "sub_code" to data.sub_code,
-//                                "term" to data.term
-//                            )
-//
-//                            userRef.collection("bookmarked_records")
-//                                .add(enrollmentData)
-//                                .addOnSuccessListener {
-//                                    Log.d("SearchActivity", "북마크 추가 성공")
-//                                }
-//                                .addOnFailureListener { e ->
-//                                    Log.d("SearchActivity", "북마크 추가 실패")
-//                                }
-//                        } else {
-//                            // 이미 해당 강의가 담겨있는 경우
-//                            Log.d("SearchActivity", "이미 해당 기록을 담았습니다.")
-//                        }
-//                    }
-//                    .addOnFailureListener { e ->
-//                        Log.d("SearchActivity", "기록 조회 실패")
-//                    }
-//            }
-
         }
 
         // 리사이클러뷰의 아이템 총 개수 반환

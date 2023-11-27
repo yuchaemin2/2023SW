@@ -29,7 +29,6 @@ import kotlinx.coroutines.launch
 class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var binding: ActivityDrawerBinding
-    lateinit var binding2: NavigationHeaderBinding
 
     private lateinit var imageView: ImageView
     private var imageUrl : String? = null
@@ -62,11 +61,11 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 }
         }
 
-        binding.btnNext.setOnClickListener {
-            if (!binding.drawer.isDrawerOpen(Gravity.RIGHT)){
-                binding.drawer.openDrawer(Gravity.RIGHT)
-            }
-        }
+//        binding.btnNext.setOnClickListener {
+//            if (!binding.drawer.isDrawerOpen(Gravity.RIGHT)){
+//                binding.drawer.openDrawer(Gravity.RIGHT)
+//            }
+//        }
 
         binding.mainDrawer.setNavigationItemSelectedListener(this)
 
@@ -115,6 +114,10 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             }
             R.id.item_service_out -> {
                 val intent = Intent(this, AuthActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.item_favorite -> {
+                val intent = Intent(this, BookmarkActivity::class.java)
                 startActivity(intent)
             }
         }

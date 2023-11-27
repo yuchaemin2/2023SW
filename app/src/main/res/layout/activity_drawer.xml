@@ -68,14 +68,6 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"/>
 
-                    <ImageView
-                        android:id="@+id/btn_next"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/next"/>
-
                 </RelativeLayout>
 
             </LinearLayout>

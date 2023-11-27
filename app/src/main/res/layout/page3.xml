@@ -9,10 +9,10 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="465dp"
+        android:layout_height="265dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="500dp"
         android:background="@drawable/custom_bs">
 
         <RelativeLayout
@@ -28,33 +28,32 @@
                 android:id="@+id/union"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                app:tint="#ccffff"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="50dp"
-                android:src="@drawable/baseline_icecream_black_48"/>
+                android:layout_marginTop="0dp"
+                android:src="@drawable/level_7"/>
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="311dp"
-                android:layout_height="30dp"
+                android:layout_height="65dp"
                 android:textAlignment="center"
-                android:text="하루를 음식으로 기록해보세요."
+                android:text="모은 포인트로 프로필을\n커스터마이징 해보세요."
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/union"
                 android:textSize="23dp"
                 android:textColor="@color/black"
-                android:layout_marginTop="50dp"/>
+                android:layout_marginTop="20dp"/>
 
-            <TextView
-                android:id="@+id/content"
-                android:layout_width="311dp"
-                android:layout_height="96dp"
-                android:layout_marginTop="16dp"
-                android:textAlignment="center"
-                android:text="page3"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/title"
-                android:textColor="@color/black" />
+<!--            <TextView-->
+<!--                android:id="@+id/content"-->
+<!--                android:layout_width="311dp"-->
+<!--                android:layout_height="96dp"-->
+<!--                android:layout_marginTop="11dp"-->
+<!--                android:textAlignment="center"-->
+<!--                android:text="page1"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:layout_below="@+id/title"-->
+<!--                android:textColor="@color/black" />-->
 
 
         </RelativeLayout>
