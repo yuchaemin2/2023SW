@@ -1,32 +1,41 @@
 package com.example.a2023sw
 
 import android.content.Intent
-import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.MediaStore
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.Composable
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.Target
 import com.example.a2023sw.MyApplication.Companion.auth
 import com.example.a2023sw.databinding.ActivityAddBinding
 import com.google.firebase.Firebase
-import com.google.firebase.storage.StorageReference
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.storage.storage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
+
 
 class AddActivity : AppCompatActivity() {
     lateinit var binding: ActivityAddBinding
@@ -41,12 +50,14 @@ class AddActivity : AppCompatActivity() {
 
     lateinit var docId: String
 
+    private lateinit var customProgressDialog: LoadingDialog
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 1)
+        ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), RECEIVER_EXPORTED)
 
         CoroutineScope(Dispatchers.Main).launch {
             imageUrl =  MyApplication.getImageUrl(MyApplication.email).toString()
@@ -75,11 +86,17 @@ class AddActivity : AppCompatActivity() {
                 ).show();
                 return@setOnClickListener
             }
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+            intent.type = "image/*"
             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
             registerForActivityResult.launch(intent)
         }
+
+        // 로딩창 객체 생성
+        customProgressDialog = LoadingDialog(this)
+        // 로딩창을 투명하게
+        customProgressDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        customProgressDialog.setCancelable(false)
 
 //        binding.nickname.text =
 
@@ -89,6 +106,31 @@ class AddActivity : AppCompatActivity() {
         supportActionBar?.setHomeAsUpIndicator(R.drawable.back)
         supportActionBar?.setDisplayShowTitleEnabled(false)//타이틀 없애기
     }
+
+//    var pickMediaLauncher: ActivityResultLauncher<PickVisualMediaRequest> =
+//        registerForActivityResult(ActivityResultContracts.PickVisualMedia(), object : ActivityResultCallback<Uri?>() {
+//            override fun onActivityResult(result: Uri?) {
+//                Glide.with(this@AddActivity).load(result).into<Target<Drawable>>(iv)
+//            }
+//        })
+
+    @Composable
+    fun MultipleMediaPicker() {
+
+        val pickMultipleMedia = rememberLauncherForActivityResult(
+            contract = ActivityResultContracts.PickMultipleVisualMedia(5)
+        ) { uris ->
+            if (uris.isNotEmpty()) {
+                uris.forEach { uri ->
+                    Log.d("JWH", "Selected URI: $uri")
+                }
+                uriList = uris as ArrayList<Uri>
+            } else {
+                Log.d("JWH", "No media selected")
+            }
+        }
+    }
+
 
     private val registerForActivityResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -160,7 +202,14 @@ class AddActivity : AppCompatActivity() {
             R.id.save_record ->{
                 if(binding.writeText.text.isNotEmpty()){
                     saveStore()
-                    finish()
+                    customProgressDialog.show()
+
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        if (!isFinishing) {  // Check if the activity is still running
+                            customProgressDialog.dismiss() // 다이얼로그 종료
+                            finish()
+                        }
+                    }, 3000) // 2000ms(2초) 후에 종료하도록 설정 (원하는 시간으로 변경 가능)
                 } else {
                     Toast.makeText(this, "내용을 입력해주세요..", Toast.LENGTH_SHORT).show()
                 }
@@ -180,6 +229,7 @@ class AddActivity : AppCompatActivity() {
     }
 
     fun saveStore() {
+        val uriStringList = uriList.map { it.toString() }
         val data = mapOf(
             "email" to MyApplication.email,
             "title" to binding.writeText.text.toString(),
@@ -193,6 +243,9 @@ class AddActivity : AppCompatActivity() {
             "where" to binding.whereText.text.toString(),
             "memo" to binding.memoText.text.toString(),
             "nickName" to binding.nickname.text.toString(),
+            "count" to uriList.count().toString(),
+            "bookmark" to "0",
+            "uriList" to uriStringList
         )
 
         MyApplication.db.collection("photos")
@@ -202,55 +255,46 @@ class AddActivity : AppCompatActivity() {
                 docId = it.id
                 for (i in 0 until uriList.count()) {
                     imageUpload(uriList.get(i), i)
+                    Log.d("TastyLog", "${uriList.get(i)}")
                     try {
                         Thread.sleep(500)
                     } catch (e: InterruptedException) {
                         e.printStackTrace()
                     }
                 }
+
 //                uploadImage(it.id)
+                val userDocRef = MyApplication.db.collection("users").document(auth.uid.toString())
+                MyApplication.db.collection("users").document("${auth.uid}")
+                    .get()
+                    .addOnSuccessListener {  documentSnapshot ->
+                        if(documentSnapshot.exists()) {
+                            val currentPoint = documentSnapshot.getLong("userPoint")
+                            currentPoint?.let {
+                                val updatedPoint = it + 10
+                                updatePoint(userDocRef, updatedPoint)
+                            }
+                        }
+                    }
             }
             .addOnFailureListener {
                 Log.d("TastyLog", "data firestore save error")
             }
     }
 
-//    fun uploadImage(docId:String){
-//        val storage = MyApplication.storage
-//        val storageRef = storage.reference
-//
-//        val imageRef = storageRef.child("images/${docId}.jpg")
-//        val file = Uri.fromFile(File(filePath))
-//        imageRef.putFile(file)
-//            .addOnSuccessListener {
-//                Log.d("TastyLog", "imageRef.putFile(file) - addOnSuccessListener")
-//                finish()
-//            }
-//            .addOnFailureListener {
-//                Log.d("TastyLog", "imageRef.putFile(file) - addOnFailureListener")
-//            }
-//    }
+    fun updatePoint(docRef: DocumentReference, updatedValue: Long) {
+        val updates = hashMapOf<String, Any>(
+            "userPoint" to updatedValue
+        )
 
-//    private fun uploadImage(docId: String){
-//        //add............................
-//        val storage = MyApplication.storage
-//        // 스토리지를 참조하는 StorageReference 생성
-//        val storageRef: StorageReference = storage.reference
-//        // 실제 업로드하는 파일을 참조하는 StorageReference 생성
-//        val imgRef: StorageReference = storageRef.child("images/${docId}.jpg")
-//        // 파일 업로드
-//        var fileUri = Uri.fromFile(File(filePath))
-//        Log.d("kkang", "File URI: $fileUri")
-//
-//        imgRef.putFile(fileUri)
-//            .addOnFailureListener { exception ->
-//                Toast.makeText(this, "이미지 업로드 실패...", Toast.LENGTH_SHORT).show()
-//                Log.d("kkang", "Failure uploading file: $exception")
-//            }
-//            .addOnSuccessListener {
-//                Toast.makeText(this, "데이터가 저장되었습니다.", Toast.LENGTH_SHORT).show()
-//                finish()
-//            }
-//    }
+        docRef.update(updates)
+            .addOnSuccessListener {
+                // 업데이트 성공 처리
+            }
+            .addOnFailureListener { e ->
+                // 업데이트 실패 처리
+            }
+
+    }
 
 }

@@ -2,22 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/menu_bookmark"
-        android:title="Bookmark"
-        android:icon="@drawable/heartempty"
-        app:showAsAction="always"/>
-
 <!--    <item-->
-<!--        android:id="@+id/menu_update"-->
+<!--        android:id="@+id/menu_bookmark"-->
 <!--        android:title="Bookmark"-->
 <!--        android:icon="@drawable/heartempty"-->
 <!--        app:showAsAction="always"/>-->
 
 <!--    <item-->
+<!--        android:id="@+id/menu_update"-->
+<!--        android:title="수정"-->
+<!--        app:showAsAction="always"/>-->
+
+<!--    <item-->
 <!--        android:id="@+id/menu_delete"-->
-<!--        android:title="Bookmark"-->
-<!--        android:icon="@drawable/heartempty"-->
+<!--        android:title="삭제"-->
 <!--        app:showAsAction="always"/>-->
 
 </menu>

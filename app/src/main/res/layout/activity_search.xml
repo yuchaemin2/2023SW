@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/back2"/>
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/black"
+            android:entries="@array/option" />
+
+        <EditText
+            android:id="@+id/searchWord"
+            android:layout_width="match_parent"
+            android:paddingLeft="15dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/button_round_45dp"
+            android:layout_weight="1"
+            android:textColorHint="#aaa"
+            android:hint="검색어를 입력해주세요."
+            android:textColor="@color/black"
+            android:inputType="text"
+            android:imeOptions="actionSearch"/>
+
+<!--        <Button-->
+<!--            android:id="@+id/searchBtn"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_marginRight="5dp"-->
+<!--            android:text="검색" />-->
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:textColor="@color/black"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="검색 결과가 없습니다."
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"/>
+
+        <Button
+            android:id="@+id/btn_add"
+            android:visibility="gone"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_below="@+id/textView"
+            android:layout_marginTop="10dp"
+            android:textSize="15dp"
+            android:textColor="@color/white"
+            app:iconTint="@color/white"
+            android:background="@drawable/button_round_color"
+            android:text="+ 기록 작성하기"
+            app:icon="@android:drawable/ic_input_add" />
+
+    </RelativeLayout>
+
+</LinearLayout>

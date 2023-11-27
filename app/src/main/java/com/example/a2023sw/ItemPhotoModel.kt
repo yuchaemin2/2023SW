@@ -1,5 +1,7 @@
 package com.example.a2023sw
 
+import android.net.Uri
+
 data class ItemPhotoModel(
     var docId: String? = null,
     var email: String? = null,
@@ -15,4 +17,6 @@ data class ItemPhotoModel(
     var memo: String? = null,
     var nickName: String? = null,
     var bookmark: String? = "0",
+    var count: String? = null,
+    var uriList: ArrayList<String> = ArrayList(),
 )

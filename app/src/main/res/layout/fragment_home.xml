@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,13 +11,50 @@
         android:layout_height="match_parent"
         android:layout_margin="10dp">
 
+<!--        <com.google.android.material.appbar.MaterialToolbar-->
+<!--            android:id="@+id/toolbar"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:backgroundTint="@color/white"-->
+<!--            app:menu="@menu/menu_all">-->
 
-        <Button
+<!--        </com.google.android.material.appbar.MaterialToolbar>-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:orientation="horizontal">
+
+            <!-- 수직 방향으로 배치되는 자식 뷰들 -->
+            <TextView
+                android:id="@+id/HomeEmailView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="환영합니다 (닉네임)님" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="의 Point : " />
+            <TextView
+                android:id="@+id/userPoint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"/>
+
+
+        </LinearLayout>
+
+        <ImageView
             android:id="@+id/tutorialBtn"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_margin="20dp"
+            android:src="@drawable/baseline_icecream_black_48"
+            app:tint="#FF9AAC"
             android:layout_alignParentRight="true"/>
-
 
         <com.prolificinteractive.materialcalendarview.MaterialCalendarView
             android:id="@+id/calendarView"
@@ -27,7 +64,205 @@
             app:mcv_showOtherDates="all"
             app:mcv_selectionColor="#FFB5A7"/>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/feedRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/calendarView">
+
+<!--            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent">-->
+
+<!--                <com.github.mikephil.charting.charts.LineChart-->
+<!--                    android:id="@+id/linechart_sensor10"-->
+<!--                    android:layout_below="@+id/txt_nextChart"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_centerInParent="true"-->
+<!--                    android:layout_height="240dp">-->
+
+<!--                </com.github.mikephil.charting.charts.LineChart>-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/txt_nextChart"-->
+<!--                    android:padding="6dp"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="32dp"-->
+<!--                    android:layout_alignParentEnd="true"-->
+<!--                    android:text="다음"/>-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/txt_backChart"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="32dp"-->
+<!--                    android:text="이전"-->
+<!--                    android:padding="6dp"-->
+<!--                    android:layout_toLeftOf="@+id/txt_nextChart"/>-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/txt_chart_date"-->
+<!--                    android:text="년/월/일"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:layout_centerHorizontal="true"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content" />-->
+
+<!--            </RelativeLayout>-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="100dp"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    app:cardBackgroundColor="#FFFFFFFF"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="5dp" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="24dp"
+                            android:textStyle="bold"
+                            android:text="음식별 비율"
+                            />
+
+                        <com.github.mikephil.charting.charts.PieChart
+                            android:id="@+id/chart1"
+                            android:layout_width="250dp"
+                            android:layout_height="250dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_gravity="center_horizontal"/>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    app:cardBackgroundColor="#FFFFFFFF"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="5dp" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="24dp"
+                            android:textStyle="bold"
+                            android:text="시간대별 비율"
+                            />
+
+                        <com.github.mikephil.charting.charts.BarChart
+                            android:id="@+id/chart2"
+                            android:layout_width="250dp"
+                            android:layout_height="250dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_gravity="center_horizontal"/>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    app:cardBackgroundColor="#FFFFFFFF"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="5dp" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="24dp"
+                            android:textStyle="bold"
+                            android:text="식사량 변화"                            />
+
+                        <com.github.mikephil.charting.charts.LineChart
+                            android:id="@+id/chart3"
+                            android:layout_width="250dp"
+                            android:layout_height="250dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_gravity="center_horizontal"/>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/calendarView"-->
+<!--            android:orientation="vertical">-->
+
+<!--            <org.eazegraph.lib.charts.PieChart-->
+<!--                android:id="@+id/tab1_chart_1"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="256dp"-->
+<!--                android:padding="10dp"-->
+<!--                app:egBarWidth="20dp"-->
+<!--                app:egEnableScroll="true"-->
+<!--                app:egFixedBarWidth="true"-->
+<!--                app:egLegendHeight="40dp"-->
+<!--                app:egShowDecimal="true" />-->
+
+<!--            <org.eazegraph.lib.charts.BarChart-->
+<!--                android:id="@+id/tab1_chart_2"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="256dp"-->
+<!--                android:padding="10dp"-->
+<!--                app:egBarWidth="20dp"-->
+<!--                app:egEnableScroll="true"-->
+<!--                app:egFixedBarWidth="true"-->
+<!--                app:egLegendHeight="40dp"-->
+<!--                app:egShowDecimal="true" />-->
+
+<!--        </LinearLayout>-->
 
     </RelativeLayout>
 
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

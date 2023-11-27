@@ -13,6 +13,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
 
 class AuthActivity : AppCompatActivity() {
     lateinit var binding: ActivityAuthBinding
@@ -77,6 +78,7 @@ class AuthActivity : AppCompatActivity() {
                             Toast.makeText(baseContext, "로그인 성공..", Toast.LENGTH_LONG).show()
                             // changeVisibility("login")
                             finish()
+                            MyApplication.userCheck()
                         }
                         else{
                             Toast.makeText(baseContext, "이메일 인증 실패..", Toast.LENGTH_LONG).show()
@@ -96,8 +98,43 @@ class AuthActivity : AppCompatActivity() {
             //로그아웃...........
             MyApplication.auth.signOut()
             MyApplication.email = null
-//            changeVisibility("logout")
-            finish()
+            changeVisibility("logout")
+//            finish()
+        }
+
+        binding.leaveBtn.setOnClickListener {
+            val userId = MyApplication.auth.currentUser?.uid
+
+            // Check if the user is authenticated
+            if (userId != null) {
+                // Get a reference to the Firestore collection
+                val usersCollection = MyApplication.db.collection("users")
+
+                // Get a reference to the document using the user ID
+                val userDocument = usersCollection.document(userId)
+
+                // Delete the document
+                userDocument.delete()
+                    .addOnSuccessListener {
+                        // If deletion is successful, delete the Firebase Authentication user
+                        MyApplication.auth.currentUser?.delete()
+                            ?.addOnSuccessListener {
+                                changeVisibility("logout")
+                                Toast.makeText(this, "회원탈퇴 성공", Toast.LENGTH_SHORT).show()
+                            }
+                            ?.addOnFailureListener { e ->
+                                // Handle the failure to delete the Firebase Authentication user
+                                Toast.makeText(this, "Firebase Authentication 사용자 삭제 실패: ${e.message}", Toast.LENGTH_SHORT).show()
+                            }
+                    }
+                    .addOnFailureListener { e ->
+                        // Handle the failure to delete the Firestore document
+                        Toast.makeText(this, "Firestore 문서 삭제 실패: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
+            } else {
+                // Handle the case where the user is not authenticated
+                Toast.makeText(this, "사용자가 인증되지 않았습니다.", Toast.LENGTH_SHORT).show()
+            }
         }
 
 //        binding.UnsubscribingBtn.setOnClickListener {
@@ -161,46 +198,17 @@ class AuthActivity : AppCompatActivity() {
         }
     }
 
-    fun updateEmail(docRef: DocumentReference, updatedValue: String) {
-        val updates = hashMapOf<String, Any>(
-            "userEmail" to updatedValue
-        )
-
-        docRef.update(updates)
-            .addOnSuccessListener {
-                // 업데이트 성공 처리
-            }
-            .addOnFailureListener { e ->
-                // 업데이트 실패 처리
-            }
-
-    }
-    fun updateProfile(docRef: DocumentReference, updatedValue: String) {
-        val updates = hashMapOf<String, Any>(
-            "imageUrl" to updatedValue
-        )
-
-        docRef.update(updates)
-            .addOnSuccessListener {
-                // 업데이트 성공 처리
-            }
-            .addOnFailureListener { e ->
-                // 업데이트 실패 처리
-            }
-
-    }
-
     fun changeVisibility(mode: String){
         if(mode.equals("signin")){
             binding.run {
                 logoutBtn.visibility = View.GONE
                 goSignInBtn.visibility = View.GONE
                 googleLoginBtn.visibility = View.GONE
-                authEmailEditView.visibility = View.VISIBLE
-                authPasswordEditView.visibility = View.VISIBLE
+                email.visibility = View.VISIBLE
+                passwd.visibility = View.VISIBLE
                 signBtn.visibility = View.VISIBLE
                 loginBtn.visibility = View.GONE
-//                orBox.visibility = View.GONE
+                leaveBtn.visibility = View.GONE
             }
         }else if(mode.equals("login")){
             binding.run {
@@ -209,8 +217,8 @@ class AuthActivity : AppCompatActivity() {
                 leaveBtn.visibility= View.VISIBLE
                 goSignInBtn.visibility= View.GONE
                 googleLoginBtn.visibility= View.GONE
-                authEmailEditView.visibility= View.GONE
-                authPasswordEditView.visibility= View.GONE
+                email.visibility= View.GONE
+                passwd.visibility= View.GONE
                 signBtn.visibility= View.GONE
                 loginBtn.visibility= View.GONE
             }
@@ -221,11 +229,11 @@ class AuthActivity : AppCompatActivity() {
                 logoutBtn.visibility = View.GONE
                 goSignInBtn.visibility = View.VISIBLE
                 googleLoginBtn.visibility = View.VISIBLE
-                authEmailEditView.visibility = View.VISIBLE
-                authPasswordEditView.visibility = View.VISIBLE
+                email.visibility = View.VISIBLE
+                passwd.visibility = View.VISIBLE
                 signBtn.visibility = View.GONE
                 loginBtn.visibility = View.VISIBLE
-//                orBox.visibility = View.VISIBLE
+                leaveBtn.visibility = View.GONE
             }
         }
     }

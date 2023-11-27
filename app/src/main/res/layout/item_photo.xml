@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="110dp"
-    android:layout_height="110dp">
+    android:backgroundTint="@color/white"
+    android:layout_width="130dp"
+    android:layout_height="130dp">
 
     <ImageView
         android:id="@+id/itemFoodImageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:background="#eee"
         android:layout_margin="5dp" />
 

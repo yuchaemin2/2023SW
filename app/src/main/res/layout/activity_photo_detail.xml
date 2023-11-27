@@ -14,170 +14,163 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/title_date"
+            android:id="@+id/menu_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:textSize="15dp"
             android:textColor="@color/black"
-            android:text="날짜"
-            android:textSize="18dp"
-            android:layout_gravity="center"/>
+            android:text="삭제"
+            android:layout_gravity="right"/>
+        <TextView
+            android:id="@+id/menu_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:textSize="15dp"
+            android:textColor="@color/black"
+            android:text="수정"
+            android:layout_gravity="right"/>
+        <TextView
+            android:id="@+id/menu_bookmark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:textSize="15dp"
+            android:textColor="@color/black"
+            android:text="저장"
+            android:layout_gravity="right"/>
 
     </androidx.appcompat.widget.Toolbar>
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:id="@+id/main_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#eee"
         android:layout_below="@+id/toolbar_back">
-        
+
         <RelativeLayout
             android:id="@+id/relativelayout"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <!--            <androidx.recyclerview.widget.RecyclerView-->
-<!--                android:id="@+id/feedRecyclerView"-->
-<!--                android:layout_width="350dp"-->
-<!--                android:layout_height="550dp"-->
-<!--                android:layout_centerHorizontal="true"-->
-<!--                android:layout_marginStart="30dp"-->
-<!--                android:layout_marginTop="30dp"-->
-<!--                android:layout_marginEnd="30dp"-->
-<!--                android:layout_marginBottom="30dp"-->
-<!--                tools:listitem="@layout/item_food_detail"-->
-<!--                tools:itemCount="1"/>-->
-
-<!--            <ImageView-->
-<!--                android:id="@+id/photo_detail"-->
-<!--                android:layout_width="350dp"-->
-<!--                android:layout_height="550dp"-->
-<!--                android:layout_centerHorizontal="true"-->
-<!--                android:layout_marginStart="30dp"-->
-<!--                android:layout_marginTop="30dp"-->
-<!--                android:layout_marginEnd="30dp"-->
-<!--                android:layout_marginBottom="30dp"-->
-<!--                android:background="@drawable/round_button" />-->
+            <TextView
+                android:id="@+id/title_text"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:text="타이틀"
+                android:textColor="@color/black"
+                android:textSize="30dp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview"
                 android:layout_width="350dp"
-                android:layout_height="550dp"
+                android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+                android:layout_below="@+id/title_text"
                 tools:listitem="@layout/item_food_detail"
                 tools:itemCount="3"
                 android:layout_marginStart="5dp" />
 
-            <RelativeLayout
-                android:id="@+id/title"
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="343dp"
-                android:layout_height="52dp"
-                android:background="@drawable/button_round"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/recyclerview"
-                android:layout_marginTop="25dp">
+            <LinearLayout
+                android:id="@+id/layoutDots"
+                android:layout_below="@id/recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/png1"
-                    android:layout_width="40dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/people"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:clickable="true"/>
+            </LinearLayout>
 
-                <TextView
-                    android:id="@+id/title_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/png1"
-                    android:layout_marginLeft="15dp"
-                    android:textColor="@color/black"
-                    android:text="타이틀"
-                    android:contextClickable="true"/>
+            <HorizontalScrollView
+                android:id="@+id/info"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/layoutDots">
 
-            </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-            <RelativeLayout
-                android:id="@+id/with_people"
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="343dp"
-                android:layout_height="52dp"
-                android:background="@drawable/button_round"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/title"
-                android:layout_marginTop="15dp">
+                    <TextView
+                        android:id="@+id/with_people_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:padding="12dp"
+                        android:layout_marginLeft="15dp"
+                        android:textColor="@color/black"
+                        android:textAlignment="center"
+                        android:text="함께 먹은 사람"
+                        android:background="@drawable/button_round_45dp"/>
 
-                <ImageView
-                    android:id="@+id/png"
-                    android:layout_width="40dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/people"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:clickable="true"/>
+                    <TextView
+                        android:id="@+id/where_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:padding="12dp"
+                        android:textAlignment="center"
+                        android:background="@drawable/button_round_45dp"
+                        android:layout_marginLeft="15dp"
+                        android:textColor="@color/black"
+                        android:text="식사 장소" />
 
-                <TextView
-                    android:id="@+id/with_people_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/png"
-                    android:layout_marginLeft="15dp"
-                    android:textColor="@color/black"
-                    android:text="함께 먹은 사람"
-                    android:contextClickable="true"/>
+                    <TextView
+                        android:id="@+id/food_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:padding="12dp"
+                        android:textAlignment="center"
+                        android:background="@drawable/button_round_45dp"
+                        android:layout_marginLeft="15dp"
+                        android:textColor="@color/black"
+                        android:text="음식" />
 
+                    <TextView
+                        android:id="@+id/food_time_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:padding="12dp"
+                        android:textAlignment="center"
+                        android:background="@drawable/button_round_45dp"
+                        android:layout_marginLeft="15dp"
+                        android:textColor="@color/black"
+                        android:text="시간대" />
 
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:padding="12dp"
+                        android:textAlignment="center"
+                        android:background="@drawable/button_round_45dp"
+                        android:layout_marginLeft="15dp"
+                        android:textColor="@color/black"
+                        android:text="날짜" />
 
-            <RelativeLayout
-                android:id="@+id/where"
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="343dp"
-                android:layout_height="52dp"
-                android:background="@drawable/button_round"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/with_people"
-                android:layout_marginTop="15dp">
+                </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/png2"
-                    android:layout_width="40dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/pin"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:clickable="true"/>
-
-                <TextView
-                    android:id="@+id/where_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/png2"
-                    android:layout_marginLeft="15dp"
-                    android:textColor="@color/black"
-                    android:text="식사 장소"
-                    android:contextClickable="true"/>
-
-
-            </RelativeLayout>
+            </HorizontalScrollView>
 
             <RelativeLayout
                 android:id="@+id/memo"
                 xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="343dp"
-                android:layout_height="52dp"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/button_round"
+                android:layout_below="@+id/info"
+                android:layout_marginTop="30dp"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@+id/where"
-                android:layout_marginTop="15dp">
+                android:layout_marginBottom="36dp">
 
                 <ImageView
-                    android:id="@+id/png3"
+                    android:id="@+id/png5"
                     android:layout_width="40dp"
                     android:layout_height="30dp"
                     android:src="@drawable/memo"
@@ -187,55 +180,20 @@
 
                 <TextView
                     android:id="@+id/memo_text"
+                    android:padding="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/png3"
+                    android:layout_toRightOf="@+id/png5"
                     android:layout_marginLeft="15dp"
                     android:textColor="@color/black"
                     android:text="메모"
                     android:contextClickable="true"/>
 
-
             </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/food_time"
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="343dp"
-                android:layout_height="52dp"
-                android:background="@drawable/button_round"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/memo"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="36dp">
-
-                <ImageView
-                    android:id="@+id/png4"
-                    android:layout_width="40dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/memo"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:clickable="true"/>
-
-                <TextView
-                    android:id="@+id/food_time_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/png4"
-                    android:layout_marginLeft="15dp"
-                    android:textColor="@color/black"
-                    android:text="시간대"
-                    android:contextClickable="true"/>
-
-
-            </RelativeLayout>
-            
         </RelativeLayout>
-        
-    </androidx.core.widget.NestedScrollView>
 
+    </ScrollView>
 
 </RelativeLayout>

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">2023sw</string>
-    <string name="title_add">Add</string>
-    <string name="title_home">Home</string>
+    <string name="title_add">기록</string>
+    <string name="title_home">홈</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_mypage">보관함</string>

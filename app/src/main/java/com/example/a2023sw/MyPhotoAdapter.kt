@@ -58,6 +58,7 @@ class MyPhotoAdapter(val context: Context, val itemList: MutableList<ItemPhotoMo
                 bundle.putString("foodImage", data.foodImage)
                 bundle.putString("memo", data.memo)
                 bundle.putString("nickName", data.nickName)
+                bundle.putStringArrayList("uriList", data.uriList)
 
                 Intent(context, PhotoDetailActivity::class.java).apply {
                     putExtras(bundle)
@@ -71,7 +72,7 @@ class MyPhotoAdapter(val context: Context, val itemList: MutableList<ItemPhotoMo
                 if (task.isSuccessful) {
                     Glide.with(context)
                         .load(task.result)
-                        .apply(RequestOptions().override(120, 120).centerCrop())
+                        .apply(RequestOptions().override(140, 140).centerCrop())
                         .into(holder.binding.itemFoodImageView)
                 }
 

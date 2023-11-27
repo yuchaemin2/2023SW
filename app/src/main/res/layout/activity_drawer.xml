@@ -68,14 +68,6 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"/>
 
-                    <ImageView
-                        android:id="@+id/btn_next"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/next"/>
-
                 </RelativeLayout>
 
             </LinearLayout>
@@ -260,7 +252,7 @@
         android:id="@+id/main_drawer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FCB0C6"
+        android:background="#F8F4E7"
         android:text="Drawer Layout!!!!"
         android:fitsSystemWindows="true"
         android:gravity="center"

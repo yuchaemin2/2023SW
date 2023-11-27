@@ -8,25 +8,26 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="630dp"
+        android:layout_height="730dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="103dp"
+        android:layout_marginTop="70dp"
         android:background="@drawable/custom_bs" >
 
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="183.98dp"
-            android:layout_height="74.2dp"
+            android:layout_width="200dp"
+            android:layout_height="90dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
-            android:src="@drawable/logo" />
+            android:layout_marginTop="30dp"
+            android:src="@drawable/tastylog2" />
         <TextView
             android:id="@+id/catchPhrase"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/logo"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
             android:textColor="@color/black"
             android:text="언제나 펼쳐볼 수 있게, Tasty.log" />
 
@@ -80,35 +81,79 @@
 
 <!--        </RelativeLayout>-->
 
-        <EditText
-            android:id="@+id/authEmailEditView"
+        <RelativeLayout
+            android:id="@+id/email"
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="343dp"
             android:layout_height="52dp"
             android:background="@drawable/button_round"
-            android:hint="Email Address"
-            android:textColorHint="#dddddd"
-            android:inputType="textEmailAddress"
+            android:layout_centerHorizontal="true"
             android:layout_below="@+id/catchPhrase"
-            android:layout_marginTop="40dp"
-            android:layout_centerHorizontal="true"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:visibility="gone" />
+            android:layout_marginTop="25dp"
+            android:visibility="gone">
 
-        <EditText
-            android:id="@+id/authPasswordEditView"
+            <ImageView
+                android:id="@+id/emailpng"
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:src="@drawable/baseline_email_black_24"
+                app:tint="#ccc"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:clickable="true"/>
+
+
+            <EditText
+                android:id="@+id/authEmailEditView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Email Address"
+                android:textColorHint="#dddddd"
+                android:inputType="textEmailAddress"
+                android:layout_toRightOf="@+id/emailpng"
+                android:layout_centerVertical="true"
+                android:textColor="@color/black"
+                android:layout_marginLeft="10dp"
+                android:background="@null" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/passwd"
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="343dp"
             android:layout_height="52dp"
             android:background="@drawable/button_round"
-            android:layout_marginTop="15dp"
-            android:hint="Password - over 6 word"
-            android:textColorHint="#dddddd"
-            android:inputType="textPassword"
-            android:layout_below="@+id/authEmailEditView"
             android:layout_centerHorizontal="true"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:visibility="gone" />
+            android:layout_below="@+id/email"
+            android:layout_marginTop="15dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/passwdpng"
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:src="@drawable/baseline_lock_black_24"
+                app:tint="#ccc"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:clickable="true"/>
+
+
+            <EditText
+                android:id="@+id/authPasswordEditView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Password"
+                android:textColorHint="#dddddd"
+                android:inputType="textPassword"
+                android:layout_toRightOf="@+id/passwdpng"
+                android:layout_centerVertical="true"
+                android:textColor="@color/black"
+                android:layout_marginLeft="10dp"
+                android:background="@null" />
+
+        </RelativeLayout>
 
         <Button
             android:id="@+id/signBtn"
@@ -116,7 +161,7 @@
             android:layout_height="52dp"
             android:background="@drawable/button_round_color"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/authPasswordEditView"
+            android:layout_below="@+id/passwd"
             android:layout_marginTop="15dp"
             android:contextClickable="true"
             android:textAllCaps="false"
@@ -130,7 +175,7 @@
             android:layout_height="52dp"
             android:background="@drawable/button_round_color"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/authPasswordEditView"
+            android:layout_below="@+id/passwd"
             android:layout_marginTop="15dp"
             android:contextClickable="true"
             android:textAllCaps="false"
@@ -263,7 +308,7 @@
             android:text="By continuing, you agree to our \nTerms of Service · Privacy Policy · Content Policy"
             android:layout_centerHorizontal="true"
             android:textAlignment="center"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="10dp"
             android:textColor="@color/black"
             android:textSize="12dp"
             />

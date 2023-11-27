@@ -1,9 +1,12 @@
 package com.example.a2023sw
 
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.Paint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.BackgroundColorSpan
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
@@ -16,7 +19,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.bumptech.glide.Glide
 import com.example.a2023sw.databinding.ActivityDrawerBinding
-import com.example.a2023sw.databinding.ActivityMainBinding
 import com.example.a2023sw.databinding.NavigationHeaderBinding
 import com.example.a2023sw.ui.mypage.AlarmFragment1
 import com.google.android.material.navigation.NavigationView
@@ -26,8 +28,7 @@ import kotlinx.coroutines.launch
 
 class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    private lateinit var binding:ActivityDrawerBinding
-    lateinit var binding2: NavigationHeaderBinding
+    private lateinit var binding: ActivityDrawerBinding
 
     private lateinit var imageView: ImageView
     private var imageUrl : String? = null
@@ -37,9 +38,6 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
         binding = ActivityDrawerBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-//        binding2 = NavigationHeaderBinding.inflate(layoutInflater)
-//        setContentView(binding2.userProfile)
 
         CoroutineScope(Dispatchers.Main).launch {
             imageUrl =  MyApplication.getImageUrl(MyApplication.email).toString()
@@ -51,42 +49,36 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             }
         }
 
-//        CoroutineScope(Dispatchers.Main).launch {
-//            if( imageUrl != null){
-//                Glide.with(this@DrawerActivity)
-//                    .load(imageUrl)
-//                    .into(binding2.userProfile)
+        if(MyApplication.checkAuth()){
+            val userDocRef = MyApplication.db.collection("users").document(MyApplication.auth.uid.toString())
+            MyApplication.db.collection("users").document("${MyApplication.auth.uid}")
+                .get()
+                .addOnSuccessListener {  documentSnapshot ->
+                    if(documentSnapshot.exists()) {
+                        val userNickname = documentSnapshot.getString("userNickname")
+                        binding.CertifyEmailView.text = userNickname.toString()
+                    }
+                }
+        }
+
+//        binding.btnNext.setOnClickListener {
+//            if (!binding.drawer.isDrawerOpen(Gravity.RIGHT)){
+//                binding.drawer.openDrawer(Gravity.RIGHT)
 //            }
 //        }
 
-        binding.CertifyEmailView.text = MyApplication.email
-
-        binding.btnNext.setOnClickListener {
-            if (!binding.drawer.isDrawerOpen(Gravity.RIGHT)){
-                binding.drawer.openDrawer(Gravity.RIGHT)
-            }
-        }
-
         binding.mainDrawer.setNavigationItemSelectedListener(this)
 
-//        binding.logout.paintFlags = Paint.UNDERLINE_TEXT_FLAG
-//
-//        binding.logout.setOnClickListener {
-////            auth.signOut()
-//            val intent = Intent(this, AuthActivity::class.java)
-//            startActivity(intent)
+//        binding.settingsNotification.setOnClickListener{
+//            var bundle : Bundle = Bundle()
+//            bundle.putString("notification", "알람프레그먼트")
+//            val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+//            val alarmfragment1: Fragment = AlarmFragment1()
+//            alarmfragment1.arguments = bundle
+//            transaction.replace(R.id.drawer, alarmfragment1)
+//            transaction.addToBackStack(null)
+//            transaction.commit()
 //        }
-
-        binding.settingsNotification.setOnClickListener{
-            var bundle : Bundle = Bundle()
-            bundle.putString("notification", "알람프레그먼트")
-            val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-            val alarmfragment1: Fragment = AlarmFragment1()
-            alarmfragment1.arguments = bundle
-            transaction.replace(R.id.drawer, alarmfragment1)
-            transaction.addToBackStack(null)
-            transaction.commit()
-        }
 
         var toolbar = binding.toolbarBack
         setSupportActionBar(toolbar)
@@ -122,6 +114,10 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             }
             R.id.item_service_out -> {
                 val intent = Intent(this, AuthActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.item_favorite -> {
+                val intent = Intent(this, BookmarkActivity::class.java)
                 startActivity(intent)
             }
         }

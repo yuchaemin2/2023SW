@@ -6,13 +6,12 @@
         android:id="@+id/menu_search"
         android:title="Search"
         android:icon="@android:drawable/ic_menu_search"
-        app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="always"/>
 
     <item
         android:id="@+id/menu_settings"
         android:title="Drawer"
-        android:icon="@drawable/lines"
+        android:icon="@drawable/baseline_menu_24"
         app:showAsAction="always"/>
 
 </menu>
