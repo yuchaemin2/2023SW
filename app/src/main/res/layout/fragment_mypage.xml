@@ -84,7 +84,6 @@
                     tools:itemCount="3"
                     tools:listitem="@layout/item_photo" />
 
-
                 <TextView
                     android:id="@+id/textView"
                     android:visibility="gone"
@@ -97,7 +96,6 @@
             </RelativeLayout>
 
         </LinearLayout>
-
 
     </ScrollView>
 

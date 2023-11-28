@@ -86,11 +86,16 @@ class MypageFragment : Fragment() {
         super.onStart()
         if(MyApplication.checkAuth()){
             MyApplication.db.collection("photos")
-                .orderBy("image_date", Query.Direction.DESCENDING)
+                .orderBy("date", Query.Direction.DESCENDING)
                 .get()
                 .addOnSuccessListener { result ->
                     val itemList = mutableListOf<ItemPhotoModel>()
                     for(document in result){
+                        if(result.size() <= 0){
+                            binding.textView.visibility = View.VISIBLE
+                        } else {
+                            binding.textView.visibility = View.GONE
+                        }
                         val item = document.toObject(ItemPhotoModel::class.java)
                         if(MyApplication.email.equals(item.email)){
                             val uriStringList: ArrayList<String> = item.uriList as ArrayList<String>

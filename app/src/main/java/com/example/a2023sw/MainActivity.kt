@@ -132,6 +132,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val intent = Intent(this, BookmarkActivity::class.java)
                 startActivity(intent)
             }
+            R.id.item_static -> {
+                val intent = Intent(this, StaticActivity::class.java)
+                startActivity(intent)
+            }
         }
 //        binding.drawer.closeDrawer(GravityCompat.START)
         return false
