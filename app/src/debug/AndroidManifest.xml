@@ -2,7 +2,7 @@
 
     <application>
         <activity
-            android:name="com.example.a2023sw.UpdateActivity"
+            android:name="com.example.a2023sw.view.activity.UpdateActivity"
             android:exported="false"
 
             />

@@ -105,4 +105,5 @@ dependencies {
     implementation("io.coil-kt:coil-gif:2.3.0")
 
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation 'com.github.kizitonwose:CalendarView:1.0.4'
 }

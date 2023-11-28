@@ -25,57 +25,60 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".StaticActivity"
-            android:exported="false"
-            android:theme="@style/NoActionBar"/>
+            android:name=".MainActivity2"
+            android:exported="false" />
         <activity
-            android:name=".UpdateActivity"
+            android:name=".view.activity.StaticActivity"
+            android:exported="false"
+            android:theme="@style/NoActionBar" />
+        <activity
+            android:name=".view.activity.UpdateActivity"
             android:exported="false"
             android:theme="@style/AddTheme" />
         <activity
-            android:name=".BookmarkActivity"
+            android:name=".view.activity.BookmarkActivity"
             android:exported="false"
             android:theme="@style/Theme.NavigationDrawer" />
         <activity
-            android:name=".SearchActivity"
+            android:name=".view.activity.SearchActivity"
             android:exported="false"
             android:theme="@style/AddTheme" />
         <activity
-            android:name=".LoadingDialog"
+            android:name=".view.dialog.LoadingDialog"
             android:exported="false" />
         <activity
-            android:name=".ProfileStoreActivity"
+            android:name=".view.activity.ProfileStoreActivity"
             android:exported="false"
             android:theme="@style/AddTheme" />
         <activity
-            android:name=".ProfileActivity"
+            android:name=".view.activity.ProfileActivity"
             android:exported="false"
             android:theme="@style/AddTheme" />
         <activity
-            android:name=".PhotoDetailActivity"
+            android:name=".view.activity.PhotoDetailActivity"
             android:exported="true"
             android:theme="@style/AddTheme" />
         <activity
-            android:name=".DrawerActivity"
+            android:name=".view.activity.DrawerActivity"
             android:exported="false"
             android:theme="@style/Theme.NavigationDrawer" />
         <activity
-            android:name=".TutorialActivity"
+            android:name=".view.activity.TutorialActivity"
             android:exported="false"
             android:theme="@style/SplashTheme" />
         <activity
-            android:name=".AddActivity"
+            android:name=".view.activity.AddActivity"
             android:exported="true"
             android:theme="@style/AddTheme" />
         <activity
-            android:name=".AuthActivity"
+            android:name=".view.activity.AuthActivity"
             android:exported="false"
             android:theme="@style/AddTheme" />
         <activity
-            android:name=".MainActivity"
+            android:name=".view.activity.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".view.activity.SplashActivity"
             android:exported="true"
             android:theme="@style/SplashTheme">
             <intent-filter>

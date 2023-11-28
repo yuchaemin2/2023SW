@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".StaticActivity">
+    tools:context=".view.activity.StaticActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_back"

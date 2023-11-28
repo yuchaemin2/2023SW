@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".view.fragment.HomeFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -58,47 +58,33 @@
 
         <com.prolificinteractive.materialcalendarview.MaterialCalendarView
             android:id="@+id/calendarView"
+            android:layout_margin="10dp"
             android:layout_below="@+id/tutorialBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:mcv_showOtherDates="all"
             app:mcv_selectionColor="#FFB5A7"/>
 
+<!--        <com.kizitonwose.calendarview.CalendarView-->
+<!--            android:id="@+id/calendarView2"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="504dp"-->
+<!--            android:layout_marginBottom="20dp"-->
+<!--            app:cv_orientation="horizontal"-->
+<!--            app:cv_hasBoundaries="true"-->
+<!--            app:cv_scrollMode="paged"-->
+<!--            app:cv_dayViewResource="@layout/calendar_day"/>-->
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/feedRecyclerView"
+            android:layout_below="@id/calendarView"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="100dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_below="@+id/calendarView"-->
-<!--            android:orientation="vertical">-->
-
-<!--            <org.eazegraph.lib.charts.PieChart-->
-<!--                android:id="@+id/tab1_chart_1"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="256dp"-->
-<!--                android:padding="10dp"-->
-<!--                app:egBarWidth="20dp"-->
-<!--                app:egEnableScroll="true"-->
-<!--                app:egFixedBarWidth="true"-->
-<!--                app:egLegendHeight="40dp"-->
-<!--                app:egShowDecimal="true" />-->
-
-<!--            <org.eazegraph.lib.charts.BarChart-->
-<!--                android:id="@+id/tab1_chart_2"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="256dp"-->
-<!--                android:padding="10dp"-->
-<!--                app:egBarWidth="20dp"-->
-<!--                app:egEnableScroll="true"-->
-<!--                app:egFixedBarWidth="true"-->
-<!--                app:egLegendHeight="40dp"-->
-<!--                app:egShowDecimal="true" />-->
-
-<!--        </LinearLayout>-->
-
     </RelativeLayout>
 
-</androidx.core.widget.NestedScrollView>
+</ScrollView>

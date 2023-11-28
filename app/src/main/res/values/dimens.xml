@@ -5,5 +5,10 @@
     <dimen name="imgSize">120dp</dimen>
     <dimen name="radius">3dp</dimen>
     <dimen name="dots_height">6dp</dimen>
+
+    <dimen name="gridWidth">50dp</dimen>
+    <dimen name="gridHeight">20dp</dimen>
+    <dimen name="gridMargin">10dp</dimen>
+    <dimen name="textSize">3dp</dimen>
 </resources>
 
