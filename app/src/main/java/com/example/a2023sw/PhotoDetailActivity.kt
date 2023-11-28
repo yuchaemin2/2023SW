@@ -67,6 +67,14 @@ class PhotoDetailActivity : AppCompatActivity() {
 
         docId = intent.getStringExtra("docId")!!
 
+        val isBookmarked = intent.getStringExtra("bookmark")
+        Log.d("TastyLog", "북마크 현황: ${isBookmarked}")
+        if (isBookmarked == "1") {
+            binding.menuBookmark.setText("저장 취소")
+        } else {
+            binding.menuBookmark.setText("저장")
+        }
+
         val uriStringList: ArrayList<String> = intent.getStringArrayListExtra("uriList") as ArrayList<String>
         val uriList: ArrayList<Uri> = uriStringList.map { Uri.parse(it) } as ArrayList<Uri>
 
@@ -141,7 +149,7 @@ class PhotoDetailActivity : AppCompatActivity() {
                     .get()
                     .addOnSuccessListener {  documentSnapshot ->
                         val currentBookmark = documentSnapshot.getString("bookmark")
-                        if(currentBookmark != "1"){
+                        if(currentBookmark == "0"){
                             currentBookmark?.let {
                                 val updatedBookmark = "1"
                                 updateBookmark(bookmarkDocRef, updatedBookmark)
@@ -182,7 +190,7 @@ class PhotoDetailActivity : AppCompatActivity() {
 
     fun updateBookmark(docRef: DocumentReference, updatedValue: String) {
         val updates = hashMapOf<String, Any>(
-            "bookmark" to "1"
+            "bookmark" to updatedValue
         )
 
         docRef.update(updates)

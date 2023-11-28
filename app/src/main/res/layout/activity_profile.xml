@@ -119,6 +119,15 @@
                     android:layout_marginLeft="15dp"
                     android:textSize="15dp"/>
 
+                <Button
+                    android:id="@+id/random_nickname"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/button_round"
+                    android:text="랜덤"
+                    android:textColor="@color/black"
+                    android:layout_alignParentRight="true"/>
+
             </RelativeLayout>
 
 
@@ -161,7 +170,7 @@
                             android:layout_marginBottom="5dp"
                             android:text="30p"
                             android:textAllCaps="false"
-                            android:visibility="visible"
+                            android:visibility="gone"
                             android:background="@drawable/button_round_color" />
 
                         <Button

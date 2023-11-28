@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Paint
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -79,6 +80,15 @@ class MypageFragment : Fragment() {
             }
         }
 
+        binding.addBtn.setOnClickListener {
+            val intent = Intent(requireContext(), AddActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.imageView.setOnClickListener {
+            Toast.makeText(requireContext(), "달콤한 버터와플이 먹고싶네...", Toast.LENGTH_SHORT).show()
+        }
+
         return binding.root
     }
 
@@ -91,11 +101,6 @@ class MypageFragment : Fragment() {
                 .addOnSuccessListener { result ->
                     val itemList = mutableListOf<ItemPhotoModel>()
                     for(document in result){
-                        if(result.size() <= 0){
-                            binding.textView.visibility = View.VISIBLE
-                        } else {
-                            binding.textView.visibility = View.GONE
-                        }
                         val item = document.toObject(ItemPhotoModel::class.java)
                         if(MyApplication.email.equals(item.email)){
                             val uriStringList: ArrayList<String> = item.uriList as ArrayList<String>
@@ -107,6 +112,18 @@ class MypageFragment : Fragment() {
                     }
                     binding.feedRecyclerView.layoutManager = GridLayoutManager(requireContext(),3)
                     binding.feedRecyclerView.adapter = MyPhotoAdapter(requireContext(), itemList)
+
+                    if(!itemList.isEmpty()){
+                        binding.imageView.visibility = View.GONE
+                        binding.textView.visibility = View.GONE
+                        binding.addBtn.visibility = View.GONE
+                        Log.d("TastyLog", "차있음")
+                    } else {
+                        binding.imageView.visibility = View.VISIBLE
+                        binding.textView.visibility = View.VISIBLE
+                        binding.addBtn.visibility = View.VISIBLE
+                        Log.d("TastyLog", "비어있음")
+                    }
                 }
                 .addOnFailureListener{
                     Toast.makeText(requireContext(), "데이터 획득 실패", Toast.LENGTH_SHORT).show()

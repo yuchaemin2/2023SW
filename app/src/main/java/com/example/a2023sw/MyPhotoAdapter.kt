@@ -59,6 +59,7 @@ class MyPhotoAdapter(val context: Context, val itemList: MutableList<ItemPhotoMo
                 bundle.putString("memo", data.memo)
                 bundle.putString("nickName", data.nickName)
                 bundle.putStringArrayList("uriList", data.uriList)
+                bundle.putString("bookmark", data.bookmark)
 
                 Intent(context, PhotoDetailActivity::class.java).apply {
                     putExtras(bundle)

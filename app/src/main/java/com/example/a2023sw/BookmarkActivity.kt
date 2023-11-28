@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.a2023sw.MyApplication.Companion.auth
 import com.example.a2023sw.MyApplication.Companion.db
 import com.example.a2023sw.databinding.ActivityBookmarkBinding
+import com.google.firebase.firestore.DocumentReference
 
 class BookmarkActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBookmarkBinding
@@ -86,13 +87,12 @@ class BookmarkActivity : AppCompatActivity() {
                 .addOnSuccessListener { querySnapshot ->
                     for (documentSnapshot in querySnapshot.documents) {
                         val docId = documentSnapshot.id
-                        MyApplication.db.collection("users").document(auth.uid.toString()).collection("bookmarked_records").document(docId)
-                            .delete()
-                            .addOnSuccessListener {
-                                Toast.makeText(this, "북마크가 모두 삭제되었습니다.", Toast.LENGTH_SHORT).show()
-                                refreshRecyclerView()
-                            }
-                            .addOnFailureListener {  }
+                        val bookmarkDocRef = db.collection("photos").document(docId)
+
+                        val updatedBookmark = "0"
+                        updateBookmark(bookmarkDocRef, updatedBookmark)
+                        Toast.makeText(this, "북마크가 모두 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                        refreshRecyclerView()
 //                        isRemoving
                     }
                 }
@@ -100,13 +100,30 @@ class BookmarkActivity : AppCompatActivity() {
         }
     }
 
+    fun updateBookmark(docRef: DocumentReference, updatedValue: String) {
+        val updates = hashMapOf<String, Any>(
+            "bookmark" to updatedValue
+        )
+
+        docRef.update(updates)
+            .addOnSuccessListener {
+                // 업데이트 성공 처리
+            }
+            .addOnFailureListener { e ->
+                // 업데이트 실패 처리
+            }
+
+    }
+
     private fun refreshRecyclerView() {
+
+        binding.textView.visibility = View.VISIBLE
         // 리사이클러뷰를 새로고침하고 데이터를 다시 로드
         val currentUser = auth.currentUser
 
         currentUser?.let {
-            db.collection("users").document(auth.uid.toString())
-                .collection("bookmarked_records")
+            db.collection("photos")
+                .whereEqualTo("bookmark", "1")
                 .get()
                 .addOnSuccessListener { result ->
                     val itemList = mutableListOf<ItemPhotoModel>()

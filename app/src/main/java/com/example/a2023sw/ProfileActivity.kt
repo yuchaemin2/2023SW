@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.app.ProgressDialog.show
 import android.content.ContentValues
 import android.content.DialogInterface
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -29,6 +30,7 @@ import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.lang.Long.getLong
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -90,6 +92,11 @@ class ProfileActivity : AppCompatActivity() {
                     }
                 }
             finish()
+        }
+
+        binding.randomNickname.setOnClickListener {
+            val rnickname = MyApplication.generateRandomNickname()
+            binding.nicknameText.setText(rnickname)
         }
 
         var toolbar = binding.toolbarBack
