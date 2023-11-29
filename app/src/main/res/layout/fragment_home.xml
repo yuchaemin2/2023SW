@@ -75,15 +75,28 @@
 <!--            app:cv_scrollMode="paged"-->
 <!--            app:cv_dayViewResource="@layout/calendar_day"/>-->
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/feedRecyclerView"
-            android:layout_below="@id/calendarView"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="100dp"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_below="@id/calendarView"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.7"
+                android:src="@drawable/level_7"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/feedRecyclerView"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="100dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

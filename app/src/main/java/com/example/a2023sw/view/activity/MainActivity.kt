@@ -65,21 +65,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         binding.mainDrawer.setNavigationItemSelectedListener(this)
-
-        // Check if the permission is not granted
-//        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)
-//            != PackageManager.PERMISSION_GRANTED
-//        ) {
-//            // Request the permission
-//            ActivityCompat.requestPermissions(
-//                this,
-//                arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
-//                MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE
-//            )
-//        } else {
-//            // Permission already granted, proceed with accessing content
-//            // ...
-//        }
     }
 
     override fun onStart() {

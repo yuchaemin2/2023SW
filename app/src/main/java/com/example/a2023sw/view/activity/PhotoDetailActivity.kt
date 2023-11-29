@@ -3,11 +3,13 @@ package com.example.a2023sw.view.activity
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
+import android.view.*
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -20,13 +22,15 @@ import com.example.a2023sw.DotsIndicatorDecoration
 import com.example.a2023sw.MyApplication
 import com.example.a2023sw.MyApplication.Companion.db
 import com.example.a2023sw.R
-import com.example.a2023sw.view.adapter.MyDetailAdapter
 import com.example.a2023sw.databinding.ActivityPhotoDetailBinding
+import com.example.a2023sw.view.adapter.MyDetailAdapter
+import com.example.a2023sw.view.dialog.CaptureDialog
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.io.File
-import kotlin.collections.ArrayList
+import java.text.SimpleDateFormat
 
 
 class PhotoDetailActivity : AppCompatActivity() {
@@ -39,7 +43,12 @@ class PhotoDetailActivity : AppCompatActivity() {
     lateinit var adapter: MyDetailAdapter
 
     private lateinit var docId: String
-    private lateinit var count: String
+    private lateinit var title: String
+    private lateinit var date: String
+
+    private val dbFormat: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
+
+    val MY_PERMISSIONS_REQUEST_READ_EXT_STORAGE = 123
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +57,7 @@ class PhotoDetailActivity : AppCompatActivity() {
 
         ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 1)
         ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.MEDIA_CONTENT_CONTROL), 1)
-
+        ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), 1)
 
         val toolbar = binding.toolbarBack
         setSupportActionBar(toolbar)
@@ -67,6 +76,8 @@ class PhotoDetailActivity : AppCompatActivity() {
         binding.foodText.text = intent.getStringExtra("food")
 
         docId = intent.getStringExtra("docId")!!
+        title =intent.getStringExtra("title")!!
+        date = intent.getStringExtra("date")!!
 
         val isBookmarked = intent.getStringExtra("bookmark")
         Log.d("TastyLog", "북마크 현황: ${isBookmarked}")
@@ -74,6 +85,32 @@ class PhotoDetailActivity : AppCompatActivity() {
             binding.menuBookmark.setText("저장 취소")
         } else {
             binding.menuBookmark.setText("저장")
+        }
+
+//        // 로딩창 객체 생성
+//        customProgressDialog = CaptureDialog(this)
+//        // 로딩창을 투명하게
+//        customProgressDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+//        customProgressDialog.setCancelable(true)
+
+        val imageRef = MyApplication.storage.reference.child("images/${docId}_0.jpg")
+
+
+        binding.captureDialog.setOnClickListener {
+//            val intent = Intent(this, CaptureDialog::class.java)
+//            startActivity(intent)
+//            val captureDialog = CaptureDialog()
+//            captureDialog.callCaptureDialog(
+//                date,
+//                getImageFromStorageReference(imageRef),
+//                title
+//            )
+
+            val imageRef = MyApplication.storage.reference.child("images/${docId}_0.jpg")
+            val captureDialog = CaptureDialog(this)  // Pass the context of PhotoDetailActivity
+            checkExternalStoragePermission()
+            captureDialog.callCaptureDialog(this, date, imageRef, title)
+//            customProgressDialog.show()
         }
 
         val uriStringList: ArrayList<String> = intent.getStringArrayListExtra("uriList") as ArrayList<String>
@@ -188,6 +225,47 @@ class PhotoDetailActivity : AppCompatActivity() {
 
     }
 
+    // 외부 저장소 읽기 권한을 체크하고 요청하는 함수
+    private fun checkExternalStoragePermission() {
+        // 권한이 부여되어 있는지 체크
+        if (ContextCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // 사용자에게 권한 요청
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
+                MY_PERMISSIONS_REQUEST_READ_EXT_STORAGE
+            )
+        } else {
+            // 이미 권한이 부여되어 있는 경우 외부 저장소에 접근할 수 있습니다.
+            // 이곳에서 외부 저장소에 대한 동작을 수행하면 됩니다.
+        }
+    }
+
+    // 권한 요청 결과 처리
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            MY_PERMISSIONS_REQUEST_READ_EXT_STORAGE -> {
+                // 권한 요청에 대한 응답을 받았을 때 처리
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    // 권한이 부여되면 외부 저장소에 접근할 수 있습니다.
+                    // 이곳에서 외부 저장소에 대한 동작을 수행하면 됩니다.
+                } else {
+                    // 권한이 거부되었을 경우 처리
+                    // 사용자에게 권한이 필요한 이유를 설명하거나 다른 대체 동작을 수행할 수 있습니다.
+                }
+                return
+            }
+        }
+    }
 
     fun updateBookmark(docRef: DocumentReference, updatedValue: String) {
         val updates = hashMapOf<String, Any>(
