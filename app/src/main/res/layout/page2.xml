@@ -5,7 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffccff">
+    android:background="#FEEEC6">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="200dp"
+        android:src="@drawable/page2"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -29,15 +36,14 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
                 android:src="@drawable/level_6"/>
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="311dp"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:textAlignment="center"
-                android:text="음식 기록을 검색해 보세요."
+                android:text="나의 기록을 바탕으로 \n나의 식사패턴을 알아보세요."
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/union"
                 android:textSize="23dp"

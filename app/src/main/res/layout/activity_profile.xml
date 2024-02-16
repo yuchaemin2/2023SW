@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ProfileActivity">
+    tools:context=".view.activity.ProfileActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_back"
@@ -62,7 +62,9 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/userProfile"
                     android:layout_toLeftOf="@+id/PointView"
-                    android:textColor="@color/black"
+                    android:background="@drawable/button_round_45dp_color"
+                    android:padding="13dp"
+                    android:textColor="@color/white"
                     android:text="사용자 닉네임"
                     android:textSize="15dp"
                     android:layout_marginTop="5dp"
@@ -75,10 +77,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textColor="@color/black"
                     android:layout_alignParentRight="true"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginRight="140dp"
+                    android:layout_marginRight="120dp"
+                    android:background="@drawable/button_round_45dp_color"
+                    android:padding="13dp"
+                    android:textColor="@color/white"
                     android:text="포인트"
                     android:textSize="15dp"
                     android:layout_marginTop="5dp"
@@ -118,6 +122,15 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
                     android:textSize="15dp"/>
+
+                <Button
+                    android:id="@+id/random_nickname"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/button_round"
+                    android:text="랜덤"
+                    android:textColor="@color/black"
+                    android:layout_alignParentRight="true"/>
 
             </RelativeLayout>
 
@@ -161,7 +174,7 @@
                             android:layout_marginBottom="5dp"
                             android:text="30p"
                             android:textAllCaps="false"
-                            android:visibility="visible"
+                            android:visibility="gone"
                             android:background="@drawable/button_round_color" />
 
                         <Button

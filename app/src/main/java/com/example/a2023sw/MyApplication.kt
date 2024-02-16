@@ -2,6 +2,7 @@ package com.example.a2023sw
 
 import android.util.Log
 import androidx.multidex.MultiDexApplication
+import com.example.a2023sw.model.UserModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore

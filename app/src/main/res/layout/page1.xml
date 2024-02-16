@@ -5,7 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ccddee">
+    android:background="#FEEEC6">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="200dp"
+        android:src="@drawable/page1"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -29,7 +36,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="0dp"
                 android:src="@drawable/level_3"/>
 
             <TextView

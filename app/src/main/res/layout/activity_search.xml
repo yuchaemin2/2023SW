@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainActivity"
+    tools:context=".view.activity.MainActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -36,7 +36,7 @@
             android:paddingLeft="15dp"
             android:layout_height="40dp"
             android:layout_marginRight="5dp"
-            android:background="@drawable/button_round_45dp"
+            android:background="@drawable/button_round_white_45dp"
             android:layout_weight="1"
             android:textColorHint="#aaa"
             android:hint="검색어를 입력해주세요."
@@ -44,12 +44,12 @@
             android:inputType="text"
             android:imeOptions="actionSearch"/>
 
-<!--        <Button-->
-<!--            android:id="@+id/searchBtn"-->
-<!--            android:layout_width="50dp"-->
-<!--            android:layout_height="40dp"-->
-<!--            android:layout_marginRight="5dp"-->
-<!--            android:text="검색" />-->
+        <!--        <Button-->
+        <!--            android:id="@+id/searchBtn"-->
+        <!--            android:layout_width="50dp"-->
+        <!--            android:layout_height="40dp"-->
+        <!--            android:layout_marginRight="5dp"-->
+        <!--            android:text="검색" />-->
 
     </LinearLayout>
 
