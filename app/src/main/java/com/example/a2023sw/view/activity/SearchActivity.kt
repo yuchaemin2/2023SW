@@ -14,10 +14,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.a2023sw.MyApplication
+import com.example.a2023sw.MyApplication.Companion.auth
 import com.example.a2023sw.R
 import com.example.a2023sw.databinding.ActivitySearchBinding
 import com.example.a2023sw.model.ItemPhotoModel
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import java.util.*
 
 class SearchActivity : AppCompatActivity() {
     lateinit var binding: ActivitySearchBinding
@@ -37,7 +40,7 @@ class SearchActivity : AppCompatActivity() {
         binding.recyclerview.layoutManager = GridLayoutManager(this,3)
 
         // 검색 옵션 변수
-        var searchOption = "name"
+        var searchOption = "title"
 
         // 스피너 옵션에 따른 동작
         binding.spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
@@ -61,21 +64,15 @@ class SearchActivity : AppCompatActivity() {
                     "장소" -> {
                         searchOption = "where"
                     }
-                    "메모" -> {
-                        searchOption = "memo"
-                    }
-                    "날짜" -> {
-                        searchOption = "date"
-                    }
                 }
             }
         }
+
         // 검색 옵션에 따라 검색
         binding.searchWord.setOnEditorActionListener { view, actionId, event ->
             when(actionId){
                 EditorInfo.IME_ACTION_SEARCH -> {
                     (binding.recyclerview.adapter as RecyclerViewAdapter).search(binding.searchWord.text.toString(), searchOption)
-                    Toast.makeText(applicationContext, "검색", Toast.LENGTH_LONG).show()
                     true
                 }
                 else -> false
@@ -96,17 +93,20 @@ class SearchActivity : AppCompatActivity() {
         var itemList : ArrayList<ItemPhotoModel> = arrayListOf()
 
         init {
-            firestore?.collection("photos")?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-                // ArrayList 비워줌
-                itemList.clear()
+            if(MyApplication.checkAuth()){
+                MyApplication.db.collection("photos")
+                    .whereEqualTo("uid", auth.uid)
+                    .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+                    // ArrayList 비워줌
+                    itemList.clear()
 
-                for (snapshot in querySnapshot!!.documents) {
-                    // Access the document ID using snapshot.id
-                    var item = snapshot.toObject(ItemPhotoModel::class.java)
-                    item?.docId = snapshot.id // Assuming you have a variable named docId in your ItemPhotoModel
-                    itemList.add(item!!)
+                    for (snapshot in querySnapshot!!.documents) {
+                        val item = snapshot.toObject(ItemPhotoModel::class.java)
+                        item!!.docId = snapshot.id // Assuming you have a variable named docId in your ItemPhotoModel
+                        itemList.add(item!!)
+                    }
+                    notifyDataSetChanged()
                 }
-                notifyDataSetChanged()
             }
         }
 
@@ -121,21 +121,20 @@ class SearchActivity : AppCompatActivity() {
 
         // onCreateViewHolder에서 만든 view와 실제 데이터를 연결
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-            var viewHolder = (holder as ViewHolder).itemView
-            val data = itemList!!.get(position)
+            val viewHolder = (holder as ViewHolder).itemView
+            val data = itemList.get(position)
 
             viewHolder.findViewById<TextView>(R.id.itemTitleView).text = itemList[position].title
             viewHolder.findViewById<TextView>(R.id.itemFoodView).text = itemList[position].food
             viewHolder.findViewById<TextView>(R.id.itemCompanyView).text = itemList[position].company
             viewHolder.findViewById<TextView>(R.id.itemFoodTimeView).text = itemList[position].foodTime
             viewHolder.findViewById<TextView>(R.id.itemWhereView).text = itemList[position].where
-            viewHolder.findViewById<TextView>(R.id.itemMemoView).text = itemList[position].memo
-            viewHolder.findViewById<TextView>(R.id.itemDateView).text = itemList[position].date
+
+            Log.d("TastyLog", "data: ${data.docId}, itemList: ${itemList[position].docId} - first")
 
             // Load image using Glide
             val itemFoodImageView = viewHolder.findViewById<ImageView>(R.id.itemFoodImageView)
             val imageRef = MyApplication.storage.reference.child("images/${itemList[position].docId}_0.jpg")
-            Log.d("TastyLog", "${itemList[position].docId}")
             imageRef.downloadUrl.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Glide.with(this@SearchActivity)
@@ -147,6 +146,8 @@ class SearchActivity : AppCompatActivity() {
                     Log.e("TastyLog", "File not found: ${task.exception}")
                 }
             }
+
+            Log.d("TastyLog", "data: ${data.docId}, itemList: ${itemList[position].docId}")
 
             viewHolder.findViewById<ImageView>(R.id.itemFoodImageView).setOnClickListener{
                 val bundle: Bundle = Bundle()
@@ -162,7 +163,10 @@ class SearchActivity : AppCompatActivity() {
                 bundle.putString("foodImage", data.foodImage)
                 bundle.putString("memo", data.memo)
                 bundle.putString("nickName", data.nickName)
+                bundle.putString("bookmark", data.bookmark)
                 bundle.putStringArrayList("uriList", data.uriList)
+
+                Log.d("TastyLog", "data: ${data.docId}, itemList: ${itemList[position].docId}")
 
                 Intent(this@SearchActivity, PhotoDetailActivity::class.java).apply{
                     putExtras(bundle)
@@ -180,25 +184,30 @@ class SearchActivity : AppCompatActivity() {
 
         // 파이어스토어에서 데이터를 불러와서 검색어가 있는지 판단
         fun search(searchWord : String, option : String) {
-            firestore?.collection("photos")?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-                // ArrayList 비워줌
-                itemList.clear()
+            if(MyApplication.checkAuth()){
+                MyApplication.db.collection("photos")
+                    .whereEqualTo("uid", auth.uid)
+                    .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+                    // ArrayList 비워줌
+                    itemList.clear()
 
-                for (snapshot in querySnapshot!!.documents) {
-                    if (snapshot.getString(option)!!.contains(searchWord)) {
-                        var item = snapshot.toObject(ItemPhotoModel::class.java)
-                        itemList.add(item!!)
+                    for (snapshot in querySnapshot!!.documents) {
+                        if (snapshot.getString(option)!!.contains(searchWord)) {
+                            val item = snapshot.toObject(ItemPhotoModel::class.java)
+                            item!!.docId = snapshot.id
+                            itemList.add(item)
+                        }
+                        if(itemList.size.equals(0)){
+                            binding.textView.visibility = View.VISIBLE
+                            binding.btnAdd.visibility = View.VISIBLE
+                        }
+                        else{
+                            binding.textView.visibility = View.GONE
+                            binding.btnAdd.visibility = View.GONE
+                        }
                     }
-                    if(itemList.size.equals(0)){
-                        binding.textView.visibility = View.VISIBLE
-                        binding.btnAdd.visibility = View.VISIBLE
-                    }
-                    else{
-                        binding.textView.visibility = View.GONE
-                        binding.btnAdd.visibility = View.GONE
-                    }
+                    notifyDataSetChanged()
                 }
-                notifyDataSetChanged()
             }
         }
     }

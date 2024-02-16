@@ -98,6 +98,25 @@ class AddActivity : AppCompatActivity() {
 
 //        binding.nickname.text =
 
+        binding.foodRadioBtn.setOnCheckedChangeListener { group, i ->
+            when(i){
+                R.id.korea -> binding.foodText.setText("한식")
+                R.id.japen -> binding.foodText.setText("일식")
+                R.id.china -> binding.foodText.setText("중식")
+                R.id.west -> binding.foodText.setText("양식")
+                R.id.dessert -> binding.foodText.setText("디저트")
+            }
+        }
+
+        binding.foodTimeRadioBtn.setOnCheckedChangeListener { group, i ->
+            when(i){
+                R.id.morning -> binding.foodTimeText.setText("아침")
+                R.id.lunch -> binding.foodTimeText.setText("점심")
+                R.id.dinner -> binding.foodTimeText.setText("저녁")
+                R.id.night -> binding.foodTimeText.setText("야식")
+            }
+        }
+
         var toolbar = binding.toolbarBack
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true) // 뒤로가기 버튼 활성화

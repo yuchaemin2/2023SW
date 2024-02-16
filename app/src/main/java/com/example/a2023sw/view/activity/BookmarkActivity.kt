@@ -30,6 +30,7 @@ class BookmarkActivity : AppCompatActivity() {
 
         if(MyApplication.checkAuth()){
             db.collection("photos")
+                .whereEqualTo("uid", MyApplication.auth.uid)
                 .whereEqualTo("bookmark", "1")
                 .get()
                 .addOnSuccessListener { result ->
@@ -87,6 +88,7 @@ class BookmarkActivity : AppCompatActivity() {
         if(MyApplication.checkAuth()){
             currentUser?.let {
                 db.collection("photos")
+                    .whereEqualTo("uid", MyApplication.auth.uid)
                     .whereEqualTo("bookmark", "1")
                     .get()
                     .addOnSuccessListener { querySnapshot ->
@@ -130,6 +132,7 @@ class BookmarkActivity : AppCompatActivity() {
         if(MyApplication.checkAuth()){
             currentUser?.let {
                 db.collection("photos")
+                    .whereEqualTo("uid", MyApplication.auth.uid)
                     .whereEqualTo("bookmark", "1")
                     .get()
                     .addOnSuccessListener { result ->

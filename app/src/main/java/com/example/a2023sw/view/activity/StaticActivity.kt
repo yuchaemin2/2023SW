@@ -1,12 +1,15 @@
 package com.example.a2023sw.view.activity
 
 import android.graphics.Color
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import com.example.a2023sw.MyApplication
 import com.example.a2023sw.R
 import com.example.a2023sw.databinding.ActivityStaticBinding
+import com.example.a2023sw.model.ItemPhotoModel
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.charts.PieChart
@@ -80,8 +83,8 @@ class StaticActivity : AppCompatActivity() {
         chart!!.setEntryLabelColor(Color.WHITE)
         chart!!.setEntryLabelTextSize(12f)
 
-        setData1()
-
+        // setData1()
+        fetchDataAndSetData()
 
         chart2 = binding.chart2
         chart2!!.setDrawValueAboveBar(true)
@@ -107,8 +110,8 @@ class StaticActivity : AppCompatActivity() {
 
         chart2!!.animateXY(1500, 1500)
 
-        setData2()
-
+//        setData2()
+        fetchDataAndSetData2()
 
         chart3 = binding.chart3
 
@@ -163,38 +166,39 @@ class StaticActivity : AppCompatActivity() {
         setData3()
     }
 
-    private fun setData1() {
+    private fun setData1(korea: Float, west: Float, dessert: Float, japen: Float, china: Float) {
         val entries = ArrayList<PieEntry>()
         entries.add(
             PieEntry(
-                20.0f, "",
+                west, "",
                 resources.getDrawable(R.drawable.baseline_local_pizza_black_18)
             )
         )
         entries.add(
             PieEntry(
-                20.0f, "",
+                dessert, "",
                 resources.getDrawable(R.drawable.baseline_cake_black_18)
             )
         )
         entries.add(
             PieEntry(
-                20.0f, "",
+                korea, "",
                 resources.getDrawable(R.drawable.baseline_rice_bowl_black_18)
             )
         )
         entries.add(
             PieEntry(
-                20f, "",
+                japen, "",
                 resources.getDrawable(R.drawable.baseline_ramen_dining_black_18)
             )
         )
         entries.add(
             PieEntry(
-                20.0f, "",
+                china, "",
                 resources.getDrawable(R.drawable.baseline_dinner_dining_black_18)
             )
         )
+
         val dataSet = PieDataSet(entries, "음식별 비율")
         dataSet.setDrawIcons(true)
         dataSet.sliceSpace = 3f
@@ -212,29 +216,29 @@ class StaticActivity : AppCompatActivity() {
         chart!!.invalidate()
     }
 
-    private fun setData2() {
+    private fun setData2(morning: Float, lunch: Float, dinner: Float, night: Float) {
         val entries = ArrayList<BarEntry>()
         entries.add(
             BarEntry(
-                1.0f, 20.0f,
+                1.0f, morning,
                 resources.getDrawable(R.drawable.baseline_light_mode_black_18)
             )
         )
         entries.add(
             BarEntry(
-                2.0f, 40.0f,
+                2.0f, lunch,
                 resources.getDrawable(R.drawable.number12)
             )
         )
         entries.add(
             BarEntry(
-                3.0f, 60.0f,
+                3.0f, dinner,
                 resources.getDrawable(R.drawable.baseline_wb_twilight_black_18)
             )
         )
         entries.add(
             BarEntry(
-                4.0f, 10.0f,
+                4.0f, night,
                 resources.getDrawable(R.drawable.baseline_nightlight_black_18)
             )
         )
@@ -291,4 +295,95 @@ class StaticActivity : AppCompatActivity() {
         chart3!!.data = data
         chart3!!.invalidate()
     }
+
+    fun fetchDataAndSetData() {
+        var korea = 0.0f
+        var china = 0.0f
+        var japen = 0.0f
+        var west = 0.0f
+        var dessert = 0.0f
+
+        fetchAndSetData("한식") { result ->
+            korea = result
+            fetchAndSetData("중식") { result ->
+                china = result
+                fetchAndSetData("일식") { result ->
+                    japen = result
+                    fetchAndSetData("양식") { result ->
+                        west = result
+                        fetchAndSetData("디저트") { result ->
+                            dessert = result
+                            setData1(korea, west, dessert, japen, china)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    fun fetchAndSetData(foodType: String, callback: (Float) -> Unit) {
+        MyApplication.db.collection("photos")
+            .whereEqualTo("uid", MyApplication.auth.uid)
+            .whereEqualTo("food", foodType)
+            .get()
+            .addOnSuccessListener { result ->
+                val itemList = mutableListOf<ItemPhotoModel>()
+                for (document in result) {
+                    val item = document.toObject(ItemPhotoModel::class.java)
+                    if (MyApplication.email == item.email) {
+                        val uriStringList: ArrayList<String> = item.uriList as ArrayList<String>
+                        val uriList: ArrayList<Uri> = uriStringList.map { Uri.parse(it) } as ArrayList<Uri>
+
+                        item.docId = document.id
+                        itemList.add(item)
+                    }
+                }
+                val count = itemList.size.toFloat()
+                callback(count)
+            }
+    }
+
+    fun fetchDataAndSetData2() {
+        var morning = 0.0f
+        var lunch = 0.0f
+        var dinner = 0.0f
+        var night = 0.0f
+
+        fetchAndSetData2("아침") { result ->
+            morning = result
+            fetchAndSetData2("점심") { result ->
+                lunch = result
+                fetchAndSetData2("저녁") { result ->
+                    dinner = result
+                    fetchAndSetData2("야식") { result ->
+                        night = result
+                        setData2(morning, lunch, dinner, night)
+                    }
+                }
+            }
+        }
+    }
+
+    fun fetchAndSetData2(foodType: String, callback: (Float) -> Unit) {
+        MyApplication.db.collection("photos")
+            .whereEqualTo("uid", MyApplication.auth.uid)
+            .whereEqualTo("foodTime", foodType)
+            .get()
+            .addOnSuccessListener { result ->
+                val itemList = mutableListOf<ItemPhotoModel>()
+                for (document in result) {
+                    val item = document.toObject(ItemPhotoModel::class.java)
+                    if (MyApplication.email == item.email) {
+                        val uriStringList: ArrayList<String> = item.uriList as ArrayList<String>
+                        val uriList: ArrayList<Uri> = uriStringList.map { Uri.parse(it) } as ArrayList<Uri>
+
+                        item.docId = document.id
+                        itemList.add(item)
+                    }
+                }
+                val count = itemList.size.toFloat()
+                callback(count)
+            }
+    }
+
 }

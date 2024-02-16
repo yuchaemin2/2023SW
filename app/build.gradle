@@ -106,4 +106,8 @@ dependencies {
 
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'com.github.kizitonwose:CalendarView:1.0.4'
+
+    implementation 'com.github.jetradarmobile:android-snowfall:1.2.1'
+
+    implementation 'com.github.BharathKSunil:MultiWaveHeader:v1.0.0-alpha-4'
 }

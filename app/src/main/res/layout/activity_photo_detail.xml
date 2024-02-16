@@ -82,8 +82,6 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/title_text"
-                tools:listitem="@layout/item_food_detail"
-                tools:itemCount="3"
                 android:layout_marginStart="5dp" />
 
             <LinearLayout
@@ -106,6 +104,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="30dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -174,7 +173,6 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/button_round"
                 android:layout_below="@+id/info"
-                android:layout_marginTop="30dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="36dp">
 

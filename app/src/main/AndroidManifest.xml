@@ -45,7 +45,7 @@
         <activity
             android:name=".view.activity.SearchActivity"
             android:exported="false"
-            android:theme="@style/AddTheme" />
+            android:theme="@style/NoActionBar" />
         <activity
             android:name=".view.dialog.LoadingDialog"
             android:exported="false" />
@@ -76,7 +76,7 @@
         <activity
             android:name=".view.activity.AuthActivity"
             android:exported="false"
-            android:theme="@style/AddTheme" />
+            android:theme="@style/AuthTheme" />
         <activity
             android:name=".view.activity.MainActivity"
             android:exported="false" />

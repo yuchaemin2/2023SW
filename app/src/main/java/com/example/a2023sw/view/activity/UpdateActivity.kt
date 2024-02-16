@@ -11,6 +11,7 @@ import android.os.Looper
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.example.a2023sw.view.dialog.LoadingDialog
 import com.example.a2023sw.R
 import com.example.a2023sw.databinding.ActivityUpdateBinding
@@ -97,7 +98,7 @@ class UpdateActivity : AppCompatActivity() {
                     val memo = document.getString("memo")
                     val count = document.getString("count")
                     val bookmark = document.getString("bookmark")
-//                    val uriList = document.getStringArray("uriList")
+//                    val uriList = document.getString("uriList")
 
                     binding.writeText.setText(title)
                     binding.foodTimeText.setText(foodTime)
@@ -105,11 +106,11 @@ class UpdateActivity : AppCompatActivity() {
                     binding.companyText.setText(company)
                     binding.whereText.setText(where)
                     binding.memoText.setText(memo)
-//                    if(movieImage != null && movieImage != "null"){
+//                    if(uriList != null && uriList != "null"){
 //                        // Glide를 사용하여 프로필 이미지 로드
 //                        Glide.with(baseContext)
-//                            .load(movieImage)
-//                            .into(binding.addImageView)
+//                            .load(uriList)
+//                            .into(binding.recyclerview)
 //                    }
                 }
             }

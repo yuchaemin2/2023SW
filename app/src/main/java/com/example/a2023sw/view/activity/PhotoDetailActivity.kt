@@ -15,14 +15,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.a2023sw.DotsIndicatorDecoration
 import com.example.a2023sw.MyApplication
 import com.example.a2023sw.MyApplication.Companion.db
+import com.example.a2023sw.MyPhotoAdapter
 import com.example.a2023sw.R
 import com.example.a2023sw.databinding.ActivityPhotoDetailBinding
+import com.example.a2023sw.model.ItemPhotoModel
 import com.example.a2023sw.view.adapter.MyDetailAdapter
 import com.example.a2023sw.view.dialog.CaptureDialog
 import com.google.firebase.firestore.DocumentReference
@@ -74,6 +77,16 @@ class PhotoDetailActivity : AppCompatActivity() {
         binding.titleText.text = intent.getStringExtra("title")
         binding.foodTimeText.text = intent.getStringExtra("foodTime")
         binding.foodText.text = intent.getStringExtra("food")
+
+        if(intent.getStringExtra("where")?.isEmpty() == true){
+            binding.whereText.visibility = View.GONE
+        }
+        if(intent.getStringExtra("company")?.isEmpty() == true){
+            binding.withPeopleText.visibility = View.GONE
+        }
+        if(intent.getStringExtra("memo")?.isEmpty() == true){
+            binding.memo.visibility = View.GONE
+        }
 
         docId = intent.getStringExtra("docId")!!
         title =intent.getStringExtra("title")!!
@@ -301,7 +314,6 @@ class PhotoDetailActivity : AppCompatActivity() {
             }
         }
     }
-
 
 //    private fun setBookmarkIcon() {
 //        val bookmarkRef = MyApplication.db.collection("photos")

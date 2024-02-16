@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.a2023sw.*
 import com.example.a2023sw.MyApplication.Companion.auth
+import com.example.a2023sw.R
 import com.example.a2023sw.databinding.CalendarDayBinding
 import com.example.a2023sw.databinding.FragmentHomeBinding
 import com.example.a2023sw.model.ItemPhotoModel
@@ -23,6 +24,7 @@ import com.google.firebase.firestore.Query
 import com.kizitonwose.calendarview.ui.ViewContainer
 import com.prolificinteractive.materialcalendarview.*
 import com.prolificinteractive.materialcalendarview.spans.DotSpan
+import com.scwang.wave.MultiWaveHeader
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -105,6 +107,16 @@ class HomeFragment : Fragment() {
                 updateRecordListForSelectedDate()
             }
         })
+
+//        waveFooter = binding.MultiWave
+//
+//        waveFooter.velocity = 10f
+//        waveFooter.progress = 1f
+//        waveFooter.isRunning
+//        waveFooter.gradientAngle = 65
+//        waveFooter.waveHeight = 60
+//        waveFooter.setStartColorId(R.color.bg_screen3)
+//        waveFooter.setCloseColorId(R.color.bg_screen2)
 
         return binding.root
     }
@@ -206,7 +218,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun onError() {
-        Toast.makeText(activity, "error Record", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(activity, "error Record", Toast.LENGTH_SHORT).show()
     }
 
     private fun userPoint(){

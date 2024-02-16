@@ -116,14 +116,78 @@
             <RelativeLayout
                 android:id="@+id/food_divide"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="90dp"
                 android:orientation="vertical"
                 android:layout_marginTop="1dp"
                 android:background="#ffffff"
                 android:layout_below="@id/write">
 
-                <EditText
+                <RadioGroup
+                    android:id="@+id/food_radio_btn"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/korea"
+                        android:textColor="#aaa"
+                        android:buttonTint="#aaa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="한식"
+                        android:layout_marginRight="10dp"/>
+
+                    <RadioButton
+                        android:id="@+id/japen"
+                        android:textColor="#aaa"
+                        android:buttonTint="#aaa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="일식"
+                        android:layout_marginRight="10dp"/>
+
+                    <RadioButton
+                        android:id="@+id/china"
+                        android:textColor="#aaa"
+                        android:buttonTint="#aaa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="중식"
+                        android:layout_marginRight="10dp"/>
+
+                    <RadioButton
+                        android:id="@+id/west"
+                        android:textColor="#aaa"
+                        android:buttonTint="#aaa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="양식"
+                        android:layout_marginRight="10dp"/>
+
+<!--                    <RadioButton-->
+<!--                        android:id="@+id/boon"-->
+<!--                        android:textColor="#aaa"-->
+<!--                        android:buttonTint="#aaa"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="분식"-->
+<!--                        android:layout_marginRight="10dp"/>-->
+
+                    <RadioButton
+                        android:id="@+id/dessert"
+                        android:textColor="#aaa"
+                        android:buttonTint="#aaa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="디저트"
+                        android:layout_marginRight="10dp"/>
+
+                </RadioGroup>
+
+                <TextView
                     android:id="@+id/food_text"
+                    android:layout_below="@+id/food_radio_btn"
                     android:layout_width="380dp"
                     android:layout_height="wrap_content"
                     android:textColor="#aaa"
@@ -138,33 +202,67 @@
             <RelativeLayout
                 android:id="@+id/food_time"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="90dp"
                 android:orientation="vertical"
                 android:layout_marginTop="1dp"
                 android:background="#ffffff"
                 android:layout_below="@id/food_divide">
 
-                <EditText
+                <RadioGroup
+                    android:id="@+id/food_time_radio_btn"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/morning"
+                        android:textColor="#aaa"
+                        android:buttonTint="#aaa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="아침"
+                        android:layout_marginRight="10dp"/>
+
+                    <RadioButton
+                        android:id="@+id/lunch"
+                        android:textColor="#aaa"
+                        android:buttonTint="#aaa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="점심"
+                        android:layout_marginRight="10dp"/>
+
+                    <RadioButton
+                        android:id="@+id/dinner"
+                        android:textColor="#aaa"
+                        android:buttonTint="#aaa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="저녁"
+                        android:layout_marginRight="10dp"/>
+
+                    <RadioButton
+                        android:id="@+id/night"
+                        android:textColor="#aaa"
+                        android:buttonTint="#aaa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="야식"
+                        android:layout_marginRight="10dp"/>
+
+                </RadioGroup>
+
+                <TextView
                     android:id="@+id/food_time_text"
                     android:layout_width="380dp"
                     android:layout_height="wrap_content"
                     android:textColor="#aaa"
                     android:hint="식사 시간"
                     android:textColorHint="#aaa"
-                    android:layout_centerVertical="true"
+                    android:layout_below="@+id/food_time_radio_btn"
                     android:layout_marginLeft="15dp"
                     android:textSize="15dp"/>
-
-                <!--        <Spinner-->
-                <!--            android:id="@+id/food_time_text"-->
-                <!--            android:layout_width="wrap_content"-->
-                <!--            android:layout_height="wrap_content"-->
-                <!--            android:textColor="#aaa"-->
-                <!--            android:text="식사 시간"-->
-                <!--            android:entries="@array/option"-->
-                <!--            android:layout_centerVertical="true"-->
-                <!--            android:layout_marginLeft="15dp"-->
-                <!--            android:textSize="15dp"/>-->
 
             </RelativeLayout>
 

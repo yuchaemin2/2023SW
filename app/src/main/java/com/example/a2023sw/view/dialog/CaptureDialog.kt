@@ -74,8 +74,9 @@ class CaptureDialog(context: Context) : Dialog(context) {
         val btn_capture_cancel = dialog.findViewById<View>(R.id.btn_capture_cancel) as Button
         val btn_capture_this = dialog.findViewById<View>(R.id.btn_capture_this) as Button
 
+        val capture_polaroid = dialog.findViewById<View>(R.id.capture_polaroid) as RelativeLayout
         btn_capture_this.setOnClickListener { // '일기 저장' 버튼
-            Request_Capture(capture_target_Layout, date)
+            Request_Capture(capture_polaroid, date)
             Toast.makeText(context, "폴라로이드를 저장했습니다.", Toast.LENGTH_SHORT).show()
             dialog.dismiss()
         }

@@ -42,6 +42,7 @@ class TutorialActivity : AppCompatActivity() {
             R.layout.page1,
             R.layout.page2,
             R.layout.page3,
+            R.layout.page4,
         )
 
         addBottomDots(0)

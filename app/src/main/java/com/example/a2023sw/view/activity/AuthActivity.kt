@@ -2,21 +2,30 @@ package com.example.a2023sw.view.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.a2023sw.MyApplication
+import com.example.a2023sw.MyApplication.Companion.email
 import com.example.a2023sw.R
 import com.example.a2023sw.databinding.ActivityAuthBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider
+import com.scwang.wave.MultiWaveHeader
+import java.util.regex.Pattern
 
 class AuthActivity : AppCompatActivity() {
     lateinit var binding: ActivityAuthBinding
+
+    val emailValidation = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +42,67 @@ class AuthActivity : AppCompatActivity() {
             // 회원가입
             changeVisibility("signin")
         }
+
+        //객체 생성
+        val messageEdit: EditText = binding.authEmailEditView
+        val messageEdit2: EditText = binding.authPasswordEditView
+        val messageBtn: Button = binding.signBtn
+        val messageBtn2: Button = binding.loginBtn
+
+        //메시지 담을 변수
+        var message: String = ""
+        var message2: String = ""
+
+        //버튼 비활성화
+        messageBtn.isEnabled = false
+        messageBtn2.isEnabled = false
+        messageBtn.setBackgroundResource(R.drawable.button_round_grey)
+        messageBtn2.setBackgroundResource(R.drawable.button_round_grey)
+
+        messageEdit.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                // text가 변경된 후 호출
+                // s에는 변경 후의 문자열이 담겨 있다.
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // text가 변경되기 전 호출
+                // s에는 변경 전 문자열이 담겨 있다.
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // text가 바뀔 때마다 호출된다.
+                // 우린 이 함수를 사용한다.
+                checkEmail()
+            }
+        })
+
+        //EditText 값 있을때만 버튼 활성화
+        messageEdit2.addTextChangedListener(object: TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            //값 변경 시 실행되는 함수
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                //입력값 담기
+                message = messageEdit2.text.toString()
+
+                //값 유무에 따른 활성화 여부
+                if(message.isNotEmpty() && checkEmail()){
+                    messageBtn.isEnabled = true
+                    messageBtn2.isEnabled = true
+                    messageBtn.setBackgroundResource(R.drawable.button_round_color)
+                    messageBtn2.setBackgroundResource(R.drawable.button_round_color)
+                } else {
+                    messageBtn.isEnabled = false
+                    messageBtn2.isEnabled = false
+                    messageBtn.setBackgroundResource(R.drawable.button_round_grey)
+                    messageBtn2.setBackgroundResource(R.drawable.button_round_grey)
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {}
+        })
 
         binding.signBtn.setOnClickListener {
             //이메일,비밀번호 회원가입........................
@@ -79,6 +149,8 @@ class AuthActivity : AppCompatActivity() {
                             // changeVisibility("login")
                             finish()
                             MyApplication.userCheck()
+                            val intent = Intent(this, TutorialActivity::class.java)
+                            startActivity(intent)
                         }
                         else{
                             Toast.makeText(baseContext, "이메일 인증 실패..", Toast.LENGTH_LONG).show()
@@ -195,6 +267,20 @@ class AuthActivity : AppCompatActivity() {
                 .build()
             val signInIntent : Intent = GoogleSignIn.getClient(this, gso).signInIntent
             requestLauncher.launch(signInIntent)
+        }
+    }
+
+    fun checkEmail():Boolean{
+        var email = binding.authEmailEditView.text.toString().trim() //공백제거
+        val p = Pattern.matches(emailValidation, email) // 서로 패턴이 맞닝?
+        if (p) {
+            //이메일 형태가 정상일 경우
+            binding.authEmailEditView.setTextColor(R.color.black.toInt())
+            return true
+        } else {
+            binding.authEmailEditView.setTextColor(-65536)
+            //또는 questionEmail.setTextColor(R.color.red.toInt())
+            return false
         }
     }
 

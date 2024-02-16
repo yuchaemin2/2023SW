@@ -2,93 +2,102 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="350dp"
-    android:layout_height="150dp"
-    android:background="@drawable/button_round_color">
+    android:layout_height="150dp">
 
     <RelativeLayout
-        android:layout_width="330dp"
+        android:layout_width="350dp"
         android:layout_height="150dp"
-        android:background="@drawable/home_photo"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/button_round_color">
 
-        android:layout_alignParentRight="true">
-
-        <TextView
-            android:id="@+id/itemEmailView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="사용자 이메일"
-            android:visibility="gone"/>
-
-        <LinearLayout
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_width="300dp"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="330dp"
+            android:layout_height="150dp"
+            android:background="@drawable/home_photo"
+            android:layout_alignParentRight="true">
 
             <TextView
-                android:id="@+id/itemTitleView"
-                android:layout_width="175dp"
+                android:id="@+id/itemEmailView"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="글 제목"
-                android:textSize="16dp"
-                android:textStyle="bold" />
+                android:text="사용자 이메일"
+                android:visibility="gone"/>
+
+            <LinearLayout
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/itemTitleView"
+                    android:layout_width="175dp"
+                    android:layout_height="wrap_content"
+                    android:text="글 제목"
+                    android:textSize="16dp"
+                    android:layout_weight="1"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/itemFoodView"
+                    android:layout_below="@+id/itemTitleView"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:text="food"/>
+
+                <TextView
+                    android:id="@+id/itemDateView"
+                    android:layout_below="@+id/itemFoodView"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:text="2023/11/27 13:12:13"/>
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/itemFoodImageView"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_margin="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true" />
 
             <TextView
-                android:id="@+id/itemFoodView"
-                android:layout_below="@+id/itemTitleView"
-                android:layout_width="100dp"
-                android:layout_height="30dp"
-                android:text="food"/>
+                android:id="@+id/itemFoodTimeView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
 
             <TextView
-                android:id="@+id/itemDateView"
-                android:layout_below="@+id/itemFoodView"
-                android:layout_width="150dp"
-                android:layout_height="30dp"
-                android:text="2023/11/27 13:12:13"/>
+                android:id="@+id/itemCompanyView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/itemWhereView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
 
-        <ImageView
-            android:id="@+id/itemFoodImageView"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_margin="10dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true" />
+            <TextView
+                android:id="@+id/itemMemoView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
 
-        <TextView
-            android:id="@+id/itemFoodTimeView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"/>
+            <TextView
+                android:id="@+id/itemNickNameView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
 
-        <TextView
-            android:id="@+id/itemCompanyView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"/>
-
-        <TextView
-            android:id="@+id/itemWhereView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"/>
-
-        <TextView
-            android:id="@+id/itemMemoView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"/>
-
-        <TextView
-            android:id="@+id/itemNickNameView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"/>
+        </RelativeLayout>
 
     </RelativeLayout>
 
